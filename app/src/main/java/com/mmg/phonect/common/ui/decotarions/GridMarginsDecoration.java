@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Px;
 import androidx.recyclerview.widget.RecyclerView;
 
-import wangdaye.com.geometricweather.R;
+import com.mmg.phonect.R;
 
 public class GridMarginsDecoration extends RecyclerView.ItemDecoration {
 

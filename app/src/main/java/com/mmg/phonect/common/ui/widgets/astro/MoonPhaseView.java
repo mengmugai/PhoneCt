@@ -5,11 +5,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import androidx.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.View;
 
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import androidx.annotation.ColorInt;
+
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 public class MoonPhaseView extends View {
 

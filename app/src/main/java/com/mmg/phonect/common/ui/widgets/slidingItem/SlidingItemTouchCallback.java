@@ -9,7 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import wangdaye.com.geometricweather.R;
+import com.mmg.phonect.R;
 
 public abstract class SlidingItemTouchCallback extends ItemTouchHelper.Callback {
 

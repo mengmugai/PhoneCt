@@ -4,7 +4,7 @@ import androidx.annotation.Nullable;
 
 import java.io.Serializable;
 
-import wangdaye.com.geometricweather.common.basic.models.options.unit.ProbabilityUnit;
+import com.mmg.phonect.common.basic.models.options.unit.ProbabilityUnit;
 
 /**
  * Precipitation duration.

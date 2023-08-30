@@ -14,18 +14,18 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.annotation.ColorInt;
-import androidx.core.view.ViewCompat;
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Interpolator;
 
+import androidx.annotation.ColorInt;
+import androidx.core.view.ViewCompat;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+
 import java.util.Arrays;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.ui.widgets.SwipeSwitchLayout;
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 /**
  * Ink page indicator.

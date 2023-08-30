@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_adaptive_icon_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="@drawable/selectable_item_background"
+    tools:ignore="UnusedAttribute">
+
+    <james.adaptiveicon.AdaptiveIconView
+        android:id="@+id/dialog_adaptive_icon_icon"
+        android:layout_width="108dp"
+        android:layout_height="108dp"
+        android:layout_margin="@dimen/normal_margin"
+        android:layout_gravity="center"
+        android:contentDescription="@string/content_desc_weather_icon"
+        tools:background="@drawable/shortcuts_clear_day"/>
+
+</FrameLayout>

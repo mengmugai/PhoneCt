@@ -17,9 +17,8 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.Size;
 import androidx.core.graphics.ColorUtils;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.ui.widgets.DayNightShaderWrapper;
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 public class ArcProgress extends View {
 

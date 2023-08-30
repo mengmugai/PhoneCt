@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import java.io.Serializable;
 import java.util.Date;
 
-import wangdaye.com.geometricweather.common.basic.models.weather.WeatherCode;
+import com.mmg.phonect.common.basic.models.weather.WeatherCode;
 
 /**
  * Minutely.

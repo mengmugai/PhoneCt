@@ -1,10 +1,10 @@
-package wangdaye.com.geometricweather.common.basic.models.options
+package com.mmg.phonect.common.basic.models.options
 
 import android.content.Context
 import androidx.annotation.ColorRes
-import wangdaye.com.geometricweather.R
-import wangdaye.com.geometricweather.common.basic.models.options._basic.BaseEnum
-import wangdaye.com.geometricweather.common.basic.models.options._basic.Utils
+import com.mmg.phonect.R
+import com.mmg.phonect.common.basic.models.options._basic.BaseEnum
+import com.mmg.phonect.common.basic.models.options._basic.Utils
 
 enum class NotificationTextColor(
     override val id: String,

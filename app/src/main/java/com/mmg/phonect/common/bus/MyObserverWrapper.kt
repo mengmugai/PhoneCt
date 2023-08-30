@@ -1,7 +1,7 @@
-package wangdaye.com.geometricweather.common.bus
+package com.mmg.phonect.common.bus
 
 import androidx.lifecycle.Observer
-import wangdaye.com.geometricweather.common.basic.livedata.BusLiveData
+import com.mmg.phonect.common.basic.livedata.BusLiveData
 import java.lang.ref.WeakReference
 
 internal class MyObserverWrapper<T> internal constructor(

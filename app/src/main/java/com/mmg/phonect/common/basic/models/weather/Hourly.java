@@ -10,12 +10,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.basic.models.weather.Precipitation;
-import wangdaye.com.geometricweather.common.basic.models.weather.PrecipitationProbability;
-import wangdaye.com.geometricweather.common.basic.models.weather.Temperature;
-import wangdaye.com.geometricweather.common.basic.models.weather.WeatherCode;
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.basic.models.weather.Precipitation;
+import com.mmg.phonect.common.basic.models.weather.PrecipitationProbability;
+import com.mmg.phonect.common.basic.models.weather.Temperature;
+import com.mmg.phonect.common.basic.models.weather.WeatherCode;
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 /**
  * Hourly.

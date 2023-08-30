@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import wangdaye.com.geometricweather.common.basic.models.ChineseCity;
+import com.mmg.phonect.common.basic.models.ChineseCity;
 
 /**
  * File utils.

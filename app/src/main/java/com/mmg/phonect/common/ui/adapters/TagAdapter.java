@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.ui.widgets.TagView;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.ui.widgets.TagView;
 
 public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
 

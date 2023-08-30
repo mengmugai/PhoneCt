@@ -1,10 +1,10 @@
-package wangdaye.com.geometricweather.common.basic.models.options.appearance
+package com.mmg.phonect.common.basic.models.options.appearance
 
 import android.content.Context
 import android.text.TextUtils
 import androidx.annotation.StringRes
-import wangdaye.com.geometricweather.R
-import wangdaye.com.geometricweather.common.basic.models.options._basic.BaseEnum
+import com.mmg.phonect.R
+import com.mmg.phonect.common.basic.models.options._basic.BaseEnum
 
 enum class HourlyTrendDisplay(
     override val id: String,

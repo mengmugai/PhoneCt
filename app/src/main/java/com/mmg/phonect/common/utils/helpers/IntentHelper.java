@@ -19,22 +19,22 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.background.polling.services.basic.AwakeForegroundUpdateService;
-import wangdaye.com.geometricweather.common.basic.models.Location;
-import wangdaye.com.geometricweather.common.ui.activities.AlertActivity;
-import wangdaye.com.geometricweather.common.ui.activities.AllergenActivity;
-import wangdaye.com.geometricweather.daily.DailyWeatherActivity;
-import wangdaye.com.geometricweather.main.MainActivity;
-import wangdaye.com.geometricweather.search.SearchActivity;
-import wangdaye.com.geometricweather.settings.activities.AboutActivity;
-import wangdaye.com.geometricweather.settings.activities.CardDisplayManageActivity;
-import wangdaye.com.geometricweather.settings.activities.DailyTrendDisplayManageActivity;
-import wangdaye.com.geometricweather.settings.activities.HourlyTrendDisplayManageActivity;
-import wangdaye.com.geometricweather.settings.activities.PreviewIconActivity;
-import wangdaye.com.geometricweather.settings.activities.SelectProviderActivity;
-import wangdaye.com.geometricweather.settings.activities.SettingsActivity;
-import wangdaye.com.geometricweather.wallpaper.MaterialLiveWallpaperService;
+import com.mmg.phonect.R;
+import com.mmg.phonect.background.polling.services.basic.AwakeForegroundUpdateService;
+import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.ui.activities.AlertActivity;
+import com.mmg.phonect.common.ui.activities.AllergenActivity;
+import com.mmg.phonect.daily.DailyWeatherActivity;
+import com.mmg.phonect.main.MainActivity;
+//import com.mmg.phonect.search.SearchActivity;
+import com.mmg.phonect.settings.activities.AboutActivity;
+import com.mmg.phonect.settings.activities.CardDisplayManageActivity;
+import com.mmg.phonect.settings.activities.DailyTrendDisplayManageActivity;
+import com.mmg.phonect.settings.activities.HourlyTrendDisplayManageActivity;
+import com.mmg.phonect.settings.activities.PreviewIconActivity;
+import com.mmg.phonect.settings.activities.SelectProviderActivity;
+import com.mmg.phonect.settings.activities.SettingsActivity;
+//import com.mmg.phonect.wallpaper.MaterialLiveWallpaperService;
 
 /**
  * Intent helper.
@@ -97,7 +97,7 @@ public class IntentHelper {
     }
 
     public static Intent buildAwakeUpdateActivityIntent() {
-        return new Intent("com.wangdaye.geometricweather.UPDATE")
+        return new Intent("com.mmg.phonect.UPDATE")
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
@@ -124,17 +124,7 @@ public class IntentHelper {
         activity.startActivity(intent);
     }
 
-    public static void startSearchActivityForResult(Activity activity, View bar, int requestCode) {
-        ActivityCompat.startActivityForResult(
-                activity,
-                new Intent(activity, SearchActivity.class),
-                requestCode,
-                ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        activity,
-                        Pair.create(bar, activity.getString(R.string.transition_activity_search_bar))
-                ).toBundle()
-        );
-    }
+
 
     public static void startSettingsActivity(Activity activity) {
         activity.startActivity(new Intent(activity, SettingsActivity.class));
@@ -185,15 +175,15 @@ public class IntentHelper {
     }
 
     public static void startLiveWallpaperActivity(Context context) {
-        Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).putExtra(
-                WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
-                new ComponentName(context, MaterialLiveWallpaperService.class)
-        );
-        if (isIntentAvailable(context, intent)) {
-            context.startActivity(intent);
-        } else {
+//        Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).putExtra(
+//                WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
+//                new ComponentName(context, MaterialLiveWallpaperService.class)
+//        );
+//        if (isIntentAvailable(context, intent)) {
+//            context.startActivity(intent);
+//        } else {
             SnackbarHelper.showSnackbar(context.getString(R.string.feedback_cannot_start_live_wallpaper_activity));
-        }
+//        }
     }
 
     public static void startAppStoreDetailsActivity(Context context) {

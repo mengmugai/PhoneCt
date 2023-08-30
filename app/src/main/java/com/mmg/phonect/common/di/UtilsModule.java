@@ -7,8 +7,8 @@ import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
-import wangdaye.com.geometricweather.db.DatabaseHelper;
-import wangdaye.com.geometricweather.settings.SettingsManager;
+import com.mmg.phonect.db.DatabaseHelper;
+import com.mmg.phonect.settings.SettingsManager;
 
 @InstallIn(SingletonComponent.class)
 @Module

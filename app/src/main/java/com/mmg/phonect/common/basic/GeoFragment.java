@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 
-import wangdaye.com.geometricweather.common.snackbar.SnackbarContainer;
+import com.mmg.phonect.common.snackbar.SnackbarContainer;
 
 public class GeoFragment extends Fragment {
 

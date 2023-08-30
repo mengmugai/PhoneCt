@@ -7,4 +7,98 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+
+    <!-- repository. -->
+
+    <color name="lightPrimary_1">#cfebf0</color>
+    <color name="lightPrimary_2">#b6e3e7</color>
+    <color name="lightPrimary_3">#96d6db</color>
+    <color name="lightPrimary_4">#7ac7d3</color>
+    <color name="lightPrimary_5">#75becb</color>
+
+    <color name="darkPrimary_1">#4b5073</color>
+    <color name="darkPrimary_2">#343851</color>
+    <color name="darkPrimary_3">#2c2f43</color>
+    <color name="darkPrimary_4">#20222f</color>
+    <color name="darkPrimary_5">#1a1b22</color>
+
+    <color name="colorRipple_regular">#40808080</color>
+    <color name="colorRipple">@color/md_theme_surfaceVariant</color>
+
+    <color name="colorLevel_1">#72d572</color>
+    <color name="colorLevel_2">#ffca28</color>
+    <color name="colorLevel_3">#ffa726</color>
+    <color name="colorLevel_4">#e52f35</color>
+    <color name="colorLevel_5">#99004c</color>
+    <color name="colorLevel_6">#7e0023</color>
+
+    <color name="striking_red">@color/colorLevel_4</color>
+
+    <color name="notification_background_l">#263238</color>
+    <color name="notification_background_m">#273137</color>
+    <color name="notification_background_o">#e2e3e4</color>
+    <color name="notification_background_rootLight">#f1f1f1</color>
+    <color name="notification_background_rootDark">#292929</color>
+    <color name="notification_background_primary">#212121</color>
+
+    <color name="weather_source_accu">#ef5823</color>
+    <color name="weather_source_cn">#033566</color>
+    <color name="weather_source_caiyun">#5ebb8e</color>
+
+    <!-- theme. -->
+
+    <color name="colorTextDark">#000000</color>
+    <color name="colorTextDark2nd">#666666</color>
+    <color name="colorTextGrey">#4d4d4d</color>
+    <color name="colorTextGrey2nd">#b2b2b2</color>
+    <color name="colorTextLight">#ffffff</color>
+    <color name="colorTextLight2nd">#999999</color>
+
+    <color name="colorTextTitle">#000000</color>
+    <color name="colorTextContent">#666666</color>
+    <color name="colorTextSubtitle">#b2b2b2</color>
+
+    <color name="colorMainCardBackground">#FDFCFF</color>
+    <color name="colorPrecipitationProbability">@color/md_theme_primary</color>
+
+    <!-- widget. -->
+
+    <color name="colorWidgetRoot">@color/md_theme_surface</color>
+    <color name="colorWidgetM3Root">@color/md_theme_surface</color>
+    <color name="colorWidgetM3TextPrimary">@android:color/black</color>
+    <color name="colorWidgetM3TextSecondary">@color/md_theme_onSurface</color>
+    <color name="colorWidgetTextShadow">#99000000</color>
+
+    <!-- material 3. -->
+
+    <color name="md_theme_primary">#205DAF</color>
+    <color name="md_theme_onPrimary">#FFFFFF</color>
+    <color name="md_theme_primaryContainer">#D6E3FF</color>
+    <color name="md_theme_onPrimaryContainer">#001B3F</color>
+    <color name="md_theme_secondary">#00677E</color>
+    <color name="md_theme_onSecondary">#FFFFFF</color>
+    <color name="md_theme_secondaryContainer">#B1EBFF</color>
+    <color name="md_theme_onSecondaryContainer">#001F28</color>
+    <color name="md_theme_tertiary">#775A00</color>
+    <color name="md_theme_onTertiary">#FFFFFF</color>
+    <color name="md_theme_tertiaryContainer">#FFDF8E</color>
+    <color name="md_theme_onTertiaryContainer">#251A00</color>
+    <color name="md_theme_error">#B3261E</color>
+    <color name="md_theme_errorContainer">#F9DEDC</color>
+    <color name="md_theme_onError">#FFFFFF</color>
+    <color name="md_theme_onErrorContainer">#410E0B</color>
+    <color name="md_theme_background">#FDFBFF</color>
+    <color name="md_theme_onBackground">#1B1B1D</color>
+    <color name="md_theme_surface">#FDFBFF</color>
+    <color name="md_theme_onSurface">#1B1B1D</color>
+    <color name="md_theme_surfaceVariant">#DCE1FC</color>
+    <color name="md_theme_onSurfaceVariant">#49454F</color>
+    <color name="md_theme_outline">#10000000</color>
+    <color name="md_theme_inverseOnSurface">#F2F0F4</color>
+    <color name="md_theme_inverseSurface">#2F3033</color>
+    <color name="md_theme_inversePrimary">#A8C7FF</color>
+    <color name="md_theme_shadow">#000000</color>
+    <color name="md_theme_primaryInverse">#A8C7FF</color>
 </resources>

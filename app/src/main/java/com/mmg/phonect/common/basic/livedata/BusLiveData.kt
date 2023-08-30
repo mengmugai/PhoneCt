@@ -1,11 +1,11 @@
-package wangdaye.com.geometricweather.common.basic.livedata
+package com.mmg.phonect.common.basic.livedata
 
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import wangdaye.com.geometricweather.common.bus.MyObserverWrapper
+import com.mmg.phonect.common.bus.MyObserverWrapper
 import java.util.*
 
 class BusLiveData<T> constructor(

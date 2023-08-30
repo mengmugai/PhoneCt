@@ -8,11 +8,11 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.multidex.MultiDexApplication
 import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
-import wangdaye.com.geometricweather.common.basic.GeoActivity
-import wangdaye.com.geometricweather.common.utils.LanguageUtils
-import wangdaye.com.geometricweather.common.utils.helpers.BuglyHelper
-import wangdaye.com.geometricweather.settings.SettingsManager
-import wangdaye.com.geometricweather.theme.ThemeManager
+import com.mmg.phonect.common.basic.GeoActivity
+import com.mmg.phonect.common.utils.LanguageUtils
+//import com.mmg.phonect.common.utils.helpers.BuglyHelper
+import com.mmg.phonect.settings.SettingsManager
+import com.mmg.phonect.theme.ThemeManager
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -194,7 +194,7 @@ class PhoneCt : MultiDexApplication(),
             SettingsManager.getInstance(this).language.locale
         )
 
-        BuglyHelper.init(this)
+//        BuglyHelper.init(this)
 
         if (getProcessName().equals(packageName)) {
             setDayNightMode()

@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import wangdaye.com.geometricweather.common.snackbar.Snackbar;
+import com.mmg.phonect.common.snackbar.Snackbar;
 
 public class FloatingAboveSnackbarBehavior<V extends View> extends CoordinatorLayout.Behavior<V> {
 

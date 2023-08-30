@@ -13,10 +13,10 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.ui.widgets.horizontal.HorizontalRecyclerView;
-import wangdaye.com.geometricweather.common.ui.widgets.trend.item.AbsTrendItemView;
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.ui.widgets.horizontal.HorizontalRecyclerView;
+import com.mmg.phonect.common.ui.widgets.trend.item.AbsTrendItemView;
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 /**
  * Trend recycler view.

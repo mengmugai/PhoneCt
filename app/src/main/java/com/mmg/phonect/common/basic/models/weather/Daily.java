@@ -11,12 +11,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.basic.models.weather.AirQuality;
-import wangdaye.com.geometricweather.common.basic.models.weather.HalfDay;
-import wangdaye.com.geometricweather.common.basic.models.weather.MoonPhase;
-import wangdaye.com.geometricweather.common.basic.models.weather.Pollen;
-import wangdaye.com.geometricweather.common.utils.helpers.LunarHelper;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.basic.models.weather.AirQuality;
+import com.mmg.phonect.common.basic.models.weather.HalfDay;
+import com.mmg.phonect.common.basic.models.weather.MoonPhase;
+import com.mmg.phonect.common.basic.models.weather.Pollen;
+import com.mmg.phonect.common.utils.helpers.LunarHelper;
 
 /**
  * Daily.

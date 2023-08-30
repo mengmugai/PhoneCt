@@ -1,4 +1,4 @@
-package wangdaye.com.geometricweather.common.basic.livedata
+package com.mmg.phonect.common.basic.livedata
 
 import androidx.lifecycle.MutableLiveData
 

@@ -1,4 +1,4 @@
-package wangdaye.com.geometricweather.common.basic
+package com.mmg.phonect.common.basic
 
 import android.content.Intent
 import android.graphics.Rect

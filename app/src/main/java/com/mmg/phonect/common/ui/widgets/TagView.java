@@ -15,7 +15,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import wangdaye.com.geometricweather.R;
+import com.mmg.phonect.R;
 
 public class TagView extends AppCompatTextView {
 

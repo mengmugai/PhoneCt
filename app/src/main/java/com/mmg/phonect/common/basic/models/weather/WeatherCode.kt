@@ -1,4 +1,4 @@
-package wangdaye.com.geometricweather.common.basic.models.weather
+package com.mmg.phonect.common.basic.models.weather
 
 enum class WeatherCode(val id: String) {
 

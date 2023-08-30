@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Px;
 import androidx.recyclerview.widget.RecyclerView;
 
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 /**
  * List decoration.

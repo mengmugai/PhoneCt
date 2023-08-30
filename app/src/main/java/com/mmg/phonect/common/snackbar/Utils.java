@@ -8,9 +8,9 @@ import android.view.animation.Interpolator;
 
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
-import wangdaye.com.geometricweather.common.basic.insets.FitBothSideBarHelper;
-import wangdaye.com.geometricweather.common.basic.insets.FitBothSideBarView;
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.common.basic.insets.FitBothSideBarHelper;
+import com.mmg.phonect.common.basic.insets.FitBothSideBarView;
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 class Utils extends android.view.animation.AnimationUtils {
 

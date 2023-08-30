@@ -1,14 +1,14 @@
-package wangdaye.com.geometricweather.common.basic.models
+package com.mmg.phonect.common.basic.models
 
 import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
 import android.text.TextUtils
-import wangdaye.com.geometricweather.R
-import wangdaye.com.geometricweather.common.basic.models.options.provider.WeatherSource
-import wangdaye.com.geometricweather.common.basic.models.weather.Weather
-import wangdaye.com.geometricweather.common.utils.DisplayUtils
-import wangdaye.com.geometricweather.common.utils.LanguageUtils
+import com.mmg.phonect.R
+import com.mmg.phonect.common.basic.models.options.provider.WeatherSource
+import com.mmg.phonect.common.basic.models.weather.Weather
+import com.mmg.phonect.common.utils.DisplayUtils
+import com.mmg.phonect.common.utils.LanguageUtils
 import java.util.*
 import kotlin.math.abs
 

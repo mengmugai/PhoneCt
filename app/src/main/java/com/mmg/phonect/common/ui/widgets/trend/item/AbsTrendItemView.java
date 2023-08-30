@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.RequiresApi;
 
-import wangdaye.com.geometricweather.common.ui.widgets.trend.chart.AbsChartItemView;
+import com.mmg.phonect.common.ui.widgets.trend.chart.AbsChartItemView;
 
 public abstract class AbsTrendItemView extends ViewGroup {
 

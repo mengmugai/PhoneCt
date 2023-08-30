@@ -12,9 +12,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import wangdaye.com.geometricweather.GeometricWeather;
-import wangdaye.com.geometricweather.common.retrofit.TLSCompactHelper;
-import wangdaye.com.geometricweather.common.retrofit.interceptors.GzipInterceptor;
+import com.mmg.phonect.PhoneCt;
+import com.mmg.phonect.common.retrofit.TLSCompactHelper;
+import com.mmg.phonect.common.retrofit.interceptors.GzipInterceptor;
 
 @InstallIn(SingletonComponent.class)
 @Module
@@ -48,7 +48,7 @@ public class RetrofitModule {
     @Singleton
     public HttpLoggingInterceptor provideHttpLoggingInterceptor() {
         return new HttpLoggingInterceptor().setLevel(
-                GeometricWeather.getInstance().getDebugMode()
+                PhoneCt.getInstance().getDebugMode()
                         ? HttpLoggingInterceptor.Level.BODY
                         : HttpLoggingInterceptor.Level.NONE
         );

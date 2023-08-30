@@ -9,9 +9,9 @@ import androidx.core.content.ContextCompat;
 
 import java.io.Serializable;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.basic.models.options.unit.AirQualityCOUnit;
-import wangdaye.com.geometricweather.common.basic.models.options.unit.AirQualityUnit;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.basic.models.options.unit.AirQualityCOUnit;
+import com.mmg.phonect.common.basic.models.options.unit.AirQualityUnit;
 
 /**
  * DailyAirQuality quality.

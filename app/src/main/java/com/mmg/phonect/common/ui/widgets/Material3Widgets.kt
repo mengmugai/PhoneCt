@@ -1,4 +1,4 @@
-package wangdaye.com.geometricweather.common.ui.widgets
+package com.mmg.phonect.common.ui.widgets
 
 import android.content.Context
 import androidx.compose.animation.rememberSplineBasedDecay
@@ -15,8 +15,8 @@ import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import wangdaye.com.geometricweather.R
 import kotlin.math.ln
+import com.mmg.phonect.R
 
 // helper.
 

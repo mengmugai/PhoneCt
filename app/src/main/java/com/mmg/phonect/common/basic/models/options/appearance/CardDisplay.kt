@@ -1,10 +1,10 @@
-package wangdaye.com.geometricweather.common.basic.models.options.appearance
+package com.mmg.phonect.common.basic.models.options.appearance
 
 import android.content.Context
 import android.text.TextUtils
 import androidx.annotation.StringRes
-import wangdaye.com.geometricweather.R
-import wangdaye.com.geometricweather.common.basic.models.options._basic.BaseEnum
+import com.mmg.phonect.R
+import com.mmg.phonect.common.basic.models.options._basic.BaseEnum
 
 enum class CardDisplay(
     override val id: String,
@@ -16,7 +16,8 @@ enum class CardDisplay(
     CARD_AIR_QUALITY("air_quality", R.string.air_quality),
     CARD_ALLERGEN("allergen", R.string.allergen),
     CARD_SUNRISE_SUNSET("sunrise_sunset", R.string.sunrise_sunset),
-    CARD_LIFE_DETAILS("life_details", R.string.life_details);
+    CARD_LIFE_DETAILS("life_details", R.string.life_details),
+    CARD_DEVICE_INFO("device_info", R.string.device_info);
 
     companion object {
 
@@ -35,6 +36,7 @@ enum class CardDisplay(
                     "air_quality" -> list.add(CARD_AIR_QUALITY)
                     "allergen" -> list.add(CARD_ALLERGEN)
                     "life_details" -> list.add(CARD_LIFE_DETAILS)
+                    "device_details" -> list.add(CARD_DEVICE_INFO)
                     "sunrise_sunset" -> list.add(CARD_SUNRISE_SUNSET)
                 }
             }

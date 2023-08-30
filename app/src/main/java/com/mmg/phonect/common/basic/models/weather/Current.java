@@ -5,14 +5,14 @@ import androidx.annotation.Nullable;
 
 import java.io.Serializable;
 
-import wangdaye.com.geometricweather.common.basic.models.options.unit.DistanceUnit;
-import wangdaye.com.geometricweather.common.basic.models.options.unit.RelativeHumidityUnit;
-import wangdaye.com.geometricweather.common.basic.models.options.unit.TemperatureUnit;
-import wangdaye.com.geometricweather.common.basic.models.weather.AirQuality;
-import wangdaye.com.geometricweather.common.basic.models.weather.Precipitation;
-import wangdaye.com.geometricweather.common.basic.models.weather.PrecipitationProbability;
-import wangdaye.com.geometricweather.common.basic.models.weather.Temperature;
-import wangdaye.com.geometricweather.common.basic.models.weather.WeatherCode;
+import com.mmg.phonect.common.basic.models.options.unit.DistanceUnit;
+import com.mmg.phonect.common.basic.models.options.unit.RelativeHumidityUnit;
+import com.mmg.phonect.common.basic.models.options.unit.TemperatureUnit;
+import com.mmg.phonect.common.basic.models.weather.AirQuality;
+import com.mmg.phonect.common.basic.models.weather.Precipitation;
+import com.mmg.phonect.common.basic.models.weather.PrecipitationProbability;
+import com.mmg.phonect.common.basic.models.weather.Temperature;
+import com.mmg.phonect.common.basic.models.weather.WeatherCode;
 
 /**
  * Current.

@@ -11,8 +11,8 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 /**
  * Double histogram view.

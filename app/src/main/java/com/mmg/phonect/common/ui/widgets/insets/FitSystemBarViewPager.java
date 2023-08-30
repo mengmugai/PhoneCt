@@ -16,10 +16,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.List;
 
-import wangdaye.com.geometricweather.common.basic.insets.FitBothSideBarHelper;
-import wangdaye.com.geometricweather.common.basic.insets.FitBothSideBarView;
-import wangdaye.com.geometricweather.common.ui.widgets.insets.FitSystemBarNestedScrollView;
-import wangdaye.com.geometricweather.common.ui.widgets.insets.FitSystemBarRecyclerView;
+import com.mmg.phonect.common.basic.insets.FitBothSideBarHelper;
+import com.mmg.phonect.common.basic.insets.FitBothSideBarView;
 
 public class FitSystemBarViewPager extends ViewPager
         implements FitBothSideBarView {

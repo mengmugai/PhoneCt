@@ -1,4 +1,4 @@
-package wangdaye.com.geometricweather.common.ui.activities
+package com.mmg.phonect.common.ui.activities
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -18,20 +18,20 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import wangdaye.com.geometricweather.R
-import wangdaye.com.geometricweather.common.basic.GeoActivity
-import wangdaye.com.geometricweather.common.basic.models.Location
-import wangdaye.com.geometricweather.common.basic.models.weather.Alert
-import wangdaye.com.geometricweather.common.ui.widgets.Material3CardListItem
-import wangdaye.com.geometricweather.common.ui.widgets.Material3Scaffold
-import wangdaye.com.geometricweather.common.ui.widgets.generateCollapsedScrollBehavior
-import wangdaye.com.geometricweather.common.ui.widgets.getCardListItemMarginDp
-import wangdaye.com.geometricweather.common.ui.widgets.insets.FitStatusBarTopAppBar
-import wangdaye.com.geometricweather.common.ui.widgets.insets.bottomInsetItem
-import wangdaye.com.geometricweather.common.utils.helpers.AsyncHelper
-import wangdaye.com.geometricweather.db.DatabaseHelper
-import wangdaye.com.geometricweather.theme.compose.DayNightTheme
-import wangdaye.com.geometricweather.theme.compose.GeometricWeatherTheme
+import com.mmg.phonect.R
+import com.mmg.phonect.common.basic.GeoActivity
+import com.mmg.phonect.common.basic.models.Location
+import com.mmg.phonect.common.basic.models.weather.Alert
+import com.mmg.phonect.common.ui.widgets.Material3CardListItem
+import com.mmg.phonect.common.ui.widgets.Material3Scaffold
+import com.mmg.phonect.common.ui.widgets.generateCollapsedScrollBehavior
+import com.mmg.phonect.common.ui.widgets.getCardListItemMarginDp
+import com.mmg.phonect.common.ui.widgets.insets.FitStatusBarTopAppBar
+import com.mmg.phonect.common.ui.widgets.insets.bottomInsetItem
+import com.mmg.phonect.common.utils.helpers.AsyncHelper
+import com.mmg.phonect.db.DatabaseHelper
+import com.mmg.phonect.theme.compose.DayNightTheme
+import com.mmg.phonect.theme.compose.GeometricWeatherTheme
 import java.text.DateFormat
 
 class AlertActivity : GeoActivity() {

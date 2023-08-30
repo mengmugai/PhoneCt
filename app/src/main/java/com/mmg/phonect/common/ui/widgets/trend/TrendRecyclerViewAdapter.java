@@ -2,7 +2,7 @@ package com.mmg.phonect.common.ui.widgets.trend;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import wangdaye.com.geometricweather.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Location;
 
 public abstract class TrendRecyclerViewAdapter<VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH> {

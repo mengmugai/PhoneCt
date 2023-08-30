@@ -15,8 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.widget.ImageViewCompat;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 public class SlidingItemContainerLayout extends FrameLayout {
 

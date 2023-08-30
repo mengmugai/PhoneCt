@@ -17,14 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.basic.models.Location;
-import wangdaye.com.geometricweather.common.basic.models.weather.Weather;
-import wangdaye.com.geometricweather.common.basic.models.weather.WeatherCode;
-import wangdaye.com.geometricweather.db.DatabaseHelper;
-import wangdaye.com.geometricweather.theme.resource.ResourceHelper;
-import wangdaye.com.geometricweather.theme.resource.providers.ResourceProvider;
-import wangdaye.com.geometricweather.theme.resource.ResourcesProviderFactory;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.weather.Weather;
+import com.mmg.phonect.common.basic.models.weather.WeatherCode;
+import com.mmg.phonect.db.DatabaseHelper;
+import com.mmg.phonect.theme.resource.ResourceHelper;
+import com.mmg.phonect.theme.resource.providers.ResourceProvider;
+import com.mmg.phonect.theme.resource.ResourcesProviderFactory;
 
 /**
  * Shortcuts manager.

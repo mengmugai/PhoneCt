@@ -4,10 +4,10 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import wangdaye.com.geometricweather.GeometricWeather;
-import wangdaye.com.geometricweather.common.basic.GeoActivity;
-import wangdaye.com.geometricweather.common.snackbar.Snackbar;
-import wangdaye.com.geometricweather.common.snackbar.SnackbarContainer;
+import com.mmg.phonect.PhoneCt;
+import com.mmg.phonect.common.basic.GeoActivity;
+import com.mmg.phonect.common.snackbar.Snackbar;
+import com.mmg.phonect.common.snackbar.SnackbarContainer;
 
 public class SnackbarHelper {
 
@@ -33,7 +33,7 @@ public class SnackbarHelper {
                                     @Nullable String action, @Nullable View.OnClickListener l,
                                     @Nullable Snackbar.Callback callback) {
 
-        GeoActivity activity = GeometricWeather.getInstance().getTopActivity();
+        GeoActivity activity = PhoneCt.getInstance().getTopActivity();
         if (activity != null) {
             showSnackbar(activity, content, action, l, callback);
         }

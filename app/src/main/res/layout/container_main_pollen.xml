@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_main_pollen"
+    android:layout_margin="0dp"
+    style="@style/material_card">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/container_main_pollen_title"
+                android:text="@string/allergen"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:layout_marginEnd="@dimen/normal_margin"
+                style="@style/title_text" />
+
+            <TextView
+                android:id="@+id/container_main_pollen_subtitle"
+                android:text="@string/feedback_click_to_get_more"
+                android:layout_below="@id/container_main_pollen_title"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:layout_marginEnd="@dimen/normal_margin"
+                android:layout_marginBottom="@dimen/normal_margin"
+                style="@style/subtitle_text"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/container_main_pollen_indicator"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/normal_margin"
+                style="@style/subtitle_text"
+                tools:text="3/15" />
+
+        </RelativeLayout>
+
+        <com.mmg.phonect.common.ui.widgets.horizontal.HorizontalViewPager2
+            android:id="@+id/container_main_pollen_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

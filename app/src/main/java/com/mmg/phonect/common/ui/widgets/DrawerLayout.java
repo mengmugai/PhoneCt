@@ -12,8 +12,8 @@ import android.widget.FrameLayout;
 import androidx.annotation.FloatRange;
 import androidx.annotation.Nullable;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 public class DrawerLayout extends ViewGroup {
 

@@ -12,10 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.widget.NestedScrollView;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.basic.insets.FitBothSideBarHelper;
-import wangdaye.com.geometricweather.common.basic.insets.FitBothSideBarView;
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.basic.insets.FitBothSideBarHelper;
+import com.mmg.phonect.common.basic.insets.FitBothSideBarView;
 
 public class FitSystemBarNestedScrollView extends NestedScrollView
         implements FitBothSideBarView {

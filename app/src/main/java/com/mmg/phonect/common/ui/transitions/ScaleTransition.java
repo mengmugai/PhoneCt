@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.RequiresApi;
 
-import wangdaye.com.geometricweather.R;
+import com.mmg.phonect.R;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class ScaleTransition extends Transition {

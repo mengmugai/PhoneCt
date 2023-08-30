@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="sun" value="com.mmg.phonect.common.ui.images.SunDrawable" />
+    <item name="moon" value="com.mmg.phonect.common.ui.images.MoonDrawable" />
+
+</resources>

@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 /**
  * Base.

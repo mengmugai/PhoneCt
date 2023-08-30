@@ -1,1 +1,10 @@
+*.iml
+.gradle
+/currentPosition.properties
+/.idea/workspace.xml
+/.idea/libraries
+/.idea
+.DS_Store
 /build
+/captures
+/local.properties

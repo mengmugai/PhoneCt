@@ -10,9 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.common.basic.insets.FitBothSideBarHelper;
-import wangdaye.com.geometricweather.common.basic.insets.FitBothSideBarView;
+import com.mmg.phonect.R;
+import com.mmg.phonect.common.basic.insets.FitBothSideBarHelper;
+import com.mmg.phonect.common.basic.insets.FitBothSideBarView;
 
 public class FitSystemBarSwipeRefreshLayout extends SwipeRefreshLayout
         implements FitBothSideBarView {

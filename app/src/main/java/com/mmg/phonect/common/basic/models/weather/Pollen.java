@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import java.io.Serializable;
 
-import wangdaye.com.geometricweather.R;
+import com.mmg.phonect.R;
 
 /**
  * DailyPollen.

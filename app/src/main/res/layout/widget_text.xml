@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@android:color/black" >
+
+    <LinearLayout
+        android:id="@+id/widget_text_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="RtlHardcoded,UselessParent">
+
+        <TextClock
+            android:id="@+id/widget_text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/little_margin"
+            android:layout_marginEnd="@dimen/little_margin"
+            android:textSize="@dimen/widget_content_text_size"
+            android:shadowColor="@color/colorWidgetTextShadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:maxLines="1"
+            android:format24Hour="@string/date_format_widget_long"
+            android:format12Hour="@string/date_format_widget_long"
+            android:textColor="?android:attr/textColorPrimary"
+            tools:text="12月29日 星期四" />
+
+        <TextView
+            android:id="@+id/widget_text_weather"
+            android:layout_marginStart="@dimen/little_margin"
+            android:layout_marginEnd="@dimen/little_margin"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="@dimen/little_margin"
+            android:text="@string/ellipsis"
+            android:textSize="@dimen/widget_content_text_size"
+            android:maxLines="1"
+            android:shadowColor="@color/colorWidgetTextShadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            style="@style/widget_content_text"
+            tools:text="Partly Could"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/widget_text_temperature"
+            android:text="@string/ellipsis"
+            android:textSize="48sp"
+            android:shadowColor="@color/colorWidgetTextShadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:layout_marginStart="@dimen/little_margin"
+            android:layout_marginEnd="@dimen/little_margin"
+            android:layout_marginTop="-12dp"
+            style="@style/widget_content_text"
+            tools:text="21°"
+            tools:ignore="RtlHardcoded,SpUsage" />
+
+    </LinearLayout>
+
+</RelativeLayout>

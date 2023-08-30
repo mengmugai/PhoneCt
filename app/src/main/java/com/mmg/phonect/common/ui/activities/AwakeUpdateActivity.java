@@ -6,8 +6,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import wangdaye.com.geometricweather.R;
-import wangdaye.com.geometricweather.background.polling.PollingManager;
+import com.mmg.phonect.R;
+import com.mmg.phonect.background.polling.PollingManager;
 
 public class AwakeUpdateActivity extends AppCompatActivity {
 

@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.appcompat.widget.AppCompatImageView;
 
-import wangdaye.com.geometricweather.R;
+import com.mmg.phonect.R;
 
 public class AnimatableIconView extends FrameLayout {
 

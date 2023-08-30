@@ -5,11 +5,11 @@ import androidx.annotation.Nullable;
 
 import java.io.Serializable;
 
-import wangdaye.com.geometricweather.common.basic.models.weather.Precipitation;
-import wangdaye.com.geometricweather.common.basic.models.weather.PrecipitationDuration;
-import wangdaye.com.geometricweather.common.basic.models.weather.PrecipitationProbability;
-import wangdaye.com.geometricweather.common.basic.models.weather.Temperature;
-import wangdaye.com.geometricweather.common.basic.models.weather.WeatherCode;
+import com.mmg.phonect.common.basic.models.weather.Precipitation;
+import com.mmg.phonect.common.basic.models.weather.PrecipitationDuration;
+import com.mmg.phonect.common.basic.models.weather.PrecipitationProbability;
+import com.mmg.phonect.common.basic.models.weather.Temperature;
+import com.mmg.phonect.common.basic.models.weather.WeatherCode;
 
 /**
  * Half day.

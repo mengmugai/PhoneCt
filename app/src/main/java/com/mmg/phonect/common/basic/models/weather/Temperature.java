@@ -6,8 +6,8 @@ import androidx.annotation.Nullable;
 
 import java.io.Serializable;
 
-import wangdaye.com.geometricweather.common.basic.models.options.unit.TemperatureUnit;
-import wangdaye.com.geometricweather.settings.SettingsManager;
+import com.mmg.phonect.common.basic.models.options.unit.TemperatureUnit;
+import com.mmg.phonect.settings.SettingsManager;
 
 /**
  * Temperature.

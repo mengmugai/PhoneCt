@@ -9,8 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import wangdaye.com.geometricweather.common.basic.models.weather.Minutely;
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.common.basic.models.weather.Minutely;
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 public class Weather
         implements Serializable {

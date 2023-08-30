@@ -38,7 +38,7 @@ import java.lang.annotation.RetentionPolicy;
 
 import javax.annotation.Nullable;
 
-import wangdaye.com.geometricweather.R;
+import com.mmg.phonect.R;
 
 public final class Snackbar {
 
@@ -327,7 +327,7 @@ public final class Snackbar {
             mAnimator.cancel();
         }
 
-        mAnimator = wangdaye.com.geometricweather.common.snackbar.Utils.getEnterAnimator(mView, mCardStyle);
+        mAnimator = com.mmg.phonect.common.snackbar.Utils.getEnterAnimator(mView, mCardStyle);
         mAnimator.setDuration(ANIMATION_DURATION);
         mAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -355,7 +355,7 @@ public final class Snackbar {
         mAnimator = ObjectAnimator.ofFloat(
                 mView, "translationY", mView.getTranslationY(), mView.getHeight()
         ).setDuration(ANIMATION_DURATION);
-        mAnimator.setInterpolator(wangdaye.com.geometricweather.common.snackbar.Utils.FAST_OUT_SLOW_IN_INTERPOLATOR);
+        mAnimator.setInterpolator(com.mmg.phonect.common.snackbar.Utils.FAST_OUT_SLOW_IN_INTERPOLATOR);
         mAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {

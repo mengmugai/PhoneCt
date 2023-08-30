@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- theme. -->
+    <attr name="colorTitleText" format="color|reference"/>
+    <attr name="colorBodyText" format="color|reference"/>
+    <attr name="colorCaptionText" format="color|reference"/>
+    <attr name="colorMainCardBackground" format="color|reference"/>
+    <attr name="colorPrecipitationProbability" format="color|reference"/>
+
+    <!-- Ink page indicator. -->
+    <declare-styleable name="InkPageIndicator">
+        <attr name="dotDiameter" format="dimension" />
+        <attr name="dotGap" format="dimension" />
+        <attr name="animationDuration" format="integer" />
+        <attr name="pageIndicatorColor" format="color" />
+        <attr name="currentPageIndicatorColor" format="color" />
+    </declare-styleable>
+
+    <!-- Switch image button. -->
+    <declare-styleable name="SwitchImageButton">
+        <attr name="drawable_res_on" format="reference" />
+        <attr name="drawable_res_off" format="reference" />
+    </declare-styleable>
+
+    <!-- Arc progress. -->
+    <declare-styleable name="ArcProgress">
+        <attr name="progress" format="integer"/>
+        <attr name="max" format="integer"/>
+        <attr name="arc_angle" format="float"/>
+        <attr name="progress_width" format="dimension"/>
+        <attr name="progress_color" format="color"/>
+        <attr name="background_color" format="color"/>
+
+        <attr name="text" format="string"/>
+        <attr name="text_size" format="dimension"/>
+        <attr name="text_color" format="color"/>
+
+        <attr name="bottom_text" format="string"/>
+        <attr name="bottom_text_size" format="dimension"/>
+        <attr name="bottom_text_color" format="color"/>
+    </declare-styleable>
+
+    <!-- Animatable icon view. -->
+    <declare-styleable name="AnimatableIconView">
+        <attr name="inner_margins" format="dimension" />
+    </declare-styleable>
+    
+    <!-- Round corner transition. -->
+    <declare-styleable name="RoundCornerTransition">
+        <attr name="radius_from" format="dimension" />
+        <attr name="radius_to" format="dimension" />
+    </declare-styleable>
+
+    <!-- Scale transition. -->
+    <declare-styleable name="ScaleTransition">
+        <attr name="scale_type">
+            <enum name="show" value="1" />
+            <enum name="hide" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <!-- Tag view. -->
+    <declare-styleable name="TagView">
+        <attr name="checked" format="boolean" />
+        <attr name="checked_background_color" format="color" />
+        <attr name="unchecked_background_color" format="color" />
+    </declare-styleable>
+    
+    <!-- Sliding item container layout. -->
+    <declare-styleable name="SlidingItemContainerLayout">
+        <attr name="iconResStart" format="reference" />
+        <attr name="iconResEnd" format="reference" />
+        <attr name="backgroundColorStart" format="color" />
+        <attr name="backgroundColorEnd" format="color" />
+        <attr name="tintColorStart" format="color" />
+        <attr name="tintColorEnd" format="color" />
+    </declare-styleable>
+
+    <!-- Drawer layout. -->
+    <declare-styleable name="DrawerLayout">
+        <attr name="unfold" format="boolean" />
+    </declare-styleable>
+
+    <!-- Fit system bar. -->
+    <declare-styleable name="FitSystemBarRecyclerView">
+        <attr name="rv_side">
+            <flag name="none" value="0" />
+            <flag name="top" value="1" />
+            <flag name="bottom" value="2" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="FitSystemBarNestedScrollView">
+        <attr name="sv_side">
+            <flag name="none" value="0" />
+            <flag name="top" value="1" />
+            <flag name="bottom" value="2" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="FitSystemBarCoordinatorLayout">
+        <attr name="cl_side">
+            <flag name="none" value="0" />
+            <flag name="top" value="1" />
+            <flag name="bottom" value="2" />
+        </attr>
+    </declare-styleable>
+
+</resources>

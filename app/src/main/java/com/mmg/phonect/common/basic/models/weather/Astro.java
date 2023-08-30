@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import wangdaye.com.geometricweather.common.utils.DisplayUtils;
+import com.mmg.phonect.common.utils.DisplayUtils;
 
 /**
  * Astro.

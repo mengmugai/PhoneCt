@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 
 import java.io.Serializable;
 
-import wangdaye.com.geometricweather.R;
+import com.mmg.phonect.R;
 
 /**
  * Moon phase.

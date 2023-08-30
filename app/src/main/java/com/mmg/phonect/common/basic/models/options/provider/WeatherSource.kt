@@ -1,10 +1,10 @@
-package wangdaye.com.geometricweather.common.basic.models.options.provider
+package com.mmg.phonect.common.basic.models.options.provider
 
 import android.content.Context
 import androidx.annotation.ColorInt
-import wangdaye.com.geometricweather.R
-import wangdaye.com.geometricweather.common.basic.models.options._basic.Utils
-import wangdaye.com.geometricweather.common.basic.models.options._basic.VoiceEnum
+import com.mmg.phonect.R
+import com.mmg.phonect.common.basic.models.options._basic.Utils
+import com.mmg.phonect.common.basic.models.options._basic.VoiceEnum
 
 enum class WeatherSource(
     override val id: String,

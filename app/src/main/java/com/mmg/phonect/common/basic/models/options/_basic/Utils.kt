@@ -1,4 +1,4 @@
-package wangdaye.com.geometricweather.common.basic.models.options._basic
+package com.mmg.phonect.common.basic.models.options._basic
 
 import android.content.Context
 import android.content.res.Resources

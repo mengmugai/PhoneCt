@@ -8,16 +8,21 @@ plugins {
 
 android {
     namespace 'com.mmg.phonect'
-    compileSdk 33
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.mmg.phonect"
-        minSdk 24
+        minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildFeatures {
+        viewBinding true
+        compose true
     }
 
     buildTypes {
@@ -33,6 +38,24 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.0.5"
+    }
+
+
+}
+configurations {
+    cleanedAnnotations
+    compile.exclude group: "org.jetbrains" , module:"annotations"
+}
+
+greendao {
+    schemaVersion 62
+    generateTests false
+}
+
+kapt {
+    correctErrorTypes true
 }
 
 dependencies {

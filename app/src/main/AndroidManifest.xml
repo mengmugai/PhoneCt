@@ -1,25 +1,507 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools" package="com.mmg.phonect" >
+    <!-- location. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+    <!-- request for some location SDKs and reading wallpaper in widget config activities. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- polling service. -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- query internet state. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- widgets. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
+    <!-- tiles. -->
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+
+    <uses-feature android:name="android.software.live_wallpaper"
+        android:required="true" />
+    <uses-feature android:name="android.hardware.location.gps" />
+    <uses-feature android:name="android.hardware.location.network" />
+
+<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
+<!--    &lt;!&ndash; widgets. &ndash;&gt;-->
+
+<!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
+<!--    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />-->
 
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".PhoneCt"
         android:supportsRtl="true"
         android:theme="@style/Theme.PhoneCt"
-        tools:targetApi="31" >
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning,ManifestResource,RtlEnabled,UnusedAttribute"
+        tools:replace="android:label"
+        tools:targetApi="n" >
+
+        <meta-data
+            android:name="com.mmg.phonect.PROVIDER_CONFIG"
+            android:resource="@xml/icon_provider_config" />
+        <meta-data
+            android:name="com.mmg.phonect.DRAWABLE_FILTER"
+            android:resource="@xml/icon_provider_drawable_filter" />
+        <meta-data
+            android:name="com.mmg.phonect.ANIMATOR_FILTER"
+            android:resource="@xml/icon_provider_animator_filter" />
+        <meta-data
+            android:name="com.mmg.phonect.SHORTCUT_FILTER"
+            android:resource="@xml/icon_provider_shortcut_filter" />
+        <meta-data
+            android:name="com.mmg.phonect.SUN_MOON_FILTER"
+            android:resource="@xml/icon_provider_sun_moon_filter" />
+        
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/PhoneCtTheme.Main"
+            android:screenOrientation="user"
+            android:configChanges="uiMode"
             android:exported="true" >
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <!--<action android:name="com.wangdaye.geometricweather.ICON_PROVIDER" />-->
+                <action android:name="com.mmg.phonect.Main" />
+                <action android:name="com.mmg.phonect.ACTION_SHOW_ALERTS" />
+                <action android:name="com.mmg.phonect.ACTION_SHOW_DAILY_FORECAST" />
+                <action android:name="com.mmg.phonect.ACTION_MANAGEMENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
+
+
+
+
+        <activity
+            android:name=".daily.DailyWeatherActivity"
+            android:label="@string/daily_overview"
+            android:theme="@style/PhoneCtTheme" />
+
+        <activity
+            android:name=".common.ui.activities.AlertActivity"
+            android:label="@string/action_alert"
+            android:theme="@style/PhoneCtTheme" />
+
+        <activity
+            android:name=".common.ui.activities.AllergenActivity"
+            android:label="@string/allergen"
+            android:theme="@style/PhoneCtTheme" />
+
+        <activity
+            android:name=".settings.activities.SettingsActivity"
+            android:label="@string/action_settings"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user" />
+
+        <activity
+            android:name=".settings.activities.CardDisplayManageActivity"
+            android:label="@string/settings_title_card_display"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user" />
+
+        <activity
+            android:name=".settings.activities.DailyTrendDisplayManageActivity"
+            android:label="@string/settings_title_daily_trend_display"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user" />
+
+        <activity
+            android:name=".settings.activities.HourlyTrendDisplayManageActivity"
+            android:label="@string/settings_title_hourly_trend_display"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user" />
+
+        <activity
+            android:name=".settings.activities.SelectProviderActivity"
+            android:label="@string/settings_title_service_provider"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user" />
+
+        <activity
+            android:name=".settings.activities.PreviewIconActivity"
+            android:label="@string/action_preview"
+            android:theme="@style/PhoneCtTheme" />
+
+        <activity
+            android:name=".settings.activities.AboutActivity"
+            android:label="@string/action_about"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user" />
+
+        <activity
+            android:name=".common.ui.activities.AwakeUpdateActivity"
+            android:launchMode="singleInstance"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.wangdaye.geometricweather.UPDATE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
+
+        <!-- widget -->
+
+        <activity
+            android:name=".remoteviews.config.DayWidgetConfigActivity"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="andorid.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".remoteviews.config.WeekWidgetConfigActivity"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="andorid.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".remoteviews.config.DayWeekWidgetConfigActivity"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="andorid.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".remoteviews.config.ClockDayHorizontalWidgetConfigActivity"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="andorid.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".remoteviews.config.ClockDayDetailsWidgetConfigActivity"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="andorid.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".remoteviews.config.ClockDayVerticalWidgetConfigActivity"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="andorid.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".remoteviews.config.ClockDayWeekWidgetConfigActivity"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="andorid.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".remoteviews.config.TextWidgetConfigActivity"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="andorid.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".remoteviews.config.DailyTrendWidgetConfigActivity"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="andorid.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".remoteviews.config.HourlyTrendWidgetConfigActivity"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="andorid.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".remoteviews.config.MultiCityWidgetConfigActivity"
+            android:theme="@style/PhoneCtTheme"
+            android:screenOrientation="user"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="andorid.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <!-- service -->
+        <service
+            android:name=".background.polling.services.basic.AwakeForegroundUpdateService"
+            android:foregroundServiceType="location" />
+
+        <service
+            android:name=".background.polling.services.permanent.observer.TimeObserverService"
+            android:process=":polling" />
+        <service android:name=".background.polling.services.permanent.observer.FakeForegroundService" />
+
+        <service
+            android:name=".background.polling.services.permanent.update.ForegroundNormalUpdateService"
+            android:foregroundServiceType="location" />
+        <service
+            android:name=".background.polling.services.permanent.update.ForegroundTodayForecastUpdateService"
+            android:foregroundServiceType="location" />
+        <service
+            android:name=".background.polling.services.permanent.update.ForegroundTomorrowForecastUpdateService"
+            android:foregroundServiceType="location" />
+
+        <service
+            android:name=".background.interfaces.TileService"
+            android:label="@string/geometric_weather"
+            android:icon="@drawable/weather_clear_day_mini_light"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".background.interfaces.CMWeatherProviderService"
+            android:permission="cyanogenmod.permission.BIND_WEATHER_PROVIDER_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cyanogenmod.weatherservice.WeatherProviderService" />
+            </intent-filter>
+            <meta-data
+                android:name="cyanogenmod.weatherservice"
+                android:resource="@xml/cm_weather_provider_options" />
+        </service>
+
+        <!-- receiver -->
+        <receiver
+            android:name=".background.receiver.MainReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.WALLPAPER_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- widget -->
+        <receiver
+            android:name=".background.receiver.widget.WidgetMaterialYouForecastProvider"
+            android:label="@string/widget_material_you_forecast"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_material_you_forecast" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".background.receiver.widget.WidgetMaterialYouCurrentProvider"
+            android:label="@string/widget_material_you_current"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_material_you_current" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".background.receiver.widget.WidgetDayProvider"
+            android:label="@string/widget_day"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_day" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".background.receiver.widget.WidgetWeekProvider"
+            android:label="@string/widget_week"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_week" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".background.receiver.widget.WidgetDayWeekProvider"
+            android:label="@string/widget_day_week"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_day_week" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".background.receiver.widget.WidgetClockDayHorizontalProvider"
+            android:label="@string/widget_clock_day_horizontal"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_clock_day_horizontal" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".background.receiver.widget.WidgetClockDayDetailsProvider"
+            android:label="@string/widget_clock_day_details"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_clock_day_details" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".background.receiver.widget.WidgetClockDayVerticalProvider"
+            android:label="@string/widget_clock_day_vertical"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_clock_day_vertical" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".background.receiver.widget.WidgetClockDayWeekProvider"
+            android:label="@string/widget_clock_day_week"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_clock_day_week" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".background.receiver.widget.WidgetTextProvider"
+            android:label="@string/widget_text"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_text" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".background.receiver.widget.WidgetTrendDailyProvider"
+            android:label="@string/widget_trend_daily"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_trend_daily" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".background.receiver.widget.WidgetTrendHourlyProvider"
+            android:label="@string/widget_trend_hourly"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_trend_hourly" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".background.receiver.widget.WidgetMultiCityProvider"
+            android:label="@string/widget_multi_city"
+            android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_multi_city" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.ACTION_APPWIDGET_DISABLED" />
+            </intent-filter>
+        </receiver>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+
+        </provider>
     </application>
 
 </manifest>

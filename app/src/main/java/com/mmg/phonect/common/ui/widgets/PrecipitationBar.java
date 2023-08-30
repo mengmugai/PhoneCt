@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-import wangdaye.com.geometricweather.common.basic.models.weather.Minutely;
+import com.mmg.phonect.common.basic.models.weather.Minutely;
 
 public class PrecipitationBar extends View {
 
