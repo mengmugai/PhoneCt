@@ -65,12 +65,12 @@ public abstract class AsyncUpdateWorker extends AsyncWorker
                                   boolean succeed, int index, int total) {
         if (index == 0) {
             updateView(getApplicationContext(), location);
-            if (succeed) {
-                NotificationHelper.checkAndSendAlert(getApplicationContext(), location, old);
-                NotificationHelper.checkAndSendPrecipitationForecast(getApplicationContext(), location);
-            } else {
-                mFailed = true;
-            }
+//            if (succeed) {
+//                NotificationHelper.checkAndSendAlert(getApplicationContext(), location, old);
+//                NotificationHelper.checkAndSendPrecipitationForecast(getApplicationContext(), location);
+//            } else {
+//                mFailed = true;
+//            }
         }
     }
 

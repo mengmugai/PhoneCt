@@ -146,9 +146,9 @@ class HomeFragment : MainModuleFragment() {
         binding.toolbar.inflateMenu(R.menu.activity_main)
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-//                R.id.action_manage -> if (callback != null) {
-//                    callback!!.onManageIconClicked()
-//                }
+                R.id.action_manage -> if (callback != null) {
+                    callback!!.onManageIconClicked()
+                }
                 R.id.action_settings -> if (callback != null) {
                     callback!!.onSettingsIconClicked()
                 }
@@ -316,9 +316,9 @@ class HomeFragment : MainModuleFragment() {
         )
         val daylight = location.isDaylight
 
-//        binding.toolbar.title = location.getCityName(requireContext())
+        binding.toolbar.title = location.getCityName(requireContext())
         // 标头赋值给手机型号
-        binding.toolbar.title = Build.BRAND + "-" + Build.MODEL
+//        binding.toolbar.title = Build.BRAND + "-" + Build.MODEL
         WeatherViewController.setWeatherCode(
             weatherView,
             location.weather,

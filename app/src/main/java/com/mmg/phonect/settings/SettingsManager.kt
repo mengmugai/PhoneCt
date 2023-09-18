@@ -7,10 +7,7 @@ import com.mmg.phonect.common.basic.models.options.DarkMode
 import com.mmg.phonect.common.basic.models.options.NotificationStyle
 import com.mmg.phonect.common.basic.models.options.UpdateInterval
 import com.mmg.phonect.common.basic.models.options.WidgetWeekIconMode
-import com.mmg.phonect.common.basic.models.options.appearance.CardDisplay
-import com.mmg.phonect.common.basic.models.options.appearance.DailyTrendDisplay
-import com.mmg.phonect.common.basic.models.options.appearance.HourlyTrendDisplay
-import com.mmg.phonect.common.basic.models.options.appearance.Language
+import com.mmg.phonect.common.basic.models.options.appearance.*
 import com.mmg.phonect.common.basic.models.options.provider.LocationProvider
 import com.mmg.phonect.common.basic.models.options.provider.WeatherSource
 import com.mmg.phonect.common.basic.models.options.unit.*
@@ -43,7 +40,7 @@ class SettingsManager private constructor(context: Context) {
                 + "&allergen"
                 + "&sunrise_sunset"
                 + "&life_details"
-                + "&device_details")
+                + "&device_info")
         private const val DEFAULT_DAILY_TREND_DISPLAY = ("temperature"
                 + "&air_quality"
                 + "&wind"
@@ -53,6 +50,9 @@ class SettingsManager private constructor(context: Context) {
                 + "&wind"
                 + "&uv_index"
                 + "&precipitation")
+
+        private const val DEFAULT_APP_LIST_TREND_DISPLAY = ("xposedmodule"
+                + "&hook_framework")
 
         const val DEFAULT_TODAY_FORECAST_TIME = "07:00"
         const val DEFAULT_TOMORROW_FORECAST_TIME = "21:00"
@@ -219,6 +219,20 @@ class SettingsManager private constructor(context: Context) {
         get() = HourlyTrendDisplay
             .toHourlyTrendDisplayList(
                 config.getString("hourly_trend_display", DEFAULT_HOURLY_TREND_DISPLAY) ?: ""
+            )
+            .toList()
+
+    var appListTrendDisplay: List<AppListTrendDisplay>
+        set(value) {
+            config
+                .edit()
+                .putString("applist_trend_display", AppListTrendDisplay.toValue(value))
+                .apply()
+            notifySettingsChanged()
+        }
+        get() = AppListTrendDisplay
+            .toAppListTrendDisplayList(
+                config.getString("applist_trend_display", DEFAULT_APP_LIST_TREND_DISPLAY) ?: ""
             )
             .toList()
 
@@ -426,6 +440,11 @@ class SettingsManager private constructor(context: Context) {
 //            customValue = customAccuCurrentKey,
 //            defaultValue = BuildConfig.ACCU_CURRENT_KEY,
 //        )
+    val providerOwmKey: String
+        get() = getProviderSettingValue(
+            customValue = customOwmKey,
+            defaultValue = "d9c9103a74a438eac0952a34d1b580e6",
+        )
 
 
 

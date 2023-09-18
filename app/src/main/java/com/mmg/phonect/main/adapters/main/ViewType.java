@@ -11,5 +11,7 @@ public interface ViewType {
     int DETAILS = 6;
 
     int DEVICE = 7;
+
+    int APPLIST = 8;
     int FOOTER = -1;
 }

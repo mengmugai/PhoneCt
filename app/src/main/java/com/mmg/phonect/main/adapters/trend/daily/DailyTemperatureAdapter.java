@@ -28,7 +28,7 @@ import com.mmg.phonect.theme.resource.providers.ResourceProvider;
 import com.mmg.phonect.theme.weatherView.WeatherViewController;
 
 /**
- * Daily temperature adapter.
+ * Daily 温度 adapter.
  * */
 
 public class DailyTemperatureAdapter extends AbsDailyTrendAdapter<DailyTemperatureAdapter.ViewHolder> {

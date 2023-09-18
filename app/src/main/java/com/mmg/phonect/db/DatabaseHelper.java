@@ -198,6 +198,7 @@ public class DatabaseHelper {
     public Weather readWeather(@NonNull Location location) {
         WeatherEntity weatherEntity = WeatherEntityController.selectWeatherEntity(
                 mSession,location.getCityId(), location.getWeatherSource());
+
         if (weatherEntity == null) {
             return null;
         }

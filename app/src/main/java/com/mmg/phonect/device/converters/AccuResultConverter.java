@@ -1,6 +1,9 @@
 package com.mmg.phonect.device.converters;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.text.TextUtils;
 
@@ -23,6 +26,7 @@ import com.mmg.phonect.common.basic.models.weather.Astro;
 import com.mmg.phonect.common.basic.models.weather.Base;
 import com.mmg.phonect.common.basic.models.weather.Current;
 import com.mmg.phonect.common.basic.models.weather.Daily;
+import com.mmg.phonect.common.basic.models.weather.Device;
 import com.mmg.phonect.common.basic.models.weather.HalfDay;
 import com.mmg.phonect.common.basic.models.weather.History;
 import com.mmg.phonect.common.basic.models.weather.Hourly;
@@ -38,6 +42,7 @@ import com.mmg.phonect.common.basic.models.weather.Weather;
 import com.mmg.phonect.common.basic.models.weather.WeatherCode;
 import com.mmg.phonect.common.basic.models.weather.Wind;
 import com.mmg.phonect.common.basic.models.weather.WindDegree;
+import com.mmg.phonect.common.basic.models.weather.XposedModule;
 import com.mmg.phonect.settings.SettingsManager;
 import com.mmg.phonect.device.json.accu.AccuAlertResult;
 import com.mmg.phonect.device.json.accu.AccuAqiResult;
@@ -155,6 +160,7 @@ public class AccuResultConverter {
                                     CommonConverter.getWindLevel(context, currentResult.WindGust.Speed.Metric.Value)
                             ),
                             new UV(currentResult.UVIndex, currentResult.UVIndexText, null),
+                            new Device("123","123","123","123","123","123","123"),
                             aqiResult == null ? new AirQuality(
                                     null, null, null, null,
                                     null, null, null, null
@@ -185,6 +191,7 @@ public class AccuResultConverter {
                     ),
                     getDailyList(context, dailyResult),
                     getHourlyList(context, hourlyResultList),
+                    getXposedModuleList(context),
                     getMinutelyList(
                             new Date(dailyResult.DailyForecasts.get(0).Sun.EpochRise * 1000),
                             new Date(dailyResult.DailyForecasts.get(0).Sun.EpochSet * 1000),
@@ -416,6 +423,37 @@ public class AccuResultConverter {
             );
         }
         return hourlyList;
+    }
+
+    private static List<XposedModule> getXposedModuleList(Context context) {
+
+        List<XposedModule> list = new ArrayList<>();
+        PackageManager packageManager = context.getApplicationContext().getPackageManager();
+        List<PackageInfo> installedPackages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
+        for (PackageInfo info : installedPackages) {
+
+            XposedModule bean = new XposedModule();
+            ApplicationInfo app = info.applicationInfo;
+//            if (!app.enabled)
+//                continue;
+
+            if (app.metaData != null && app.metaData.containsKey("xposedmodule")) {
+                bean.setName(info.applicationInfo.loadLabel(packageManager).toString());
+                bean.setPackageName(info.packageName);
+                bean.setVersion(info.versionName);
+                bean.setIcon(info.applicationInfo.loadIcon(packageManager));
+                bean.setBuildVersion(info.applicationInfo.targetSdkVersion);
+                if ((ApplicationInfo.FLAG_SYSTEM & info.applicationInfo.flags) == 0) {
+                    bean.setSystemApp(false);
+                } else {
+                    bean.setSystemApp(true);
+                }
+                list.add(bean);
+            }
+        }
+        return list;
+
+
     }
 
     private static List<Minutely> getMinutelyList(Date sunrise, Date sunset,

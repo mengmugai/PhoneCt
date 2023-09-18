@@ -1,10 +1,14 @@
 package com.mmg.phonect.device;
 
+import android.Manifest;
 import android.content.Context;
+import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,6 +16,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.options.provider.LocationProvider;
 import com.mmg.phonect.common.basic.models.options.provider.WeatherSource;
 import com.mmg.phonect.common.basic.models.weather.Weather;
 import com.mmg.phonect.common.rxjava.BaseObserver;
@@ -21,6 +26,8 @@ import com.mmg.phonect.common.utils.NetworkUtils;
 import com.mmg.phonect.common.utils.helpers.AsyncHelper;
 import com.mmg.phonect.db.DatabaseHelper;
 import com.mmg.phonect.device.services.DeviceService;
+import com.mmg.phonect.location.services.LocationService;
+import com.mmg.phonect.settings.SettingsManager;
 
 public class DeviceHelper {
 
@@ -125,6 +132,11 @@ public class DeviceHelper {
                         l.requestLocationFailed(query);
                     }
                 }));
+    }
+
+    public String[] getPermissions() {
+
+        return new String[]{Manifest.permission.READ_PHONE_STATE};
     }
 
     public void cancel() {

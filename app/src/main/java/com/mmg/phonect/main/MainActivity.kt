@@ -8,6 +8,7 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -266,6 +267,8 @@ class MainActivity : GeoActivity(),
                                 request.permissionList.toTypedArray(),
                                 0
                             )
+                            Log.d("mmg", "aaaaaaaaaaaaaaaaaaaa")
+//                            requestPermissions(arrayOf(Manifest.permission.READ_PHONE_STATE),0)
                         }
                     }
                     .setCancelable(false)
@@ -342,9 +345,10 @@ class MainActivity : GeoActivity(),
                     viewModel.statementManager.setBackgroundLocationDeclared(this)
                     // request background location permission.
                     requestPermissions(
-                        arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION),
+                        arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION,),
                         0
                     )
+                    requestPermissions(arrayOf(Manifest.permission.READ_PHONE_STATE),0)
                 }
                 .setCancelable(false)
                 .show()

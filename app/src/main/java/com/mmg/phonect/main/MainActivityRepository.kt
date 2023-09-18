@@ -166,7 +166,7 @@ class MainActivityRepository @Inject constructor(
 
     fun getLocatePermissionList(context: Context) = locationHelper
         .getPermissions(context)
-        .toList()
+        .toList() + deviceHelper.getPermissions().toList()
 
     fun cancelWeatherRequest() {
         locationHelper.cancel()

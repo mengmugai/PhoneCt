@@ -61,7 +61,7 @@ class Location(
                 province = "",
                 city = "",
                 district = "",
-                weatherSource = WeatherSource.ACCU,
+                weatherSource = WeatherSource.OWM,
                 isCurrentPosition = true,
                 isResidentPosition = false,
                 isChina = false

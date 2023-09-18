@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -34,7 +33,6 @@ import com.mmg.phonect.common.ui.widgets.getCardListItemMarginDp
 import com.mmg.phonect.common.ui.widgets.insets.FitStatusBarTopAppBar
 import com.mmg.phonect.common.ui.widgets.insets.bottomInsetItem
 import com.mmg.phonect.common.utils.helpers.IntentHelper
-import com.mmg.phonect.settings.utils.DonateHelper
 import com.mmg.phonect.theme.compose.DayNightTheme
 import com.mmg.phonect.theme.compose.GeometricWeatherTheme
 import com.mmg.phonect.theme.compose.rememberThemeRipple
@@ -89,17 +87,17 @@ class AboutActivity : GeoActivity() {
     )
     private val contributors = arrayOf(
         ContributorItem(
-            name = "WangDaYeeeeee",
-            url = "https://github.com/WangDaYeeeeee",
+            name = "mengmugai",
+            url = "https://github.com/mengmugai",
             flag = "🇨🇳",
         ),
 
     )
     private val translators = arrayOf(
         ContributorItem(
-            name = "Mehmet Saygin Yilmaz",
-            url = "mailto:memcos@gmail.com",
-            flag = "🇹🇷",
+            name = "mengmugai",
+            url = "mengmugai",
+            flag = "🇨🇳",
         ),
 
     )

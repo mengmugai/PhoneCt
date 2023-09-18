@@ -117,18 +117,13 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
                 )
         );
 
-        if (weather.getCurrent().getRelativeHumidity() != null) {
+        if (weather.getCurrent().getDevice() != null) {
             mIndexList.add(
                     new Index(
                             R.drawable.ic_water_percent,
-                            context.getString(R.string.humidity),
-                            RelativeHumidityUnit.PERCENT.getValueText(
-                                    context,
-//                                    Device.getImei()
+                            context.getString(R.string.android_id),
+                            weather.getCurrent().getDevice().getAndroidid()
 
-                                    (int) (float) weather.getCurrent().getRelativeHumidity()
-
-                            )
                     )
             );
         }

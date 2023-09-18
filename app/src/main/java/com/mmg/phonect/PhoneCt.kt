@@ -34,6 +34,7 @@ class PhoneCt : MultiDexApplication(),
         const val NOTIFICATION_CHANNEL_ID_FORECAST = "forecast"
         const val NOTIFICATION_CHANNEL_ID_LOCATION = "location"
         const val NOTIFICATION_CHANNEL_ID_BACKGROUND = "background"
+        const val UNKNOWN = "unknown"
 
         const val NOTIFICATION_ID_NORMALLY = 1
         const val NOTIFICATION_ID_TODAY_FORECAST = 2

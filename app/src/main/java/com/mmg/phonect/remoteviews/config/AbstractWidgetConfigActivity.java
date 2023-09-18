@@ -606,7 +606,7 @@ public abstract class AbstractWidgetConfigActivity extends GeoActivity
         }
         locationNow = requestLocation;
         updateHostView();
-        SnackbarHelper.showSnackbar(getString(R.string.feedback_get_weather_failed));
+        SnackbarHelper.showSnackbar(getString(R.string.feedback_get_weather_failed )+ "123");
     }
 
     @SuppressLint("MissingPermission")

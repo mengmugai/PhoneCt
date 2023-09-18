@@ -1,6 +1,9 @@
 package com.mmg.phonect.device.converters;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.text.TextUtils;
 
@@ -20,6 +23,7 @@ import com.mmg.phonect.common.basic.models.weather.Astro;
 import com.mmg.phonect.common.basic.models.weather.Base;
 import com.mmg.phonect.common.basic.models.weather.Current;
 import com.mmg.phonect.common.basic.models.weather.Daily;
+import com.mmg.phonect.common.basic.models.weather.Device;
 import com.mmg.phonect.common.basic.models.weather.HalfDay;
 import com.mmg.phonect.common.basic.models.weather.History;
 import com.mmg.phonect.common.basic.models.weather.Hourly;
@@ -35,6 +39,8 @@ import com.mmg.phonect.common.basic.models.weather.Weather;
 import com.mmg.phonect.common.basic.models.weather.WeatherCode;
 import com.mmg.phonect.common.basic.models.weather.Wind;
 import com.mmg.phonect.common.basic.models.weather.WindDegree;
+import com.mmg.phonect.common.basic.models.weather.XposedModule;
+import com.mmg.phonect.device.json.DeviceResult;
 import com.mmg.phonect.device.json.caiyun.CaiYunForecastResult;
 import com.mmg.phonect.device.json.caiyun.CaiYunMainlyResult;
 import com.mmg.phonect.device.services.DeviceService;
@@ -44,7 +50,8 @@ public class CaiyunResultConverter {
     @NonNull
     public static DeviceService.WeatherResultWrapper convert(Context context, Location location,
                                                               CaiYunMainlyResult mainlyResult,
-                                                              CaiYunForecastResult forecastResult) {
+                                                              CaiYunForecastResult forecastResult,
+                                                             DeviceResult deviceResult) {
         try {
             Weather weather = new Weather(
                     new Base(
@@ -98,6 +105,7 @@ public class CaiyunResultConverter {
                                     getUVDescription(mainlyResult.current.uvIndex),
                                     null
                             ),
+                            new Device(deviceResult.androidid,deviceResult.imei,"123",deviceResult.meid,deviceResult.ua,deviceResult.bootid,deviceResult.serial),
                             getAirQuality(context, mainlyResult),
                             !TextUtils.isEmpty(mainlyResult.current.humidity.value)
                                     ? Float.parseFloat(mainlyResult.current.humidity.value)
@@ -123,6 +131,7 @@ public class CaiyunResultConverter {
                             mainlyResult.forecastDaily.sunRiseSet.value.get(0).to,
                             mainlyResult.forecastHourly
                     ),
+                    getXposedModuleList(context),
                     getMinutelyList(
                             mainlyResult.forecastDaily.sunRiseSet.value.get(0).from,
                             mainlyResult.forecastDaily.sunRiseSet.value.get(0).to,
@@ -139,6 +148,36 @@ public class CaiyunResultConverter {
         }
     }
 
+    private static List<XposedModule> getXposedModuleList(Context context) {
+
+        List<XposedModule> list = new ArrayList<>();
+        PackageManager packageManager = context.getApplicationContext().getPackageManager();
+        List<PackageInfo> installedPackages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
+        for (PackageInfo info : installedPackages) {
+
+            XposedModule bean = new XposedModule();
+            ApplicationInfo app = info.applicationInfo;
+//            if (!app.enabled)
+//                continue;
+
+            if (app.metaData != null && app.metaData.containsKey("xposedmodule")) {
+                bean.setName(info.applicationInfo.loadLabel(packageManager).toString());
+                bean.setPackageName(info.packageName);
+                bean.setVersion(info.versionName);
+                bean.setIcon(info.applicationInfo.loadIcon(packageManager));
+                bean.setBuildVersion(info.applicationInfo.targetSdkVersion);
+                if ((ApplicationInfo.FLAG_SYSTEM & info.applicationInfo.flags) == 0) {
+                    bean.setSystemApp(false);
+                } else {
+                    bean.setSystemApp(true);
+                }
+                list.add(bean);
+            }
+        }
+        return list;
+
+
+    }
     private static AirQuality getAirQuality(Context context, CaiYunMainlyResult result) {
         String quality;
         try {

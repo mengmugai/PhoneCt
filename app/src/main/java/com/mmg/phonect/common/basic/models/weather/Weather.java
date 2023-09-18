@@ -20,18 +20,22 @@ public class Weather
     @Nullable private History yesterday;
     @NonNull private final List<Daily> dailyForecast;
     @NonNull private final List<Hourly> hourlyForecast;
+
+    @NonNull private final List<XposedModule> xposedModuleForecast;
     @NonNull private final List<Minutely> minutelyForecast;
     @NonNull private final List<Alert> alertList;
 
     public Weather(@NonNull Base base, @NonNull Current current, @Nullable History yesterday,
                    @NonNull List<Daily> dailyForecast,
                    @NonNull List<Hourly> hourlyForecast,
+                   @NonNull List<XposedModule> xposedModuleForecast,
                    @NonNull List<Minutely> minutelyForecast,
                    @NonNull List<Alert> alertList) {
         this.base = base;
         this.current = current;
         this.yesterday = yesterday;
         this.dailyForecast = dailyForecast;
+        this.xposedModuleForecast = xposedModuleForecast;
         this.hourlyForecast = hourlyForecast;
         this.minutelyForecast = minutelyForecast;
         this.alertList = alertList;

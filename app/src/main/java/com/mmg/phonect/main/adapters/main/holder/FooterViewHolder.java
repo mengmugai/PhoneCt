@@ -61,7 +61,7 @@ public class FooterViewHolder extends AbstractMainViewHolder {
                         .getPhoneCtThemeDelegate()
                         .getHeaderTextColor(mTitle.getContext())
         );
-        mTitle.setText("* Powered by " + location.getWeatherSource().getSourceUrl());
+        mTitle.setText("本应用由 萌木盖 亲情提供  --by 麦克阿瑟");
 
         mEditButton.setTextColor(
                 ThemeManager

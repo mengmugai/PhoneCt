@@ -23,7 +23,7 @@ import com.mmg.phonect.theme.ThemeManager;
 import com.mmg.phonect.theme.weatherView.WeatherViewController;
 
 /**
- * Daily air quality adapter.
+ * 每日空气质量 adapter.
  * */
 
 public class DailyAirQualityAdapter extends AbsDailyTrendAdapter<DailyAirQualityAdapter.ViewHolder> {

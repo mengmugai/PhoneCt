@@ -26,7 +26,7 @@ import com.mmg.phonect.common.ui.widgets.trend.chart.DoubleHistogramView;
 import com.mmg.phonect.main.utils.MainThemeColorProvider;
 
 /**
- * Daily wind adapter.
+ * Daily 风 adapter.
  * */
 public class DailyWindAdapter extends AbsDailyTrendAdapter<DailyWindAdapter.ViewHolder> {
 

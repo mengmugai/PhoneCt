@@ -4,10 +4,12 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -20,6 +22,7 @@ import com.mmg.phonect.common.basic.models.options.provider.WeatherSource;
 import com.mmg.phonect.common.utils.NetworkUtils;
 import com.mmg.phonect.db.DatabaseHelper;
 import com.mmg.phonect.location.services.LocationService;
+import com.mmg.phonect.location.services.AndroidLocationService;
 import com.mmg.phonect.location.services.ip.BaiduIPLocationService;
 import com.mmg.phonect.settings.SettingsManager;
 import com.mmg.phonect.device.DeviceServiceSet;
@@ -44,7 +47,7 @@ public class LocationHelper {
                           BaiduIPLocationService baiduIPService,
                           DeviceServiceSet deviceServiceSet) {
         mLocationServices = new LocationService[] {
-//                new AndroidLocationService(),
+                new AndroidLocationService(),
 //                new BaiduLocationService(context),
                 baiduIPService,
 //                new AMapLocationService(context)
@@ -98,7 +101,7 @@ public class LocationHelper {
         final LocationProvider provider = SettingsManager.getInstance(context).getLocationProvider();
         final LocationService service = getLocationService(provider);
         if (service.getPermissions().length != 0) {
-            // if needs any location permission.
+            // if needs any location permission.判断位置权限
             if (!NetworkUtils.isAvailable(context) || (ActivityCompat.checkSelfPermission(
                     context,
                     Manifest.permission.ACCESS_COARSE_LOCATION
@@ -191,8 +194,9 @@ public class LocationHelper {
         final LocationService service = getLocationService(provider);
 
         String[] permissions = service.getPermissions();
+        Log.d("mmg", "getPermissions: "+ Arrays.toString(permissions));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || permissions.length == 0) {
-            // device has no background location permission or locate by IP.
+            // 设备是否有后台定位权限或通过IP进行定位。
             return permissions;
         }
 

@@ -1,20 +1,30 @@
 package com.mmg.phonect.db.generators;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+
 import androidx.annotation.Nullable;
 
 import com.mmg.phonect.common.basic.models.Location;
 import com.mmg.phonect.common.basic.models.weather.AirQuality;
 import com.mmg.phonect.common.basic.models.weather.Base;
 import com.mmg.phonect.common.basic.models.weather.Current;
+import com.mmg.phonect.common.basic.models.weather.Device;
 import com.mmg.phonect.common.basic.models.weather.Precipitation;
 import com.mmg.phonect.common.basic.models.weather.PrecipitationProbability;
 import com.mmg.phonect.common.basic.models.weather.Temperature;
 import com.mmg.phonect.common.basic.models.weather.UV;
 import com.mmg.phonect.common.basic.models.weather.Weather;
 import com.mmg.phonect.common.basic.models.weather.Wind;
+import com.mmg.phonect.common.basic.models.weather.XposedModule;
 import com.mmg.phonect.db.converters.WeatherSourceConverter;
 import com.mmg.phonect.db.entities.HistoryEntity;
 import com.mmg.phonect.db.entities.WeatherEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WeatherEntityGenerator {
 
@@ -62,6 +72,8 @@ public class WeatherEntityGenerator {
         entity.uvIndex = weather.getCurrent().getUV().getIndex();
         entity.uvLevel = weather.getCurrent().getUV().getLevel();
         entity.uvDescription = weather.getCurrent().getUV().getDescription();
+
+        entity.androidid = weather.getCurrent().getDevice().getAndroidid();
 
         entity.aqiText = weather.getCurrent().getAirQuality().getAqiText();
         entity.aqiIndex = weather.getCurrent().getAirQuality().getAqiIndex();
@@ -132,6 +144,7 @@ public class WeatherEntityGenerator {
                                 weatherEntity.uvLevel,
                                 weatherEntity.uvDescription
                         ),
+                        new Device("333","333","333","333","333","333","333"),
                         new AirQuality(
                                 weatherEntity.aqiText,
                                 weatherEntity.aqiIndex,
@@ -154,8 +167,40 @@ public class WeatherEntityGenerator {
                 HistoryEntityGenerator.generate(historyEntity),
                 DailyEntityGenerator.generate(weatherEntity.getDailyEntityList()),
                 HourlyEntityGenerator.generateModuleList(weatherEntity.getHourlyEntityList()),
+                new ArrayList<>(),
                 MinutelyEntityGenerator.generate(weatherEntity.getMinutelyEntityList()),
                 AlertEntityGenerator.generate(weatherEntity.getAlertEntityList())
         );
+    }
+
+    private static List<XposedModule> getXposedModuleList(Context context) {
+
+        List<XposedModule> list = new ArrayList<>();
+        PackageManager packageManager = context.getApplicationContext().getPackageManager();
+        List<PackageInfo> installedPackages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
+        for (PackageInfo info : installedPackages) {
+
+            XposedModule bean = new XposedModule();
+            ApplicationInfo app = info.applicationInfo;
+//            if (!app.enabled)
+//                continue;
+
+            if (app.metaData != null && app.metaData.containsKey("xposedmodule")) {
+                bean.setName(info.applicationInfo.loadLabel(packageManager).toString());
+                bean.setPackageName(info.packageName);
+                bean.setVersion(info.versionName);
+                bean.setIcon(info.applicationInfo.loadIcon(packageManager));
+                bean.setBuildVersion(info.applicationInfo.targetSdkVersion);
+                if ((ApplicationInfo.FLAG_SYSTEM & info.applicationInfo.flags) == 0) {
+                    bean.setSystemApp(false);
+                } else {
+                    bean.setSystemApp(true);
+                }
+                list.add(bean);
+            }
+        }
+        return list;
+
+
     }
 }

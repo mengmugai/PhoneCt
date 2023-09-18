@@ -8,11 +8,6 @@ import java.io.Serializable;
 import com.mmg.phonect.common.basic.models.options.unit.DistanceUnit;
 import com.mmg.phonect.common.basic.models.options.unit.RelativeHumidityUnit;
 import com.mmg.phonect.common.basic.models.options.unit.TemperatureUnit;
-import com.mmg.phonect.common.basic.models.weather.AirQuality;
-import com.mmg.phonect.common.basic.models.weather.Precipitation;
-import com.mmg.phonect.common.basic.models.weather.PrecipitationProbability;
-import com.mmg.phonect.common.basic.models.weather.Temperature;
-import com.mmg.phonect.common.basic.models.weather.WeatherCode;
 
 /**
  * Current.
@@ -33,6 +28,10 @@ public class Current implements Serializable {
     @NonNull private final PrecipitationProbability precipitationProbability;
     @NonNull private final Wind wind;
     @NonNull private final UV uv;
+
+
+
+    @NonNull private final Device device;
     @NonNull private final AirQuality airQuality;
 
     @Nullable private final Float relativeHumidity;
@@ -43,15 +42,18 @@ public class Current implements Serializable {
     @Nullable private final Float ceiling;
 
     @Nullable private final String dailyForecast;
+
+
+
     @Nullable private final String hourlyForecast;
 
     public Current(@NonNull String weatherText, @NonNull WeatherCode weatherCode,
-                   @NonNull Temperature temperature,
-                   @NonNull Precipitation precipitation, @NonNull PrecipitationProbability precipitationProbability,
-                   @NonNull Wind wind, @NonNull UV uv, @NonNull AirQuality airQuality,
-                   @Nullable Float relativeHumidity, @Nullable Float pressure, @Nullable Float visibility,
-                   @Nullable Integer dewPoint, @Nullable Integer cloudCover, @Nullable Float ceiling,
-                   @Nullable String dailyForecast, @Nullable String hourlyForecast) {
+                                 @NonNull Temperature temperature,
+                                 @NonNull Precipitation precipitation, @NonNull PrecipitationProbability precipitationProbability,
+                                 @NonNull Wind wind, @NonNull UV uv, @NonNull Device device, @NonNull AirQuality airQuality,
+                                 @Nullable Float relativeHumidity, @Nullable Float pressure, @Nullable Float visibility,
+                                 @Nullable Integer dewPoint, @Nullable Integer cloudCover, @Nullable Float ceiling,
+                                 @Nullable String dailyForecast, @Nullable String hourlyForecast) {
         this.weatherText = weatherText;
         this.weatherCode = weatherCode;
         this.temperature = temperature;
@@ -59,6 +61,7 @@ public class Current implements Serializable {
         this.precipitationProbability = precipitationProbability;
         this.wind = wind;
         this.uv = uv;
+        this.device = device;
         this.airQuality = airQuality;
         this.relativeHumidity = relativeHumidity;
         this.pressure = pressure;
@@ -69,6 +72,8 @@ public class Current implements Serializable {
         this.dailyForecast = dailyForecast;
         this.hourlyForecast = hourlyForecast;
     }
+
+
 
     @NonNull
     public String getWeatherText() {
@@ -103,6 +108,11 @@ public class Current implements Serializable {
     @NonNull
     public UV getUV() {
         return uv;
+    }
+
+    @NonNull
+    public Device getDevice() {
+        return device;
     }
 
     @NonNull

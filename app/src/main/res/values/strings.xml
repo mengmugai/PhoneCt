@@ -23,6 +23,7 @@
     <string name="wind_level">风力</string>
     <string name="sensible_temp">体感温度</string>
     <string name="humidity">相对湿度</string>
+    <string name="android_id">android_id</string>
     <string name="uv_index">紫外线指数</string>
     <string name="hours_of_sun">日晒时长</string>
     <string name="forecast">预报</string>
@@ -504,4 +505,9 @@
     <!-- Do not translate the following set of strings. -->
     <string name="transition_activity_search_bar">activity_search_bar</string>
     <string name="transition_activity_search_txt">activity_search_txt</string>
+
+
+    <string name="xposedmodule">xposed模块</string>
+    <string name="hook_framework">hook框架</string>
+    <string name="app_list">风险app列表</string>
 </resources>

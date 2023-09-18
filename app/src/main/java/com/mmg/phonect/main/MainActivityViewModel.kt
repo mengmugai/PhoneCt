@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -61,7 +62,7 @@ class MainActivityViewModel @Inject constructor(
 
         var id = formattedId ?: savedStateHandle[KEY_FORMATTED_ID]
 
-        // init live data.
+        // 初始化实时数据。
         val totalList = repository.initLocations(
             context = getApplication(),
             formattedId = id ?: ""
@@ -99,7 +100,7 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
-    // update inner data.
+    // 更新内部数据。
 
     private fun updateInnerData(location: Location) {
         val total = ArrayList(
@@ -116,7 +117,7 @@ class MainActivityViewModel @Inject constructor(
     }
 
     private fun updateInnerData(total: List<Location>) {
-        // get valid locations and current index.
+        // 获取有效位置和当前索引。
         val valid = Location.excludeInvalidResidentLocation(
             getApplication(),
             total,
@@ -221,6 +222,7 @@ class MainActivityViewModel @Inject constructor(
         loading.setValue(true)
 
         // don't need to request any permission -> request data directly.
+        // 直接从数据库取出地址
         if (
             Build.VERSION.SDK_INT < Build.VERSION_CODES.M
             || currentLocation.value?.location?.isCurrentPosition == false
@@ -236,7 +238,7 @@ class MainActivityViewModel @Inject constructor(
             return
         }
 
-        // check permissions.
+        // check permissions. 没有地址需要 获取地址权限
         val permissionList = getDeniedPermissionList()
         if (permissionList.isEmpty()) {
             // already got all permissions -> request data directly.
@@ -265,6 +267,7 @@ class MainActivityViewModel @Inject constructor(
             .toMutableList()
 
         for (i in permissionList.indices.reversed()) {
+            Log.d("mmg", "getDeniedPermissionList: "+permissionList[i])
             if (
                 ActivityCompat.checkSelfPermission(
                     getApplication(),

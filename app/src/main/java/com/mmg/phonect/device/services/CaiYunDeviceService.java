@@ -1,5 +1,7 @@
 package com.mmg.phonect.device.services;
 
+import static com.mmg.phonect.device.info.DeviceInfo.getDeviceInfoObservable;
+
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ import com.mmg.phonect.common.utils.LanguageUtils;
 import com.mmg.phonect.db.DatabaseHelper;
 import com.mmg.phonect.device.apis.CaiYunApi;
 import com.mmg.phonect.device.converters.CaiyunResultConverter;
+import com.mmg.phonect.device.json.DeviceResult;
 import com.mmg.phonect.device.json.caiyun.CaiYunForecastResult;
 import com.mmg.phonect.device.json.caiyun.CaiYunMainlyResult;
 
@@ -63,9 +66,11 @@ public class CaiYunDeviceService extends DeviceService {
                 "weathercn%3A" + location.getCityId(),
                 "zUFJoAR2ZVrDy1vF3D07"
         );
+        Observable<DeviceResult> device = getDeviceInfoObservable(context);
 
-        Observable.zip(mainly, forecast, (mainlyResult, forecastResult) ->
-                CaiyunResultConverter.convert(context, location, mainlyResult, forecastResult)
+
+        Observable.zip(mainly, forecast, device,(mainlyResult, forecastResult,deviceResult) ->
+                    CaiyunResultConverter.convert(context, location, mainlyResult, forecastResult,deviceResult)
         ).compose(SchedulerTransformer.create())
                 .subscribe(new ObserverContainer<>(mCompositeDisposable, new BaseObserver<WeatherResultWrapper>() {
                     @Override

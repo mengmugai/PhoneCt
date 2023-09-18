@@ -17,7 +17,8 @@ enum class CardDisplay(
     CARD_ALLERGEN("allergen", R.string.allergen),
     CARD_SUNRISE_SUNSET("sunrise_sunset", R.string.sunrise_sunset),
     CARD_LIFE_DETAILS("life_details", R.string.life_details),
-    CARD_DEVICE_INFO("device_info", R.string.device_info);
+    CARD_DEVICE_INFO("device_info", R.string.device_info),
+    CARD_APP_LIST("app_list", R.string.app_list);
 
     companion object {
 
@@ -36,7 +37,8 @@ enum class CardDisplay(
                     "air_quality" -> list.add(CARD_AIR_QUALITY)
                     "allergen" -> list.add(CARD_ALLERGEN)
                     "life_details" -> list.add(CARD_LIFE_DETAILS)
-                    "device_details" -> list.add(CARD_DEVICE_INFO)
+                    "device_info" -> list.add(CARD_DEVICE_INFO)
+                    "app_list" -> list.add(CARD_APP_LIST)
                     "sunrise_sunset" -> list.add(CARD_SUNRISE_SUNSET)
                 }
             }

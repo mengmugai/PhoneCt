@@ -72,6 +72,8 @@ public class WeatherEntity {
     public String uvLevel;
     public String uvDescription;
 
+    public String androidid;
+
     public String aqiText;
     public Integer aqiIndex;
     public Float pm25;
@@ -127,76 +129,72 @@ public class WeatherEntity {
     @Generated(hash = 428286643)
     private transient WeatherEntityDao myDao;
 
-    @Generated(hash = 836344586)
-    public WeatherEntity(Long id, String cityId, String weatherSource,
-        long timeStamp, Date publishDate, long publishTime, Date updateDate,
-        long updateTime, String weatherText, WeatherCode weatherCode,
-        int temperature, Integer realFeelTemperature,
-        Integer realFeelShaderTemperature, Integer apparentTemperature,
-        Integer windChillTemperature, Integer wetBulbTemperature,
-        Integer degreeDayTemperature, Float totalPrecipitation,
-        Float thunderstormPrecipitation, Float rainPrecipitation,
-        Float snowPrecipitation, Float icePrecipitation,
-        Float totalPrecipitationProbability,
-        Float thunderstormPrecipitationProbability,
-        Float rainPrecipitationProbability, Float snowPrecipitationProbability,
-        Float icePrecipitationProbability, String windDirection,
-        WindDegree windDegree, Float windSpeed, String windLevel,
-        Integer uvIndex, String uvLevel, String uvDescription, String aqiText,
-        Integer aqiIndex, Float pm25, Float pm10, Float so2, Float no2,
-        Float o3, Float co, Float relativeHumidity, Float pressure,
-        Float visibility, Integer dewPoint, Integer cloudCover, Float ceiling,
-        String dailyForecast, String hourlyForecast) {
-    this.id = id;
-    this.cityId = cityId;
-    this.weatherSource = weatherSource;
-    this.timeStamp = timeStamp;
-    this.publishDate = publishDate;
-    this.publishTime = publishTime;
-    this.updateDate = updateDate;
-    this.updateTime = updateTime;
-    this.weatherText = weatherText;
-    this.weatherCode = weatherCode;
-    this.temperature = temperature;
-    this.realFeelTemperature = realFeelTemperature;
-    this.realFeelShaderTemperature = realFeelShaderTemperature;
-    this.apparentTemperature = apparentTemperature;
-    this.windChillTemperature = windChillTemperature;
-    this.wetBulbTemperature = wetBulbTemperature;
-    this.degreeDayTemperature = degreeDayTemperature;
-    this.totalPrecipitation = totalPrecipitation;
-    this.thunderstormPrecipitation = thunderstormPrecipitation;
-    this.rainPrecipitation = rainPrecipitation;
-    this.snowPrecipitation = snowPrecipitation;
-    this.icePrecipitation = icePrecipitation;
-    this.totalPrecipitationProbability = totalPrecipitationProbability;
-    this.thunderstormPrecipitationProbability = thunderstormPrecipitationProbability;
-    this.rainPrecipitationProbability = rainPrecipitationProbability;
-    this.snowPrecipitationProbability = snowPrecipitationProbability;
-    this.icePrecipitationProbability = icePrecipitationProbability;
-    this.windDirection = windDirection;
-    this.windDegree = windDegree;
-    this.windSpeed = windSpeed;
-    this.windLevel = windLevel;
-    this.uvIndex = uvIndex;
-    this.uvLevel = uvLevel;
-    this.uvDescription = uvDescription;
-    this.aqiText = aqiText;
-    this.aqiIndex = aqiIndex;
-    this.pm25 = pm25;
-    this.pm10 = pm10;
-    this.so2 = so2;
-    this.no2 = no2;
-    this.o3 = o3;
-    this.co = co;
-    this.relativeHumidity = relativeHumidity;
-    this.pressure = pressure;
-    this.visibility = visibility;
-    this.dewPoint = dewPoint;
-    this.cloudCover = cloudCover;
-    this.ceiling = ceiling;
-    this.dailyForecast = dailyForecast;
-    this.hourlyForecast = hourlyForecast;
+    @Generated(hash = 1102745211)
+    public WeatherEntity(Long id, String cityId, String weatherSource, long timeStamp, Date publishDate,
+            long publishTime, Date updateDate, long updateTime, String weatherText,
+            WeatherCode weatherCode, int temperature, Integer realFeelTemperature,
+            Integer realFeelShaderTemperature, Integer apparentTemperature,
+            Integer windChillTemperature, Integer wetBulbTemperature, Integer degreeDayTemperature,
+            Float totalPrecipitation, Float thunderstormPrecipitation, Float rainPrecipitation,
+            Float snowPrecipitation, Float icePrecipitation, Float totalPrecipitationProbability,
+            Float thunderstormPrecipitationProbability, Float rainPrecipitationProbability,
+            Float snowPrecipitationProbability, Float icePrecipitationProbability, String windDirection,
+            WindDegree windDegree, Float windSpeed, String windLevel, Integer uvIndex, String uvLevel,
+            String uvDescription, String androidid, String aqiText, Integer aqiIndex, Float pm25,
+            Float pm10, Float so2, Float no2, Float o3, Float co, Float relativeHumidity,
+            Float pressure, Float visibility, Integer dewPoint, Integer cloudCover, Float ceiling,
+            String dailyForecast, String hourlyForecast) {
+        this.id = id;
+        this.cityId = cityId;
+        this.weatherSource = weatherSource;
+        this.timeStamp = timeStamp;
+        this.publishDate = publishDate;
+        this.publishTime = publishTime;
+        this.updateDate = updateDate;
+        this.updateTime = updateTime;
+        this.weatherText = weatherText;
+        this.weatherCode = weatherCode;
+        this.temperature = temperature;
+        this.realFeelTemperature = realFeelTemperature;
+        this.realFeelShaderTemperature = realFeelShaderTemperature;
+        this.apparentTemperature = apparentTemperature;
+        this.windChillTemperature = windChillTemperature;
+        this.wetBulbTemperature = wetBulbTemperature;
+        this.degreeDayTemperature = degreeDayTemperature;
+        this.totalPrecipitation = totalPrecipitation;
+        this.thunderstormPrecipitation = thunderstormPrecipitation;
+        this.rainPrecipitation = rainPrecipitation;
+        this.snowPrecipitation = snowPrecipitation;
+        this.icePrecipitation = icePrecipitation;
+        this.totalPrecipitationProbability = totalPrecipitationProbability;
+        this.thunderstormPrecipitationProbability = thunderstormPrecipitationProbability;
+        this.rainPrecipitationProbability = rainPrecipitationProbability;
+        this.snowPrecipitationProbability = snowPrecipitationProbability;
+        this.icePrecipitationProbability = icePrecipitationProbability;
+        this.windDirection = windDirection;
+        this.windDegree = windDegree;
+        this.windSpeed = windSpeed;
+        this.windLevel = windLevel;
+        this.uvIndex = uvIndex;
+        this.uvLevel = uvLevel;
+        this.uvDescription = uvDescription;
+        this.androidid = androidid;
+        this.aqiText = aqiText;
+        this.aqiIndex = aqiIndex;
+        this.pm25 = pm25;
+        this.pm10 = pm10;
+        this.so2 = so2;
+        this.no2 = no2;
+        this.o3 = o3;
+        this.co = co;
+        this.relativeHumidity = relativeHumidity;
+        this.pressure = pressure;
+        this.visibility = visibility;
+        this.dewPoint = dewPoint;
+        this.cloudCover = cloudCover;
+        this.ceiling = ceiling;
+        this.dailyForecast = dailyForecast;
+        this.hourlyForecast = hourlyForecast;
     }
 
     @Generated(hash = 1598697471)
@@ -757,6 +755,14 @@ public class WeatherEntity {
         throw new DaoException("Entity is detached from DAO context");
     }
     myDao.update(this);
+    }
+
+    public String getAndroidid() {
+        return this.androidid;
+    }
+
+    public void setAndroidid(String androidid) {
+        this.androidid = androidid;
     }
 
     /** called by internal mechanisms, do not call yourself. */

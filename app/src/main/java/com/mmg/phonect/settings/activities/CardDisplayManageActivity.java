@@ -145,6 +145,7 @@ public class CardDisplayManageActivity extends GeoActivity {
         otherCards.add(CardDisplay.CARD_SUNRISE_SUNSET);
         otherCards.add(CardDisplay.CARD_LIFE_DETAILS);
         otherCards.add(CardDisplay.CARD_DEVICE_INFO);
+        otherCards.add(CardDisplay.CARD_APP_LIST);
         for (int i = otherCards.size() - 1; i >= 0; i --) {
             for (int j = 0; j < displayCards.size(); j ++) {
                 if (otherCards.get(i) == displayCards.get(j)) {

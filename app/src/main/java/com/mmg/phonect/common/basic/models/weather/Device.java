@@ -17,6 +17,12 @@ public final class Device implements Serializable {
     private final String ua;
     private final String bootid;
 
+    private final String serial;
+
+    public String getSerial() {
+        return serial;
+    }
+
     public String getAndroidid() {
         return androidid;
     }
@@ -42,12 +48,13 @@ public final class Device implements Serializable {
     }
 
 
-    public Device(String androidid, String imei, String imei2, String meid, String ua, String bootid) {
+    public Device(String androidid, String imei, String imei2, String meid, String ua, String bootid, String serial) {
         this.androidid = androidid;
         this.imei = imei;
         this.imei2 = imei2;
         this.meid = meid;
         this.ua = ua;
         this.bootid = bootid;
+        this.serial = serial;
     }
 }
