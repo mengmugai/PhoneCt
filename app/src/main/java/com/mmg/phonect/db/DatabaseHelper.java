@@ -9,31 +9,31 @@ import java.util.List;
 
 import com.mmg.phonect.common.basic.models.ChineseCity;
 import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
+import com.mmg.phonect.common.basic.models.weather.Device;
 import com.mmg.phonect.common.basic.models.weather.History;
 import com.mmg.phonect.common.basic.models.weather.Weather;
 import com.mmg.phonect.common.utils.FileUtils;
 import com.mmg.phonect.db.controllers.AlertEntityController;
 import com.mmg.phonect.db.controllers.ChineseCityEntityController;
 import com.mmg.phonect.db.controllers.DailyEntityController;
-import com.mmg.phonect.db.controllers.HistoryEntityController;
-import com.mmg.phonect.db.controllers.HourlyEntityController;
-import com.mmg.phonect.db.controllers.LocationEntityController;
-import com.mmg.phonect.db.controllers.MinutelyEntityController;
-import com.mmg.phonect.db.controllers.WeatherEntityController;
+//import com.mmg.phonect.db.controllers.MinutelyEntityController;
+import com.mmg.phonect.db.controllers.PhoneEntityController;
+import com.mmg.phonect.db.controllers.DeviceEntityController;
 import com.mmg.phonect.db.entities.ChineseCityEntity;
 import com.mmg.phonect.db.entities.DaoMaster;
 import com.mmg.phonect.db.entities.DaoSession;
-import com.mmg.phonect.db.entities.HistoryEntity;
-import com.mmg.phonect.db.entities.LocationEntity;
-import com.mmg.phonect.db.entities.WeatherEntity;
+import com.mmg.phonect.db.entities.DeviceEntity;
+import com.mmg.phonect.db.entities.PhoneEntity;
+import com.mmg.phonect.db.entities.DeviceEntity;
 import com.mmg.phonect.db.generators.AlertEntityGenerator;
 import com.mmg.phonect.db.generators.ChineseCityEntityGenerator;
 import com.mmg.phonect.db.generators.DailyEntityGenerator;
-import com.mmg.phonect.db.generators.HistoryEntityGenerator;
-import com.mmg.phonect.db.generators.HourlyEntityGenerator;
+import com.mmg.phonect.db.generators.DeviceEntityGenerator;
 import com.mmg.phonect.db.generators.LocationEntityGenerator;
-import com.mmg.phonect.db.generators.MinutelyEntityGenerator;
-import com.mmg.phonect.db.generators.WeatherEntityGenerator;
+//import com.mmg.phonect.db.generators.MinutelyEntityGenerator;
+import com.mmg.phonect.db.generators.PhoneEntityGenerator;
+import com.mmg.phonect.db.generators.DeviceEntityGenerator;
 
 /**
  * Database helper
@@ -54,7 +54,7 @@ public class DatabaseHelper {
     private final DaoSession mSession;
     private final Object mWritingLock;
 
-    private final static String DATABASE_NAME = "Geometric_Weather_db";
+    private final static String DATABASE_NAME = "PhoneCt_db";
 
     private DatabaseHelper(Context c) {
         mSession = new DaoMaster(
@@ -65,23 +65,24 @@ public class DatabaseHelper {
 
     // location.
 
-    public void writeLocation(@NonNull Location location) {
-        LocationEntity entity = LocationEntityGenerator.generate(location);
+    public void writeLocation(@NonNull Phone phone) {
+//        PhoneEntity entity = LocationEntityGenerator.generate(phone);
+        PhoneEntity entity = PhoneEntityGenerator.generate(phone);
 
         mSession.callInTxNoException(() -> {
-            if (LocationEntityController.selectLocationEntity(mSession, location.getFormattedId()) == null) {
-                LocationEntityController.insertLocationEntity(mSession, entity);
+            if (PhoneEntityController.selectLocationEntity(mSession) == null) {
+                PhoneEntityController.insertLocationEntity(mSession, entity);
             } else {
-                LocationEntityController.updateLocationEntity(mSession, entity);
+                PhoneEntityController.updateLocationEntity(mSession, entity);
             }
             return true;
         });
     }
 
-    public void writeLocationList(@NonNull List<Location> list) {
+    public void writeLocationList(@NonNull List<Phone> list) {
         mSession.callInTxNoException(() -> {
-            LocationEntityController.deleteLocationEntityList(mSession);
-            LocationEntityController.insertLocationEntityList(
+            PhoneEntityController.deleteLocationEntityList(mSession);
+            PhoneEntityController.insertLocationEntityList(
                     mSession,
                     LocationEntityGenerator.generateEntityList(list)
             );
@@ -89,38 +90,52 @@ public class DatabaseHelper {
         });
     }
 
-    public void deleteLocation(@NonNull Location location) {
-        LocationEntityController.deleteLocationEntity(
-                mSession, LocationEntityGenerator.generate(location));
+    public void deleteLocation(@NonNull Phone phone) {
+        PhoneEntityController.deleteLocationEntity(
+                mSession, PhoneEntityGenerator.generate(phone));
     }
 
     @Nullable
-    public Location readLocation(@NonNull Location location) {
-        return readLocation(location.getFormattedId());
+    public Phone readPhone(@NonNull Phone phone) {
+        return readPhone();
     }
 
     @Nullable
-    public Location readLocation(@NonNull String formattedId) {
-        LocationEntity entity = LocationEntityController.selectLocationEntity(mSession, formattedId);
+    public Phone readPhone() {
+        PhoneEntity entity = PhoneEntityController.selectLocationEntity(mSession);
         if (entity != null) {
-            return LocationEntityGenerator.generate(entity);
+            return PhoneEntityGenerator.generate(entity);
         } else {
-            return null;
+
+            synchronized (mWritingLock) {
+
+                entity = PhoneEntityGenerator.generate(
+                        Phone.buildPhone());
+
+                PhoneEntityController.insertLocationEntity(mSession, entity);
+
+//                return PhoneEntityGenerator.generate(entity);
+                return Phone.buildPhone();
+
+            }
+
+
         }
+
     }
 
     @NonNull
-    public List<Location> readLocationList() {
-        List<LocationEntity> entityList = LocationEntityController.selectLocationEntityList(mSession);
+    public List<Phone> readLocationList() {
+        List<PhoneEntity> entityList = PhoneEntityController.selectLocationEntityList(mSession);
 
         if (entityList.size() == 0) {
             synchronized (mWritingLock) {
                 if (countLocation() == 0) {
-                    LocationEntity entity = LocationEntityGenerator.generate(
-                            Location.buildLocal());
+                    PhoneEntity entity = PhoneEntityGenerator.generate(
+                            Phone.buildPhone());
                     entityList.add(entity);
 
-                    LocationEntityController.insertLocationEntityList(mSession, entityList);
+                    PhoneEntityController.insertLocationEntityList(mSession, entityList);
 
                     return LocationEntityGenerator.generateModuleList(entityList);
                 }
@@ -131,134 +146,87 @@ public class DatabaseHelper {
     }
 
     public int countLocation() {
-        return LocationEntityController.countLocationEntity(mSession);
+        return PhoneEntityController.countLocationEntity(mSession);
     }
 
     // weather.
 
-    public void writeWeather(@NonNull Location location, @NonNull Weather weather) {
+    public void writeWeather(@NonNull Phone phone, @NonNull Device device) {
         mSession.callInTxNoException(() -> {
-            deleteWeather(location);
+            deleteWeather(phone);
 
-            WeatherEntityController.insertWeatherEntity(
+            DeviceEntityController.insertDeviceEntity(
                     mSession,
-                    WeatherEntityGenerator.generate(location, weather)
+                    DeviceEntityGenerator.generate(phone, device)
             );
-            DailyEntityController.insertDailyList(
-                    mSession,
-                    DailyEntityGenerator.generate(
-                            location.getCityId(),
-                            location.getWeatherSource(),
-                            weather.getDailyForecast()
-                    )
-            );
-            HourlyEntityController.insertHourlyList(
-                    mSession,
-                    HourlyEntityGenerator.generateEntityList(
-                            location.getCityId(),
-                            location.getWeatherSource(),
-                            weather.getHourlyForecast()
-                    )
-            );
-            MinutelyEntityController.insertMinutelyList(
-                    mSession,
-                    MinutelyEntityGenerator.generate(
-                            location.getCityId(),
-                            location.getWeatherSource(),
-                            weather.getMinutelyForecast()
-                    )
-            );
-            AlertEntityController.insertAlertList(
-                    mSession,
-                    AlertEntityGenerator.generate(
-                            location.getCityId(),
-                            location.getWeatherSource(),
-                            weather.getAlertList()
-                    )
-            );
-            HistoryEntityController.insertHistoryEntity(
-                    mSession,
-                    HistoryEntityGenerator.generate(
-                            location.getCityId(), location.getWeatherSource(), weather
-                    )
-            );
-            if (weather.getYesterday() != null) {
-                HistoryEntityController.insertHistoryEntity(
-                        mSession,
-                        HistoryEntityGenerator.generate(
-                                location.getCityId(), location.getWeatherSource(), weather.getYesterday()
-                        )
-                );
-            }
+//            DailyEntityController.insertDailyList(
+//                    mSession,
+//                    DailyEntityGenerator.generate(
+//                            phone.getBrand(),
+//                            phone.getWeatherSource(),
+//                            weather.getDailyForecast()
+//                    )
+//            );
+
+//            MinutelyEntityController.insertMinutelyList(
+//                    mSession,
+//                    MinutelyEntityGenerator.generate(
+//                            phone.getBrand(),
+//                            phone.getWeatherSource(),
+//                            weather.getMinutelyForecast()
+//                    )
+//            );
+//            AlertEntityController.insertAlertList(
+//                    mSession,
+//                    AlertEntityGenerator.generate(
+//                            phone.getBrand(),
+//                            phone.getWeatherSource(),
+//                            weather.getAlertList()
+//                    )
+//            );
+
+
             return true;
         });
     }
 
     @Nullable
-    public Weather readWeather(@NonNull Location location) {
-        WeatherEntity weatherEntity = WeatherEntityController.selectWeatherEntity(
-                mSession,location.getCityId(), location.getWeatherSource());
+    public Device readDevice(@NonNull Phone phone) {
+        DeviceEntity deviceEntity = DeviceEntityController.selectDeviceEntity(mSession);
 
-        if (weatherEntity == null) {
+        if (deviceEntity == null) {
             return null;
         }
 
-        HistoryEntity historyEntity = HistoryEntityController.selectYesterdayHistoryEntity(
-                mSession,location.getCityId(), location.getWeatherSource(),weatherEntity.publishDate);
 
-        return WeatherEntityGenerator.generate(weatherEntity, historyEntity);
+        return DeviceEntityGenerator.generate(deviceEntity);
     }
 
-    public void deleteWeather(@NonNull Location location) {
+    public void deleteWeather(@NonNull Phone phone) {
         mSession.callInTxNoException(() -> {
-            WeatherEntityController.deleteWeather(
+            DeviceEntityController.deleteWeather(
                     mSession,
-                    WeatherEntityController.selectWeatherEntityList(
-                            mSession,
-                            location.getCityId(),
-                            location.getWeatherSource()
+                    DeviceEntityController.selectDeviceEntityList(
+                            mSession
                     )
             );
-            HistoryEntityController.deleteLocationHistoryEntity(
-                    mSession,
-                    HistoryEntityController.selectHistoryEntityList(
-                            mSession,
-                            location.getCityId(),
-                            location.getWeatherSource()
-                    )
-            );
-            DailyEntityController.deleteDailyEntityList(
-                    mSession,
-                    DailyEntityController.selectDailyEntityList(
-                            mSession,
-                            location.getCityId(),
-                            location.getWeatherSource()
-                    )
-            );
-            HourlyEntityController.deleteHourlyEntityList(
-                    mSession,
-                    HourlyEntityController.selectHourlyEntityList(
-                            mSession,
-                            location.getCityId(),
-                            location.getWeatherSource()
-                    )
-            );
-            MinutelyEntityController.deleteMinutelyEntityList(
-                    mSession,
-                    MinutelyEntityController.selectMinutelyEntityList(
-                            mSession,
-                            location.getCityId(),
-                            location.getWeatherSource()
-                    )
-            );
-            AlertEntityController.deleteAlertList(
-                    mSession,
-                    AlertEntityController.selectLocationAlertEntity(
-                            mSession,
-                            location.getCityId(),
-                            location.getWeatherSource()
-                    )
-            );
+
+//            MinutelyEntityController.deleteMinutelyEntityList(
+//                    mSession,
+//                    MinutelyEntityController.selectMinutelyEntityList(
+//                            mSession,
+//                            phone.getCity(),
+//                            phone.getWeatherSource()
+//                    )
+//            );
+//            AlertEntityController.deleteAlertList(
+//                    mSession,
+//                    AlertEntityController.selectLocationAlertEntity(
+//                            mSession,
+//                            phone.getCity(),
+//                            phone.getWeatherSource()
+//                    )
+//            );
             return true;
         });
     }
@@ -266,14 +234,7 @@ public class DatabaseHelper {
     // history.
 
     public History readHistory(@NonNull Location location, @NonNull Weather weather) {
-        return HistoryEntityGenerator.generate(
-                HistoryEntityController.selectYesterdayHistoryEntity(
-                        mSession,
-                        location.getCityId(),
-                        location.getWeatherSource(),
-                        weather.getBase().getPublishDate()
-                )
-        );
+        return null;
     }
 
     // chinese city.

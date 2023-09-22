@@ -20,17 +20,17 @@ import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 
 import com.mmg.phonect.R;
-import com.mmg.phonect.background.polling.services.basic.AwakeForegroundUpdateService;
+//import com.mmg.phonect.background. .polling.services.basic.AwakeForegroundUpdateService;
 import com.mmg.phonect.common.basic.models.Location;
-import com.mmg.phonect.common.ui.activities.AlertActivity;
-import com.mmg.phonect.common.ui.activities.AllergenActivity;
-import com.mmg.phonect.daily.DailyWeatherActivity;
+//import com.mmg.phonect.common.ui.activities.AlertActivity;
+//import com.mmg.phonect.common.ui.activities.AllergenActivity;
+//import com.mmg.phonect.daily.DailyWeatherActivity;
 import com.mmg.phonect.main.MainActivity;
 //import com.mmg.phonect.search.SearchActivity;
 import com.mmg.phonect.settings.activities.AboutActivity;
 import com.mmg.phonect.settings.activities.CardDisplayManageActivity;
 import com.mmg.phonect.settings.activities.DailyTrendDisplayManageActivity;
-import com.mmg.phonect.settings.activities.HourlyTrendDisplayManageActivity;
+//import com.mmg.phonect.settings.activities.HourlyTrendDisplayManageActivity;
 import com.mmg.phonect.settings.activities.PreviewIconActivity;
 import com.mmg.phonect.settings.activities.SelectProviderActivity;
 import com.mmg.phonect.settings.activities.SettingsActivity;
@@ -101,28 +101,13 @@ public class IntentHelper {
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
-    public static void startDailyWeatherActivity(Activity activity,
-                                                 @Nullable String formattedId, int index) {
-        Intent intent = new Intent(activity, DailyWeatherActivity.class);
-        intent.putExtra(DailyWeatherActivity.KEY_FORMATTED_LOCATION_ID, formattedId);
-        intent.putExtra(DailyWeatherActivity.KEY_CURRENT_DAILY_INDEX, index);
-        activity.startActivity(intent);
-    }
-
-    public static void startAlertActivity(Activity activity, @Nullable String formattedId) {
-        Intent intent = new Intent(activity, AlertActivity.class);
-        intent.putExtra(AlertActivity.KEY_FORMATTED_ID, formattedId);
-        activity.startActivity(intent);
-    }
-
-    public static void startAllergenActivity(Activity activity, Location location) {
-        Intent intent = new Intent(activity, AllergenActivity.class);
-        intent.putExtra(
-                AllergenActivity.KEY_ALLERGEN_ACTIVITY_LOCATION_FORMATTED_ID,
-                location.getFormattedId()
-        );
-        activity.startActivity(intent);
-    }
+//    public static void startDailyWeatherActivity(Activity activity,
+//                                                 @Nullable String formattedId, int index) {
+//        Intent intent = new Intent(activity, DailyWeatherActivity.class);
+//        intent.putExtra(DailyWeatherActivity.KEY_FORMATTED_LOCATION_ID, formattedId);
+//        intent.putExtra(DailyWeatherActivity.KEY_CURRENT_DAILY_INDEX, index);
+//        activity.startActivity(intent);
+//    }
 
 
 
@@ -138,9 +123,9 @@ public class IntentHelper {
         activity.startActivity(new Intent(activity, DailyTrendDisplayManageActivity.class));
     }
 
-    public static void startHourlyTrendDisplayManageActivityForResult(Activity activity) {
-        activity.startActivity(new Intent(activity, HourlyTrendDisplayManageActivity.class));
-    }
+//    public static void startHourlyTrendDisplayManageActivityForResult(Activity activity) {
+//        activity.startActivity(new Intent(activity, HourlyTrendDisplayManageActivity.class));
+//    }
 
     public static void startSelectProviderActivity(Activity activity) {
         activity.startActivity(new Intent(activity, SelectProviderActivity.class));
@@ -244,13 +229,13 @@ public class IntentHelper {
         }
     }
 
-    public static void startAwakeForegroundUpdateService(Context context) {
-        ContextCompat.startForegroundService(context, getAwakeForegroundUpdateServiceIntent(context));
-    }
+//    public static void startAwakeForegroundUpdateService(Context context) {
+//        ContextCompat.startForegroundService(context, getAwakeForegroundUpdateServiceIntent(context));
+//    }
 
-    public static Intent getAwakeForegroundUpdateServiceIntent(Context context) {
-        return new Intent(context, AwakeForegroundUpdateService.class);
-    }
+//    public static Intent getAwakeForegroundUpdateServiceIntent(Context context) {
+//        return new Intent(context, AwakeForegroundUpdateService.class);
+//    }
 
     @SuppressLint("WrongConstant")
     private static boolean isIntentAvailable(Context context, Intent intent) {

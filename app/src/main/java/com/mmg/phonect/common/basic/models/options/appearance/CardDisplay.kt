@@ -11,12 +11,12 @@ enum class CardDisplay(
     @StringRes private val nameId: Int
 ): BaseEnum {
 
-    CARD_DAILY_OVERVIEW("daily_overview", R.string.daily_overview),
-    CARD_HOURLY_OVERVIEW("hourly_overview", R.string.hourly_overview),
-    CARD_AIR_QUALITY("air_quality", R.string.air_quality),
-    CARD_ALLERGEN("allergen", R.string.allergen),
-    CARD_SUNRISE_SUNSET("sunrise_sunset", R.string.sunrise_sunset),
-    CARD_LIFE_DETAILS("life_details", R.string.life_details),
+//    CARD_DAILY_OVERVIEW("daily_overview", R.string.daily_overview),
+//    CARD_HOURLY_OVERVIEW("hourly_overview", R.string.hourly_overview),
+//    CARD_AIR_QUALITY("air_quality", R.string.air_quality),
+//    CARD_ALLERGEN("allergen", R.string.allergen),
+//    CARD_SUNRISE_SUNSET("sunrise_sunset", R.string.sunrise_sunset),
+//    CARD_LIFE_DETAILS("life_details", R.string.life_details),
     CARD_DEVICE_INFO("device_info", R.string.device_info),
     CARD_APP_LIST("app_list", R.string.app_list);
 
@@ -32,14 +32,14 @@ enum class CardDisplay(
             val list = ArrayList<CardDisplay>()
             for (card in cards) {
                 when (card) {
-                    "daily_overview" -> list.add(CARD_DAILY_OVERVIEW)
-                    "hourly_overview" -> list.add(CARD_HOURLY_OVERVIEW)
-                    "air_quality" -> list.add(CARD_AIR_QUALITY)
-                    "allergen" -> list.add(CARD_ALLERGEN)
-                    "life_details" -> list.add(CARD_LIFE_DETAILS)
+//                    "daily_overview" -> list.add(CARD_DAILY_OVERVIEW)
+//                    "hourly_overview" -> list.add(CARD_HOURLY_OVERVIEW)
+//                    "air_quality" -> list.add(CARD_AIR_QUALITY)
+//                    "allergen" -> list.add(CARD_ALLERGEN)
+//                    "life_details" -> list.add(CARD_LIFE_DETAILS)
                     "device_info" -> list.add(CARD_DEVICE_INFO)
                     "app_list" -> list.add(CARD_APP_LIST)
-                    "sunrise_sunset" -> list.add(CARD_SUNRISE_SUNSET)
+//                    "sunrise_sunset" -> list.add(CARD_SUNRISE_SUNSET)
                 }
             }
 

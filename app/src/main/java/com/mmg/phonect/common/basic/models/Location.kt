@@ -8,7 +8,6 @@ import com.mmg.phonect.R
 import com.mmg.phonect.common.basic.models.options.provider.WeatherSource
 import com.mmg.phonect.common.basic.models.weather.Weather
 import com.mmg.phonect.common.utils.DisplayUtils
-import com.mmg.phonect.common.utils.LanguageUtils
 import java.util.*
 import kotlin.math.abs
 

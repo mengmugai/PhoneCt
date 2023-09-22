@@ -18,7 +18,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import com.mmg.phonect.R;
-import com.mmg.phonect.common.basic.models.Location;
+//import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.common.utils.helpers.IntentHelper;
 import com.mmg.phonect.theme.ThemeManager;
 import com.mmg.phonect.theme.resource.providers.ResourceProvider;
@@ -41,9 +42,9 @@ public class FooterViewHolder extends AbstractMainViewHolder {
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindView(Context context, @NonNull Location location, @NonNull ResourceProvider provider,
+    public void onBindView(Context context, @NonNull Phone phone, @NonNull ResourceProvider provider,
                            boolean listAnimationEnabled, boolean itemAnimationEnabled) {
-        super.onBindView(context, location, provider, listAnimationEnabled, itemAnimationEnabled);
+        super.onBindView(context, phone, provider, listAnimationEnabled, itemAnimationEnabled);
 
         float cardMarginsVertical = ThemeManager
                 .getInstance(context)

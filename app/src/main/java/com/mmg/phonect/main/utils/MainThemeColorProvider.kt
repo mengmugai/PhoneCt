@@ -9,6 +9,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.mmg.phonect.R
 import com.mmg.phonect.common.basic.models.Location
+import com.mmg.phonect.common.basic.models.Phone
 import com.mmg.phonect.common.basic.models.options.DarkMode
 import com.mmg.phonect.common.basic.models.weather.Weather
 import com.mmg.phonect.common.utils.DisplayUtils
@@ -100,10 +101,10 @@ class MainThemeColorProvider(
         @JvmStatic
         fun isLightTheme(
             context: Context,
-            location: Location,
+            phone: Phone,
         ) = isLightTheme(
             context = context,
-            daylight = location.isDaylight
+            daylight = phone.isDaylight
         )
 
         @JvmStatic
@@ -138,9 +139,9 @@ class MainThemeColorProvider(
 
         @JvmStatic
         fun getContext(
-            location: Location
+            phone: Phone
         ) = getContext(
-            lightTheme = isLightTheme(instance!!.host, location)
+            lightTheme = isLightTheme(instance!!.host, phone)
         )
 
         @JvmStatic
@@ -168,11 +169,11 @@ class MainThemeColorProvider(
 
         @JvmStatic
         fun getColor(
-            location: Location,
+            phone: Phone,
             @AttrRes id: Int,
         ) = getColor(
             id = id,
-            lightTheme = isLightTheme(instance!!.host, location)
+            lightTheme = isLightTheme(instance!!.host, phone)
         )
     }
 

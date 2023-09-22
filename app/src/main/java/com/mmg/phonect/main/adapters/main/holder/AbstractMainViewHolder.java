@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import com.mmg.phonect.common.basic.models.Location;
+//import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.common.utils.helpers.AsyncHelper;
 import com.mmg.phonect.main.utils.MainModuleUtils;
 import com.mmg.phonect.theme.resource.providers.ResourceProvider;
@@ -32,7 +33,7 @@ public abstract class AbstractMainViewHolder extends RecyclerView.ViewHolder {
     }
 
     @CallSuper
-    public void onBindView(Context context, @NonNull Location location,
+    public void onBindView(Context context, @NonNull Phone phone,
                            @NonNull ResourceProvider provider,
                            boolean listAnimationEnabled, boolean itemAnimationEnabled) {
         this.context = context;

@@ -4,35 +4,12 @@ import static com.mmg.phonect.device.info.AppListInfo.getAppListInfo;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mmg.phonect.R;
-import com.mmg.phonect.common.basic.GeoActivity;
-import com.mmg.phonect.common.basic.models.Location;
-import com.mmg.phonect.common.basic.models.options.unit.CloudCoverUnit;
-import com.mmg.phonect.common.basic.models.options.unit.SpeedUnit;
-import com.mmg.phonect.common.basic.models.weather.Hourly;
-import com.mmg.phonect.common.basic.models.weather.Weather;
-import com.mmg.phonect.common.basic.models.weather.Wind;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.common.basic.models.weather.XposedModule;
-import com.mmg.phonect.common.ui.images.RotateDrawable;
-import com.mmg.phonect.common.ui.widgets.trend.TrendRecyclerView;
-import com.mmg.phonect.common.ui.widgets.trend.chart.PolylineAndHistogramView;
-import com.mmg.phonect.main.adapters.AppListAdapter;
-import com.mmg.phonect.main.adapters.DeviceAdapter;
-import com.mmg.phonect.main.utils.MainThemeColorProvider;
-import com.mmg.phonect.settings.SettingsManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -101,8 +78,8 @@ public class AppListXposedAdapter extends AbsAppListTrendAdapter {
 //    }
 
     @SuppressLint("SimpleDateFormat")
-    public AppListXposedAdapter(Context context,RecyclerView parent, Location location) {
-        super(context, location);
+    public AppListXposedAdapter(Context context,RecyclerView parent, Phone phone) {
+        super(context, phone);
         Log.d("TAG", "AppListXposedAdapter: ");
 
 //        SettingsManager settings = SettingsManager.getInstance(activity);

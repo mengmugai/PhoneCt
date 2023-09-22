@@ -4,58 +4,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.db.entities.LocationEntity;
+import com.mmg.phonect.db.entities.PhoneEntity;
 import com.mmg.phonect.db.generators.GeneratorUtils;
 
 public class LocationEntityGenerator {
 
-    public static LocationEntity generate(Location location) {
-        LocationEntity entity = new LocationEntity();
-        entity.formattedId = location.getFormattedId();
-        entity.cityId = location.getCityId();
-        entity.latitude = location.getLatitude();
-        entity.longitude = location.getLongitude();
-        entity.timeZone = location.getTimeZone();
-        entity.country = location.getCountry();
-        entity.province = location.getProvince();
-        entity.city = location.getCity();
-        entity.district = location.getDistrict();
-        entity.weatherSource = location.getWeatherSource();
-        entity.currentPosition = location.isCurrentPosition();
-        entity.residentPosition = location.isResidentPosition();
-        entity.china = location.isChina();
+    public static PhoneEntity generate(Phone phone) {
+        PhoneEntity entity = new PhoneEntity();
+        entity.timeZone = phone.getTimeZone();
+        entity.country = phone.getBrand();
+        entity.country = phone.getModel();
+        entity.country = phone.getCountry();
+        entity.province = phone.getProvince();
+        entity.city = phone.getCity();
+        entity.district = phone.getDistrict();
+        entity.weatherSource = phone.getWeatherSource();
         return entity;
     }
 
-    public static List<LocationEntity> generateEntityList(List<Location> locationList) {
-        List<LocationEntity> entityList = new ArrayList<>(locationList.size());
+    public static List<PhoneEntity> generateEntityList(List<Phone> locationList) {
+        List<PhoneEntity> entityList = new ArrayList<>(locationList.size());
         for (int i = 0; i < locationList.size(); i ++) {
             entityList.add(generate(locationList.get(i)));
         }
         return entityList;
     }
 
-    public static Location generate(LocationEntity entity) {
-        return new Location(
-                GeneratorUtils.nonNull(entity.cityId),
-                entity.latitude,
-                entity.longitude,
+    public static Phone generate(PhoneEntity entity) {
+        return new Phone(
                 entity.timeZone,
+                GeneratorUtils.nonNull(entity.brand),
+                GeneratorUtils.nonNull(entity.model),
                 GeneratorUtils.nonNull(entity.country),
                 GeneratorUtils.nonNull(entity.province),
                 GeneratorUtils.nonNull(entity.city),
                 GeneratorUtils.nonNull(entity.district),
                 null,
-                entity.weatherSource,
-                entity.currentPosition,
-                entity.residentPosition,
-                entity.china
+                entity.weatherSource
         );
     }
 
-    public static List<Location> generateModuleList(List<LocationEntity> entityList) {
-        List<Location> locationList = new ArrayList<>(entityList.size());
-        for (LocationEntity entity : entityList) {
+    public static List<Phone> generateModuleList(List<PhoneEntity> entityList) {
+        List<Phone> locationList = new ArrayList<>(entityList.size());
+        for (PhoneEntity entity : entityList) {
             locationList.add(generate(entity));
         }
         return locationList;

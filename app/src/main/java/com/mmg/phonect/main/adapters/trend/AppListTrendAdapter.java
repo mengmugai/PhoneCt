@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mmg.phonect.common.basic.GeoActivity;
 import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.common.basic.models.options.unit.PrecipitationUnit;
 import com.mmg.phonect.common.basic.models.options.unit.SpeedUnit;
 import com.mmg.phonect.common.basic.models.options.unit.TemperatureUnit;
@@ -27,14 +28,14 @@ public class AppListTrendAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         mAdapter = null;
     }
 
-    public void xposedModule(Context context, RecyclerView parent, Location location,
+    public void xposedModule(Context context, RecyclerView parent, Phone phone,
                             ResourceProvider provider, TemperatureUnit unit) {
-        mAdapter = new AppListXposedAdapter(context, parent, location);
+        mAdapter = new AppListXposedAdapter(context, parent, phone);
     }
 
-    public void hookFramework(Context context, RecyclerView parent, Location location,
+    public void hookFramework(Context context, RecyclerView parent, Phone phone,
                               ResourceProvider provider, PrecipitationUnit unit) {
-        mAdapter = new AppListHookFrameworkAdapter(context,parent, location);
+        mAdapter = new AppListHookFrameworkAdapter(context,parent, phone);
     }
 
 

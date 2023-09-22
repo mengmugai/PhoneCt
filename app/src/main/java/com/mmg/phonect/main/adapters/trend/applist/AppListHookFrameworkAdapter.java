@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mmg.phonect.R;
 import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.common.basic.models.weather.XposedModule;
 
 import java.util.List;
@@ -22,8 +23,8 @@ public class AppListHookFrameworkAdapter extends AbsAppListTrendAdapter {
 
 
     @SuppressLint("SimpleDateFormat")
-    public AppListHookFrameworkAdapter(Context context, RecyclerView parent, Location location) {
-        super(context, location);
+    public AppListHookFrameworkAdapter(Context context, RecyclerView parent, Phone phone) {
+        super(context, phone);
         Log.d("TAG", "AppListXposedAdapter: ");
 
 //        SettingsManager settings = SettingsManager.getInstance(activity);
@@ -55,7 +56,7 @@ public class AppListHookFrameworkAdapter extends AbsAppListTrendAdapter {
 
         //======================================
 
-//        Weather weather = location.getWeather();
+//        Weather weather = phone.getWeather();
 //        assert weather != null;
 ////        mSpeedUnit = unit;
 //

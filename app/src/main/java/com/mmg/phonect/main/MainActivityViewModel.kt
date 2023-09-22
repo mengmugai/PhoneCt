@@ -14,6 +14,7 @@ import com.mmg.phonect.common.basic.GeoViewModel
 import com.mmg.phonect.common.basic.livedata.BusLiveData
 import com.mmg.phonect.common.basic.livedata.EqualtableLiveData
 import com.mmg.phonect.common.basic.models.Location
+import com.mmg.phonect.common.basic.models.Phone
 import com.mmg.phonect.main.utils.StatementManager
 import com.mmg.phonect.settings.SettingsManager
 import javax.inject.Inject
@@ -30,7 +31,7 @@ class MainActivityViewModel @Inject constructor(
 
     // live data.
 
-    val currentLocation = EqualtableLiveData<DayNightLocation>()
+    val currentPhone = EqualtableLiveData<DayNightPhone>()
     val validLocationList = MutableLiveData<SelectableLocationList>()
     val totalLocationList = MutableLiveData<SelectableLocationList>()
 
@@ -57,34 +58,33 @@ class MainActivityViewModel @Inject constructor(
     }
 
     @JvmOverloads
-    fun init(formattedId: String? = null) {
+    fun init() {
         onCleared()
 
-        var id = formattedId ?: savedStateHandle[KEY_FORMATTED_ID]
 
         // 初始化实时数据。
-        val totalList = repository.initLocations(
-            context = getApplication(),
-            formattedId = id ?: ""
+        val current = repository.initPhone(
+            context = getApplication()
         )
-        val validList = Location.excludeInvalidResidentLocation(getApplication(), totalList)
 
-        id = formattedId ?: validList[0].formattedId
-        val current = validList.first { item -> item.formattedId == id }
+//        val validList = Location.excludeInvalidResidentLocation(getApplication(), totalList)
+//
+//        id = formattedId ?: validList[0].formattedId
+//        val current = validList.first { item -> item.formattedId == id }
 
         initCompleted = false
 
-        currentLocation.setValue(DayNightLocation(location = current))
-        validLocationList.value = SelectableLocationList(locationList = validList, selectedId = id)
-        totalLocationList.value = SelectableLocationList(locationList = totalList, selectedId = id)
+        currentPhone.setValue(DayNightPhone(phone = current))
+//        validLocationList.value = SelectableLocationList(locationList = validList, selectedId = id)
+//        totalLocationList.value = SelectableLocationList(locationList = totalList, selectedId = id)
 
         loading.setValue(false)
-        indicator.setValue(
-            Indicator(
-                total = validList.size,
-                index = validList.indexOfFirst { it.formattedId == id }
-            )
-        )
+//        indicator.setValue(
+//            Indicator(
+//                total = validList.size,
+//                index = validList.indexOfFirst { it.formattedId == id }
+//            )
+//        )
 
         permissionsRequest.value = null
         mainMessage.setValue(null)
@@ -92,8 +92,7 @@ class MainActivityViewModel @Inject constructor(
         // read weather caches.
         repository.getWeatherCacheForLocations(
             context = getApplication(),
-            oldList = totalList,
-            ignoredFormattedId = id,
+            phone = current,
         ) { newList, _ ->
             initCompleted = true
             newList?.let { updateInnerData(it) }
@@ -102,68 +101,42 @@ class MainActivityViewModel @Inject constructor(
 
     // 更新内部数据。
 
-    private fun updateInnerData(location: Location) {
-        val total = ArrayList(
-            totalLocationList.value?.locationList ?: emptyList()
-        )
-        for (i in total.indices) {
-            if (total[i].formattedId == location.formattedId) {
-                total[i] = location
-                break
-            }
-        }
+    private fun updateInnerData(phone: Phone) {
 
-        updateInnerData(total)
-    }
 
-    private fun updateInnerData(total: List<Location>) {
-        // 获取有效位置和当前索引。
-        val valid = Location.excludeInvalidResidentLocation(
-            getApplication(),
-            total,
-        )
 
-        var index = 0
-        for (i in valid.indices) {
-            if (valid[i].formattedId == currentLocation.value?.location?.formattedId) {
-                index = i
-                break
-            }
-        }
+//        indicator.setValue(Indicator(total = valid.size, index = index))
 
-        indicator.setValue(Indicator(total = valid.size, index = index))
-
-        // update current location.
-        setCurrentLocation(valid[index])
+        // 更新当前手机  貌似没用  以后删除
+        setCurrentLocation(phone)
 
         // check difference in valid locations.
-        val diffInValidLocations = validLocationList.value?.locationList != valid
-        if (
-            diffInValidLocations
-            || validLocationList.value?.selectedId != valid[index].formattedId
-        ) {
-            validLocationList.value = SelectableLocationList(
-                locationList = valid,
-                selectedId = valid[index].formattedId,
-            )
-        }
+//        val diffInValidLocations = validLocationList.value?.locationList != valid
+//        if (
+//            diffInValidLocations
+//            || validLocationList.value?.selectedId != valid[index].formattedId
+//        ) {
+//            validLocationList.value = SelectableLocationList(
+//                locationList = valid,
+//                selectedId = valid[index].formattedId,
+//            )
+//        }
 
         // update total locations.
-        totalLocationList.value = SelectableLocationList(
-            locationList = total,
-            selectedId = valid[index].formattedId,
-        )
+//        totalLocationList.value = SelectableLocationList(
+//            locationList = total,
+//            selectedId = valid[index].formattedId,
+//        )
     }
 
-    private fun setCurrentLocation(location: Location) {
-        currentLocation.setValue(DayNightLocation(location = location))
-        savedStateHandle[KEY_FORMATTED_ID] = location.formattedId
+    private fun setCurrentLocation(phone: Phone) {
+        currentPhone.setValue(DayNightPhone(phone = phone))
 
         checkToUpdateCurrentLocation()
     }
 
     private fun onUpdateResult(
-        location: Location,
+        phone: Phone,
         locationResult: Boolean,
         weatherUpdateResult: Boolean,
     ) {
@@ -173,7 +146,7 @@ class MainActivityViewModel @Inject constructor(
             mainMessage.setValue(MainMessage.LOCATION_FAILED)
         }
 
-        updateInnerData(location)
+        updateInnerData(phone)
 
         loading.setValue(false)
         updating = false
@@ -182,10 +155,7 @@ class MainActivityViewModel @Inject constructor(
     private fun checkToUpdateCurrentLocation() {
         // is not loading
         if (!updating) {
-            // if already valid, just return.
-            if (currentLocationIsValid()) {
-                return
-            }
+
 
             // if is not valid, we need:
             // update if init completed.
@@ -205,9 +175,6 @@ class MainActivityViewModel @Inject constructor(
         // is loading, do nothing.
     }
 
-    private fun currentLocationIsValid() = currentLocation.value?.location?.weather?.isValid(
-        SettingsManager.getInstance(getApplication()).updateInterval.intervalInHour
-    ) ?: false
 
     // update.
 
@@ -216,23 +183,23 @@ class MainActivityViewModel @Inject constructor(
         checkPermissions: Boolean,
     ) {
         if (updating) {
+            Log.d("mmg", "updateWithUpdatingChecking: 啊啊啊啊啊啊啊啊")
             return
         }
-
+        Log.d("mmg", "updateWithUpdatingChecking: 2啊啊啊啊啊啊啊啊")
         loading.setValue(true)
 
         // don't need to request any permission -> request data directly.
         // 直接从数据库取出地址
         if (
             Build.VERSION.SDK_INT < Build.VERSION_CODES.M
-            || currentLocation.value?.location?.isCurrentPosition == false
             || !checkPermissions
         ) {
             updating = true
             repository.getWeather(
                 getApplication(),
-                currentLocation.value!!.location,
-                currentLocation.value!!.location.isCurrentPosition,
+                currentPhone.value!!.phone,
+                true,
                 this
             )
             return
@@ -245,7 +212,7 @@ class MainActivityViewModel @Inject constructor(
             updating = true
             repository.getWeather(
                 getApplication(),
-                currentLocation.value!!.location,
+                currentPhone.value!!.phone,
                 true,
                 this
             )
@@ -256,7 +223,7 @@ class MainActivityViewModel @Inject constructor(
         updating = false
         permissionsRequest.value = PermissionsRequest(
             permissionList,
-            currentLocation.value!!.location,
+            currentPhone.value!!.phone,
             triggeredByUser
         )
     }
@@ -291,184 +258,169 @@ class MainActivityViewModel @Inject constructor(
         checkToUpdateCurrentLocation()
     }
 
-    fun updateLocationFromBackground(location: Location) {
+    fun updateLocationFromBackground(phone: Phone) {
         if (!initCompleted) {
             return
         }
-
-        if (currentLocation.value?.location?.formattedId == location.formattedId) {
-            cancelRequest()
-        }
-        updateInnerData(location)
+//
+//        if (currentPhone.value?.phone?.formattedId == location.formattedId) {
+//            cancelRequest()
+//        }
+        updateInnerData(phone)
     }
 
     // set location.
 
-    fun setLocation(index: Int) {
-        validLocationList.value?.locationList?.let {
-            setLocation(it[index].formattedId)
-        }
-    }
+//    fun setLocation(index: Int) {
+//        validLocationList.value?.locationList?.let {
+//            setLocation(it[index].formattedId)
+//        }
+//    }
 
-    fun setLocation(formattedId: String) {
-        cancelRequest()
-
-        validLocationList.value?.locationList?.let {
-            for (i in it.indices) {
-                if (it[i].formattedId != formattedId) {
-                    continue
-                }
-
-                setCurrentLocation(it[i])
-
-                indicator.setValue(Indicator(total = it.size, index = i))
-
-                totalLocationList.value = SelectableLocationList(
-                    locationList = totalLocationList.value?.locationList ?: emptyList(),
-                    selectedId = formattedId,
-                )
-                validLocationList.value = SelectableLocationList(
-                    locationList = validLocationList.value?.locationList ?: emptyList(),
-                    selectedId = formattedId,
-                )
-                break
-            }
-        }
-    }
+//    fun setLocation(formattedId: String) {
+//        cancelRequest()
+//
+//        validLocationList.value?.locationList?.let {
+//            for (i in it.indices) {
+//                if (it[i].formattedId != formattedId) {
+//                    continue
+//                }
+//
+//                setCurrentLocation(it[i])
+//
+//                indicator.setValue(Indicator(total = it.size, index = i))
+//
+//                totalLocationList.value = SelectableLocationList(
+//                    locationList = totalLocationList.value?.locationList ?: emptyList(),
+//                    selectedId = formattedId,
+//                )
+//                validLocationList.value = SelectableLocationList(
+//                    locationList = validLocationList.value?.locationList ?: emptyList(),
+//                    selectedId = formattedId,
+//                )
+//                break
+//            }
+//        }
+//    }
 
     // return true if current location changed.
-    fun offsetLocation(offset: Int): Boolean {
-        cancelRequest()
-
-        val oldFormattedId = currentLocation.value?.location?.formattedId ?: ""
-
-        // ensure current index.
-        var index = 0
-        validLocationList.value?.locationList?.let {
-            for (i in it.indices) {
-                if (it[i].formattedId == currentLocation.value?.location?.formattedId) {
-                    index = i
-                    break
-                }
-            }
-        }
-
-        // update index.
-        index = (
-                index + offset + (validLocationList.value?.locationList?.size ?: 0)
-        ) % (
-                validLocationList.value?.locationList?.size ?: 1
-        )
-
-        // update location.
-        setCurrentLocation(validLocationList.value!!.locationList[index])
-
-        indicator.setValue(
-            Indicator(total = validLocationList.value!!.locationList.size, index = index)
-        )
-
-        totalLocationList.value = SelectableLocationList(
-            locationList = totalLocationList.value?.locationList ?: emptyList(),
-            selectedId = currentLocation.value?.location?.formattedId ?: "",
-        )
-        validLocationList.value = SelectableLocationList(
-            locationList = validLocationList.value?.locationList ?: emptyList(),
-            selectedId = currentLocation.value?.location?.formattedId ?: "",
-        )
-
-        return currentLocation.value?.location?.formattedId != oldFormattedId
-    }
+//    fun offsetLocation(offset: Int): Boolean {
+//        cancelRequest()
+//
+//        val oldFormattedId = currentPhone.value?.phone?.formattedId ?: ""
+//
+//        // ensure current index.
+//        var index = 0
+//        validLocationList.value?.locationList?.let {
+//            for (i in it.indices) {
+//                if (it[i].formattedId == currentPhone.value?.phone?.formattedId) {
+//                    index = i
+//                    break
+//                }
+//            }
+//        }
+//
+//        // update index.
+//        index = (
+//                index + offset + (validLocationList.value?.locationList?.size ?: 0)
+//        ) % (
+//                validLocationList.value?.locationList?.size ?: 1
+//        )
+//
+//        // update location.
+//        setCurrentLocation(validLocationList.value!!.locationList[index])
+//
+//        indicator.setValue(
+//            Indicator(total = validLocationList.value!!.locationList.size, index = index)
+//        )
+//
+//        totalLocationList.value = SelectableLocationList(
+//            locationList = totalLocationList.value?.locationList ?: emptyList(),
+//            selectedId = currentPhone.value?.phone?.formattedId ?: "",
+//        )
+//        validLocationList.value = SelectableLocationList(
+//            locationList = validLocationList.value?.locationList ?: emptyList(),
+//            selectedId = currentPhone.value?.phone?.formattedId ?: "",
+//        )
+//
+//        return currentPhone.value?.phone?.formattedId != oldFormattedId
+//    }
 
     // list.
 
     // return false if failed.
-    fun addLocation(
-        location: Location,
-        index: Int? = null,
-    ): Boolean {
-        // do not add an existed location.
-        if (totalLocationList.value!!.locationList.firstOrNull {
-                it.formattedId == location.formattedId
-        } != null) {
-            return false
-        }
+//    fun addLocation(
+//        location: Location,
+//        index: Int? = null,
+//    ): Boolean {
+//        // do not add an existed location.
+//        if (totalLocationList.value!!.locationList.firstOrNull {
+//                it.formattedId == location.formattedId
+//        } != null) {
+//            return false
+//        }
+//
+//        val total = ArrayList(totalLocationList.value?.locationList ?: emptyList())
+//        total.add(index ?: total.size, location)
+//
+//        updateInnerData(total)
+//        repository.writeLocationList(context = getApplication(), locationList = total)
+//
+//        return true
+//    }
 
-        val total = ArrayList(totalLocationList.value?.locationList ?: emptyList())
-        total.add(index ?: total.size, location)
+//    fun moveLocation(from: Int, to: Int) {
+//        if (from == to) {
+//            return
+//        }
+//
+//        val total = ArrayList(totalLocationList.value?.locationList ?: emptyList())
+//        total.add(to, total.removeAt(from))
+//
+//        updateInnerData(total)
+//
+//        repository.writeLocationList(
+//            context = getApplication(),
+//            locationList = totalLocationList.value?.locationList ?: emptyList()
+//        )
+//    }
 
-        updateInnerData(total)
-        repository.writeLocationList(context = getApplication(), locationList = total)
+//    fun updateLocation(phone: Phone) {
+//        updateInnerData(phone)
+//        repository.writeLocationList(
+//            context = getApplication(),
+//            locationList = totalLocationList.value?.locationList ?: emptyList(),
+//        )
+//    }
 
-        return true
-    }
-
-    fun moveLocation(from: Int, to: Int) {
-        if (from == to) {
-            return
-        }
-
-        val total = ArrayList(totalLocationList.value?.locationList ?: emptyList())
-        total.add(to, total.removeAt(from))
-
-        updateInnerData(total)
-
-        repository.writeLocationList(
-            context = getApplication(),
-            locationList = totalLocationList.value?.locationList ?: emptyList()
-        )
-    }
-
-    fun updateLocation(location: Location) {
-        updateInnerData(location)
-        repository.writeLocationList(
-            context = getApplication(),
-            locationList = totalLocationList.value?.locationList ?: emptyList(),
-        )
-    }
-
-    fun deleteLocation(position: Int): Location {
-        val total = ArrayList(totalLocationList.value?.locationList ?: emptyList())
-        val location = total.removeAt(position)
-
-        updateInnerData(total)
-        repository.deleteLocation(context = getApplication(), location = location)
-
-        return location
-    }
+//    fun deleteLocation(position: Int): Phone {
+//        val total = ArrayList(totalLocationList.value?.locationList ?: emptyList())
+//        val phone = total.removeAt(position)
+//
+//        updateInnerData(total)
+//        repository.deleteLocation(context = getApplication(), phone = currentPhone.value!!.phone)
+//
+//        return phone
+//    }
 
     // MARK: - getter.
 
-    fun getValidLocation(offset: Int): Location {
+    fun getValidLocation(): Phone {
         // ensure current index.
-        var index = 0
-        validLocationList.value?.locationList?.let {
-            for (i in it.indices) {
-                if (it[i].formattedId == currentLocation.value?.location?.formattedId) {
-                    index = i
-                    break
-                }
-            }
-        }
 
-        // update index.
-        index = (
-                index + offset + (validLocationList.value?.locationList?.size ?: 0)
-        ) % (
-                validLocationList.value?.locationList?.size ?: 1
-        )
 
-        return validLocationList.value!!.locationList[index]
+        return currentPhone.value!!.phone
     }
 
     // impl.
 
     override fun onCompleted(
-        location: Location,
+        phone: Phone,
         locationFailed: Boolean?,
         weatherRequestFailed: Boolean
     ) {
         onUpdateResult(
-            location = location,
+            phone = phone,
             locationResult = locationFailed != true,
             weatherUpdateResult = !weatherRequestFailed
         )

@@ -21,7 +21,7 @@
         android:textAlignment="viewStart"
         android:textFontWeight="200"
         style="@style/large_title_text"
-        tools:text="30°"
+        tools:text="30"
         tools:ignore="RelativeOverlap,RtlHardcoded" />
 
     <TextView

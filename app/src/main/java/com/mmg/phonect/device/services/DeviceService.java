@@ -10,6 +10,8 @@ import androidx.annotation.WorkerThread;
 import java.util.List;
 
 import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
+import com.mmg.phonect.common.basic.models.weather.Device;
 import com.mmg.phonect.common.basic.models.weather.Weather;
 import com.mmg.phonect.common.utils.LanguageUtils;
 
@@ -20,31 +22,31 @@ import com.mmg.phonect.common.utils.LanguageUtils;
 public abstract class DeviceService {
 
     public static class WeatherResultWrapper {
-        final Weather result;
+        final Device result;
 
-        public WeatherResultWrapper(@Nullable Weather weather) {
-            result = weather;
+        public WeatherResultWrapper(@Nullable Device device) {
+            result = device;
         }
     }
 
     public interface RequestWeatherCallback {
-        void requestWeatherSuccess(@NonNull Location requestLocation);
-        void requestWeatherFailed(@NonNull Location requestLocation);
+        void requestWeatherSuccess(@NonNull Phone requestLocation);
+//        void requestWeatherFailed(@NonNull Phone requestLocation);
     }
 
     public interface RequestLocationCallback {
-        void requestLocationSuccess(String query, List<Location> locationList);
+        void requestLocationSuccess(String query, List<Phone> locationList);
         void requestLocationFailed(String query);
     }
 
-    public abstract void requestWeather(Context context, Location location,
+    public abstract void requestWeather(Context context, Phone phone,
                                         @NonNull RequestWeatherCallback callback);
 
     @WorkerThread
     @NonNull
-    public abstract List<Location> requestLocation(Context context, String query);
+    public abstract List<Phone> requestLocation(Context context, String query);
 
-    public abstract void requestLocation(Context context, Location location,
+    public abstract void requestLocation(Context context, Phone phone,
                                          @NonNull RequestLocationCallback callback);
 
     public abstract void cancel();

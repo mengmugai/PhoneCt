@@ -13,21 +13,15 @@ import androidx.core.widget.ImageViewCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mmg.phonect.R
-import com.mmg.phonect.common.basic.GeoActivity
 import com.mmg.phonect.common.basic.models.Location
-import com.mmg.phonect.common.basic.models.Location.Companion.buildLocal
-import com.mmg.phonect.common.ui.decotarions.Material3ListItemDecoration
 import com.mmg.phonect.common.utils.DisplayUtils
-import com.mmg.phonect.common.utils.helpers.SnackbarHelper
 import com.mmg.phonect.databinding.FragmentManagementBinding
 import com.mmg.phonect.main.MainActivityViewModel
 import com.mmg.phonect.main.adapters.LocationAdapterAnimWrapper
 import com.mmg.phonect.main.adapters.location.LocationAdapter
 import com.mmg.phonect.main.utils.MainThemeColorProvider
-import com.mmg.phonect.main.widgets.LocationItemTouchCallback
-import com.mmg.phonect.main.widgets.LocationItemTouchCallback.TouchReactor
+//import com.mmg.phonect.main.widgets.LocationItemTouchCallback.TouchReactor
 import kotlin.math.max
 import kotlin.math.min
 
@@ -50,7 +44,7 @@ class PushedManagementFragment: ManagementFragment() {
     }
 }
 
-open class ManagementFragment : MainModuleFragment(), TouchReactor {
+open class ManagementFragment : MainModuleFragment() {
 
     private lateinit var binding: FragmentManagementBinding
     protected lateinit var viewModel: MainActivityViewModel
@@ -82,9 +76,9 @@ open class ManagementFragment : MainModuleFragment(), TouchReactor {
     }
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
-        if (enter && nextAnim != 0 && adapterAnimWrapper != null) {
-            adapterAnimWrapper!!.setLastPosition(-1)
-        }
+//        if (enter && nextAnim != 0 && adapterAnimWrapper != null) {
+//            adapterAnimWrapper!!.setLastPosition(-1)
+//        }
         return super.onCreateAnimation(transit, enter, nextAnim)
     }
 
@@ -117,59 +111,59 @@ open class ManagementFragment : MainModuleFragment(), TouchReactor {
 //        }
 
 
-        binding.currentLocationButton.setOnClickListener {
-            viewModel.addLocation(buildLocal(), null)
-            SnackbarHelper.showSnackbar(getString(R.string.feedback_collect_succeed))
-        }
+//        binding.currentLocationButton.setOnClickListener {
+//            viewModel.addLocation(buildLocal(), null)
+//            SnackbarHelper.showSnackbar(getString(R.string.feedback_collect_succeed))
+//        }
 
-        adapter =
-            LocationAdapter(
-                requireActivity(),
-                ArrayList(),
-                null,
-                { _, formattedId ->  // on click.
-                    viewModel.setLocation(formattedId)
-                    parentFragmentManager.popBackStack()
-                }
-            ) { holder ->
-                itemTouchHelper.startDrag(holder)
-            }
-        adapterAnimWrapper = LocationAdapterAnimWrapper(requireContext(), adapter)
-        adapterAnimWrapper!!.setLastPosition(Int.MAX_VALUE)
-        binding.recyclerView.adapter = adapterAnimWrapper
-        binding.recyclerView.layoutManager = LinearLayoutManager(
-            requireActivity(),
-            RecyclerView.VERTICAL,
-            false
-        ).also { layout = it }
-        while (binding.recyclerView.itemDecorationCount > 0) {
-            binding.recyclerView.removeItemDecorationAt(0)
-        }
-        binding.recyclerView.addItemDecoration(Material3ListItemDecoration(requireContext()))
-        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                scrollOffset = recyclerView.computeVerticalScrollOffset().toFloat()
-                updateAppBarColor()
-
-                if (dy != 0) {
-                    adapterAnimWrapper!!.setScrolled()
-                }
-            }
-        })
-
-        itemTouchHelper = ItemTouchHelper(
-            LocationItemTouchCallback(
-                requireActivity() as GeoActivity,
-                viewModel,
-                this
-            )
-        )
-        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
-
-        viewModel.totalLocationList.observe(viewLifecycleOwner) {
-            adapter.update(it.locationList, it.selectedId)
-            setCurrentLocationButtonEnabled(it.locationList)
-        }
+//        adapter =
+//            PhoneAdapter(
+//                requireActivity(),
+//                ArrayList(),
+//                null,
+//                { _, formattedId ->  // on click.
+//                    viewModel.setLocation(formattedId)
+//                    parentFragmentManager.popBackStack()
+//                }
+//            ) { holder ->
+//                itemTouchHelper.startDrag(holder)
+//            }
+//        adapterAnimWrapper = LocationAdapterAnimWrapper(requireContext(), adapter)
+//        adapterAnimWrapper!!.setLastPosition(Int.MAX_VALUE)
+//        binding.recyclerView.adapter = adapterAnimWrapper
+//        binding.recyclerView.layoutManager = LinearLayoutManager(
+//            requireActivity(),
+//            RecyclerView.VERTICAL,
+//            false
+//        ).also { layout = it }
+//        while (binding.recyclerView.itemDecorationCount > 0) {
+//            binding.recyclerView.removeItemDecorationAt(0)
+//        }
+//        binding.recyclerView.addItemDecoration(Material3ListItemDecoration(requireContext()))
+//        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                scrollOffset = recyclerView.computeVerticalScrollOffset().toFloat()
+//                updateAppBarColor()
+//
+//                if (dy != 0) {
+//                    adapterAnimWrapper!!.setScrolled()
+//                }
+//            }
+//        })
+//
+//        itemTouchHelper = ItemTouchHelper(
+//            LocationItemTouchCallback(
+//                requireActivity() as GeoActivity,
+//                viewModel,
+//                this
+//            )
+//        )
+//        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
+//
+//        viewModel.totalLocationList.observe(viewLifecycleOwner) {
+//            adapter.update(it.locationList, it.selectedId)
+//            setCurrentLocationButtonEnabled(it.locationList)
+//        }
     }
 
     private fun updateDayNightColors() {
@@ -274,17 +268,17 @@ open class ManagementFragment : MainModuleFragment(), TouchReactor {
     }
 
     // location item touch reactor.
-    override fun resetViewHolderAt(position: Int) {
-        adapter.notifyItemChanged(position)
-    }
-
-    override fun reorderByDrag(from: Int, to: Int) {
-        adapter.update(from, to)
-    }
-
-    override fun startSelectProviderActivityBySwipe() {
-        if (callback != null) {
-            callback!!.onSelectProviderActivityStarted()
-        }
-    }
+//    override fun resetViewHolderAt(position: Int) {
+//        adapter.notifyItemChanged(position)
+//    }
+//
+//    override fun reorderByDrag(from: Int, to: Int) {
+//        adapter.update(from, to)
+//    }
+//
+//    override fun startSelectProviderActivityBySwipe() {
+//        if (callback != null) {
+//            callback!!.onSelectProviderActivityStarted()
+//        }
+//    }
 }

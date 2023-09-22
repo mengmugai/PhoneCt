@@ -1,6 +1,7 @@
 package com.mmg.phonect.main
 
 import com.mmg.phonect.common.basic.models.Location
+import com.mmg.phonect.common.basic.models.Phone
 
 class Indicator(val total: Int, val index: Int) {
 
@@ -21,7 +22,7 @@ class Indicator(val total: Int, val index: Int) {
 
 class PermissionsRequest(
     val permissionList: List<String>,
-    val target: Location?,
+    val target: Phone?,
     val triggeredByUser: Boolean
 ) {
 
@@ -38,7 +39,7 @@ class PermissionsRequest(
 }
 
 class SelectableLocationList(
-    val locationList: List<Location>,
+    val locationList: List<Phone>,
     val selectedId: String,
 ) {
 
@@ -62,17 +63,17 @@ enum class MainMessage {
     WEATHER_REQ_FAILED,
 }
 
-class DayNightLocation(
-    val location: Location,
-    val daylight: Boolean = location.isDaylight
+class DayNightPhone(
+    val phone: Phone,
+    val daylight: Boolean = phone.isDaylight
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
 
-        if (other is DayNightLocation) {
-            return location == other.location
+        if (other is DayNightPhone) {
+            return phone == other.phone
                     && daylight == other.daylight
         }
 
@@ -80,7 +81,7 @@ class DayNightLocation(
     }
 
     override fun hashCode(): Int {
-        var result = location.hashCode()
+        var result = phone.hashCode()
         result = 31 * result + daylight.hashCode()
         return result
     }

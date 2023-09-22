@@ -17,13 +17,26 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-        ndk {
-            abiFilters "armeabi", "x86", "armeabi-v7a", "x86_64", "arm64-v8a"
+//        ndk {
+//            abiFilters "armeabi", "x86", "armeabi-v7a", "x86_64", "arm64-v8a"
+//        }
+      ndk {
+        // 设置支持的SO库架构
+            abiFilters 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'//, 'armeabi'
+//            abiFilters  'armeabi-v7a'
+//        abiFilters  'arm64-v8a'
+    }
+
+    externalNativeBuild {
+        cmake {
+            cppFlags "-std=c++11"
         }
+    }
 
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    ndkVersion "22.0.6917172"
+
+//    ndkVersion "22.0.6917172"
     buildFeatures {
         viewBinding true
         compose true
@@ -120,6 +133,12 @@ android {
             versionNameSuffix "_fdroid"
         }
     }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+//            version '3.22.1'
+        }
+    }
 
 
 }
@@ -129,7 +148,7 @@ configurations {
 }
 
 greendao {
-    schemaVersion 63
+    schemaVersion 9
     generateTests false
 }
 

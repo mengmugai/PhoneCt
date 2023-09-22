@@ -1,5 +1,6 @@
 package com.mmg.phonect.main.adapters.main.holder;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mmg.phonect.R;
 import com.mmg.phonect.common.basic.GeoActivity;
 import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.main.adapters.DeviceAdapter;
 import com.mmg.phonect.theme.ThemeManager;
 import com.mmg.phonect.theme.resource.providers.ResourceProvider;
@@ -33,25 +35,26 @@ public class DeviceViewHolder extends AbstractMainCardViewHolder {
     }
 
     @Override
-    public void onBindView(GeoActivity activity, @NonNull Location location, @NonNull ResourceProvider provider,
+    public void onBindView(GeoActivity activity, @NonNull Phone phone, @NonNull ResourceProvider provider,
                            boolean listAnimationEnabled, boolean itemAnimationEnabled, boolean firstCard) {
-        super.onBindView(activity, location, provider,
+        super.onBindView(activity, phone, provider,
                 listAnimationEnabled, itemAnimationEnabled, firstCard);
 
-        if (location.getWeather() != null) {
+        if (phone.getBrand() != null) {
             mTitle.setTextColor(
                     ThemeManager
                             .getInstance(context)
                             .getPhoneCtThemeDelegate()
                             .getThemeColors(
                                     context,
-                                    WeatherViewController.getWeatherKind(location.getWeather()),
-                                    location.isDaylight()
+                                    WeatherViewController.getWeatherKind(phone.getDevice()),
+                                    phone.isDaylight()
                             )[0]
             );
+            Log.d("mmg", "onBindView: 782020 001");
 
             mDeviceRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-            mDeviceRecyclerView.setAdapter(new DeviceAdapter(context, location));
+            mDeviceRecyclerView.setAdapter(new DeviceAdapter(context, phone));
         }
     }
 }

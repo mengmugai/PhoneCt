@@ -1,6 +1,6 @@
 package com.mmg.phonect.main.adapters;
 
-import static com.mmg.phonect.device.info.AppListInfo.getAppListInfo;
+import com.mmg.phonect.device.info.AppListInfo;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mmg.phonect.R;
 import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.common.basic.models.options.unit.CloudCoverUnit;
 import com.mmg.phonect.common.basic.models.options.unit.SpeedUnit;
 import com.mmg.phonect.common.basic.models.weather.Weather;
@@ -90,15 +91,16 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
         }
     }
 
-    public AppListAdapter(Context context, Location location) {
-        mLightTheme = MainThemeColorProvider.isLightTheme(context, location);
+    public AppListAdapter(Context context, Phone phone) {
+        mLightTheme = MainThemeColorProvider.isLightTheme(context, phone);
 
         mIndexList = new ArrayList<>();
         SettingsManager settings = SettingsManager.getInstance(context);
 //        SpeedUnit speedUnit = settings.getSpeedUnit();
-        Weather weather = location.getWeather();
-        assert weather != null;
-        List<XposedModule> list = getAppListInfo(context);
+//        Weather weather = phone.getWeather();
+//        assert weather != null;
+
+        List<XposedModule> list = AppListInfo.getAppListInfo(context);
         for (XposedModule bean : list) {
             try {
                 mIndexList.add(

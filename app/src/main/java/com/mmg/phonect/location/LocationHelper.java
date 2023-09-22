@@ -17,6 +17,7 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.common.basic.models.options.provider.LocationProvider;
 import com.mmg.phonect.common.basic.models.options.provider.WeatherSource;
 import com.mmg.phonect.common.utils.NetworkUtils;
@@ -37,9 +38,8 @@ public class LocationHelper {
     private final LocationService[] mLocationServices;
     private final DeviceServiceSet mDeviceServiceSet;
 
-    public interface OnRequestLocationListener {
-        void requestLocationSuccess(Location requestLocation);
-        void requestLocationFailed(Location requestLocation);
+    public interface OnRequestPhoneListener {
+        void requestPhoneSuccess(Phone requestPhone);
     }
 
     @Inject
@@ -72,107 +72,33 @@ public class LocationHelper {
         }
     }
 
-    public void requestLocation(Context context, Location location, boolean background,
-                                @NonNull OnRequestLocationListener l) {
-        final OnRequestLocationListener usableCheckListener = new OnRequestLocationListener() {
-            @Override
-            public void requestLocationSuccess(Location requestLocation) {
-                l.requestLocationSuccess(requestLocation);
-            }
-
-            @Override
-            public void requestLocationFailed(Location requestLocation) {
-                if (requestLocation.isUsable()) {
-                    l.requestLocationFailed(requestLocation);
-                } else {
-                    Location finalLocation = Location.copy(
-                            Location.buildDefaultLocation(
-                                    SettingsManager.getInstance(context).getWeatherSource()
-                            ),
-                            true,
-                            false
-                    );
-                    DatabaseHelper.getInstance(context).writeLocation(finalLocation);
-                    l.requestLocationFailed(finalLocation);
-                }
-            }
-        };
-
-        final LocationProvider provider = SettingsManager.getInstance(context).getLocationProvider();
-        final LocationService service = getLocationService(provider);
-        if (service.getPermissions().length != 0) {
-            // if needs any location permission.判断位置权限
-            if (!NetworkUtils.isAvailable(context) || (ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED)) {
-                usableCheckListener.requestLocationFailed(location);
-                return;
-            }
-            if (background) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && ActivityCompat.checkSelfPermission(
-                        context,
-                        Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED) {
-                    usableCheckListener.requestLocationFailed(location);
-                    return;
-                }
-            }
-        }
+    public void requestLocation(Context context, Phone phone, boolean background,
+                                @NonNull OnRequestPhoneListener l) {
+        // 获取phone 数据
+        //timeZone: TimeZone? = null,
+        //        brand: String? = null,
+        //        model: String? = null,
+        //        country: String? = null,
+        //        province: String? = null,
+        //        city: String? = null,
+        //        district: String? = null,
+        //        device: Device? = null,
+        //        weatherSource: WeatherSource? = null,
+        phone.copy(TimeZone.getTimeZone("Asia/Shanghai"),
+                Build.BRAND,
+                Build.MODEL
+                );
 
         // 1. get location by location service.
         // 2. get available location by weather service.
 
-        service.requestLocation(
-                context,
-                result -> {
-                    if (result == null) {
-                        usableCheckListener.requestLocationFailed(location);
-                        return;
-                    }
 
-                    requestAvailableWeatherLocation(
-                            context,
-                            Location.copy(
-                                    location,
-                                    result.getLatitude(),
-                                    result.getLongitude(),
-                                    TimeZone.getDefault()
-                            ),
-                            usableCheckListener
-                    );
-                }
-        );
+        DatabaseHelper.getInstance(context).writeLocation(phone);
+        l.requestPhoneSuccess(phone);
+
     }
 
-    private void requestAvailableWeatherLocation(Context context,
-                                                 @NonNull Location location,
-                                                 @NonNull OnRequestLocationListener l) {
-        WeatherSource source = SettingsManager.getInstance(context).getWeatherSource();
 
-        final DeviceService service = mDeviceServiceSet.get(source);
-        service.requestLocation(context, location, new DeviceService.RequestLocationCallback() {
-            @Override
-            public void requestLocationSuccess(String query, List<Location> locationList) {
-                if (locationList.size() > 0) {
-                    Location src = locationList.get(0);
-                    Location result = Location.copy(src, true, src.isResidentPosition());
-                    DatabaseHelper.getInstance(context).writeLocation(result);
-                    l.requestLocationSuccess(result);
-                } else {
-                    requestLocationFailed(query);
-                }
-            }
-
-            @Override
-            public void requestLocationFailed(String query) {
-                l.requestLocationFailed(location);
-            }
-        });
-    }
 
     public void cancel() {
         for (LocationService s : mLocationServices) {

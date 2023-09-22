@@ -12,16 +12,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mmg.phonect.R
-import com.mmg.phonect.background.polling.PollingManager
+//import com.mmg.phonect.background.polling.PollingManager
 import com.mmg.phonect.common.basic.models.options.DarkMode
 import com.mmg.phonect.common.basic.models.options.NotificationStyle
 import com.mmg.phonect.common.basic.models.options.UpdateInterval
 import com.mmg.phonect.common.basic.models.options.WidgetWeekIconMode
 import com.mmg.phonect.common.utils.helpers.AsyncHelper
 import com.mmg.phonect.common.utils.helpers.IntentHelper
-import com.mmg.phonect.remoteviews.config.*
-import com.mmg.phonect.remoteviews.presenters.*
-import com.mmg.phonect.remoteviews.presenters.notification.NormalNotificationIMP
+//import com.mmg.phonect.remoteviews.config.*
+//import com.mmg.phonect.remoteviews.presenters.*
+//import com.mmg.phonect.remoteviews.presenters.notification.NormalNotificationIMP
 import com.mmg.phonect.settings.SettingsManager
 import com.mmg.phonect.settings.preference.*
 import com.mmg.phonect.settings.preference.composables.*
@@ -61,26 +61,26 @@ fun RootSettingsView(context: Context, navController: NavHostController) {
     PreferenceScreen {
         // basic.
         sectionHeaderItem(R.string.settings_category_basic)
-        checkboxPreferenceItem(R.string.settings_title_background_free) { id ->
-            CheckboxPreferenceView(
-                titleId = id,
-                summaryOnId = R.string.settings_summary_background_free_on,
-                summaryOffId = R.string.settings_summary_background_free_off,
-                checked = SettingsManager.getInstance(context).isBackgroundFree,
-                onValueChanged = {
-                    SettingsManager.getInstance(context).isBackgroundFree = it
-
-                    PollingManager.resetNormalBackgroundTask(context, false)
-                    if (!it) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            showBlockNotificationGroupDialog(context)
-                        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            showIgnoreBatteryOptimizationDialog(context)
-                        }
-                    }
-                },
-            )
-        }
+//        checkboxPreferenceItem(R.string.settings_title_background_free) { id ->
+//            CheckboxPreferenceView(
+//                titleId = id,
+//                summaryOnId = R.string.settings_summary_background_free_on,
+//                summaryOffId = R.string.settings_summary_background_free_off,
+//                checked = SettingsManager.getInstance(context).isBackgroundFree,
+//                onValueChanged = {
+//                    SettingsManager.getInstance(context).isBackgroundFree = it
+//
+//                    PollingManager.resetNormalBackgroundTask(context, false)
+//                    if (!it) {
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                            showBlockNotificationGroupDialog(context)
+//                        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                            showIgnoreBatteryOptimizationDialog(context)
+//                        }
+//                    }
+//                },
+//            )
+//        }
 //        checkboxPreferenceItem(R.string.settings_title_alert_notification_switch) { id ->
 //            CheckboxPreferenceView(
 //                titleId = id,

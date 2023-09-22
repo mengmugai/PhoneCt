@@ -5,19 +5,22 @@ import android.annotation.SuppressLint;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.mmg.phonect.common.basic.models.weather.Device;
 import com.mmg.phonect.common.basic.models.weather.Weather;
 import com.mmg.phonect.common.basic.models.weather.WeatherCode;
 import com.mmg.phonect.theme.resource.providers.ResourceProvider;
 
-public class WeatherViewController {
+import java.util.Random;
 
+public class WeatherViewController {
+    //todo: 这里不该在这里获取code
     public static void setWeatherCode(
             @NonNull WeatherView view,
-            @Nullable Weather weather,
+            @Nullable Device device,
             boolean dayTime,
             @NonNull ResourceProvider provider
     ) {
-        view.setWeather(getWeatherKind(weather), dayTime, provider);
+        view.setWeather(getWeatherKind(device), dayTime, provider);
     }
 
     @SuppressLint("SwitchIntDef")
@@ -64,13 +67,17 @@ public class WeatherViewController {
     }
 
     @WeatherView.WeatherKindRule
-    public static int getWeatherKind(@Nullable Weather weather) {
-        if (weather == null) {
+    public static int getWeatherKind(@Nullable Device device) {
+        if (device == null) {
             return WeatherView.WEATHER_KIND_CLEAR;
         }
-        return getWeatherKind(weather.getCurrent().getWeatherCode());
-    }
+        Random random = new Random();
 
+        // 随机生成一个 0 到 11（包括 11）之间的整数  具体含义见getWeatherKind方法
+        return random.nextInt(11) + 1;
+
+    }
+    // 获取状态
     @WeatherView.WeatherKindRule
     public static int getWeatherKind(WeatherCode weatherCode) {
         switch (weatherCode) {

@@ -9,13 +9,11 @@ import org.greenrobot.greendao.database.Database;
 
 import com.mmg.phonect.db.entities.AlertEntityDao;
 import com.mmg.phonect.db.entities.ChineseCityEntityDao;
-import com.mmg.phonect.db.entities.DailyEntityDao;
+//import com.mmg.phonect.db.entities.DailyEntityDao;
 import com.mmg.phonect.db.entities.DaoMaster;
-import com.mmg.phonect.db.entities.HistoryEntityDao;
-import com.mmg.phonect.db.entities.HourlyEntityDao;
 import com.mmg.phonect.db.entities.LocationEntityDao;
-import com.mmg.phonect.db.entities.MinutelyEntityDao;
-import com.mmg.phonect.db.entities.WeatherEntityDao;
+//import com.mmg.phonect.db.entities.MinutelyEntityDao;
+//import com.mmg.phonect.db.entities.WeatherEntityDao;
 
 class DatabaseOpenHelper extends DaoMaster.OpenHelper {
 
@@ -41,12 +39,12 @@ class DatabaseOpenHelper extends DaoMaster.OpenHelper {
                     },
                     AlertEntityDao.class,
                     ChineseCityEntityDao.class,
-                    DailyEntityDao.class,
-                    HistoryEntityDao.class,
-                    HourlyEntityDao.class,
-                    LocationEntityDao.class,
-                    MinutelyEntityDao.class,
-                    WeatherEntityDao.class
+//                    DailyEntityDao.class,
+//                    HistoryEntityDao.class,
+//                    HourlyEntityDao.class,
+                    LocationEntityDao.class
+//                    MinutelyEntityDao.class,
+//                    WeatherEntityDao.class
             );
         } else {
             DaoMaster.dropAllTables(db, true);

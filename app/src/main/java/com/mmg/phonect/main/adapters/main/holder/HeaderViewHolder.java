@@ -19,7 +19,7 @@ import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import com.mmg.phonect.R;
-import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.common.basic.models.options.unit.TemperatureUnit;
 import com.mmg.phonect.common.ui.widgets.NumberAnimTextView;
 import com.mmg.phonect.settings.SettingsManager;
@@ -61,9 +61,9 @@ public class HeaderViewHolder extends AbstractMainViewHolder {
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindView(Context context, @NonNull Location location, @NonNull ResourceProvider provider,
+    public void onBindView(Context context, @NonNull Phone phone, @NonNull ResourceProvider provider,
                            boolean listAnimationEnabled, boolean itemAnimationEnabled) {
-        super.onBindView(context, location, provider, listAnimationEnabled, itemAnimationEnabled);
+        super.onBindView(context, phone, provider, listAnimationEnabled, itemAnimationEnabled);
 
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mContainer.getLayoutParams();
         params.height = ThemeManager
@@ -81,9 +81,9 @@ public class HeaderViewHolder extends AbstractMainViewHolder {
         mAqiOrWind.setTextColor(textColor);
 
         mTemperatureUnit = SettingsManager.getInstance(context).getTemperatureUnit();
-        if (location.getWeather() != null) {
+        if (phone.getDevice() != null) {
             mTemperatureCFrom = mTemperatureCTo;
-            mTemperatureCTo = location.getWeather().getCurrent().getTemperature().getTemperature();
+            mTemperatureCTo = 100;
 
             mTemperature.setEnableAnim(itemAnimationEnabled);
             mTemperature.setDuration(
@@ -94,31 +94,24 @@ public class HeaderViewHolder extends AbstractMainViewHolder {
             );
             mTemperature.setPostfixString(mTemperatureUnit.getShortName(context));
 
-            StringBuilder title = new StringBuilder(location.getWeather().getCurrent().getWeatherText());
-            if (location.getWeather().getCurrent().getTemperature().getRealFeelTemperature() != null) {
+            StringBuilder title = new StringBuilder(phone.getBrand() + "暂时就这");
+            if (phone.getModel() != null) {
                 title.append(", ")
                         .append(context.getString(R.string.feels_like))
                         .append(" ")
-                        .append(location.getWeather().getCurrent().getTemperature().getShortRealFeeTemperature(context, mTemperatureUnit));
+                        .append(phone.getModel());
             }
             mWeather.setText(title.toString());
 
-            if (location.getWeather().getCurrent().getAirQuality().getAqiText() == null) {
+            if (phone.getBrand() == null) {
                 mAqiOrWind.setText(
                         context.getString(R.string.wind)
                                 + " - "
-                                + location.getWeather().getCurrent().getWind().getShortWindDescription()
-                );
-            } else {
-                mAqiOrWind.setText(
-                        context.getString(R.string.air_quality)
-                                + " - "
-                                + location.getWeather().getCurrent().getAirQuality().getAqiText()
+                                + phone.getBrand()
                 );
             }
-
-            itemView.setContentDescription(location.getCityName(context)
-                    + ", " + location.getWeather().getCurrent().getTemperature().getTemperature(context, mTemperatureUnit)
+            itemView.setContentDescription(phone.getBrand()
+                    + ", " + phone.getModel()
                     + ", " + mWeather.getText()
                     + ", " + mAqiOrWind.getText());
         }

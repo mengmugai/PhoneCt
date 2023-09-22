@@ -18,15 +18,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import com.mmg.phonect.R
-import com.mmg.phonect.background.polling.PollingManager
+//import com.mmg.phonect.background.polling.PollingManager
 import com.mmg.phonect.common.basic.GeoActivity
-import com.mmg.phonect.common.basic.models.Location
+//import com.mmg.phonect.common.basic.models.Location
+import com.mmg.phonect.common.basic.models.Phone
 import com.mmg.phonect.common.bus.EventBus
 import com.mmg.phonect.common.snackbar.SnackbarContainer
 import com.mmg.phonect.common.utils.DisplayUtils
 import com.mmg.phonect.common.utils.helpers.AsyncHelper
 import com.mmg.phonect.common.utils.helpers.IntentHelper
-import com.mmg.phonect.common.utils.helpers.ShortcutsHelper
 import com.mmg.phonect.common.utils.helpers.SnackbarHelper
 import com.mmg.phonect.databinding.ActivityMainBinding
 import com.mmg.phonect.main.dialogs.LocationHelpDialog
@@ -64,12 +64,11 @@ class MainActivity : GeoActivity(),
         private const val TAG_FRAGMENT_MANAGEMENT = "fragment_management"
     }
 
-    private val backgroundUpdateObserver: Observer<Location> = Observer { location ->
-        location?.let {
+    private val backgroundUpdateObserver: Observer<Phone> = Observer { phone ->
+        phone?.let {
             viewModel.updateLocationFromBackground(it)
 
-            if (isActivityStarted
-                && it.formattedId == viewModel.currentLocation.value?.location?.formattedId) {
+            if (isActivityStarted) {
                 SnackbarHelper.showSnackbar(getString(R.string.feedback_updated_in_background))
             }
         }
@@ -107,7 +106,7 @@ class MainActivity : GeoActivity(),
         consumeIntentAction(intent)
 
         EventBus.instance
-            .with(Location::class.java)
+            .with(Phone::class.java)
             .observeForever(backgroundUpdateObserver)
         EventBus.instance.with(SettingsChangedMessage::class.java).observe(this) {
             viewModel.init()
@@ -121,12 +120,12 @@ class MainActivity : GeoActivity(),
 //                    viewModel.validLocationList.value!!.locationList
 //                )
 //            }
-            refreshBackgroundViews(
-                resetBackground = true,
-                locationList = viewModel.validLocationList.value!!.locationList,
-                defaultLocationChanged = true,
-                updateRemoteViews = true
-            )
+//            refreshBackgroundViews(
+//                resetBackground = true,
+//                locationList = viewModel.validLocationList.value!!.locationList,
+//                defaultLocationChanged = true,
+//                updateRemoteViews = true
+//            )
         }
         EventBus.instance.with(ModifyMainSystemBarMessage::class.java).observe(this) {
             updateSystemBarStyle()
@@ -140,10 +139,10 @@ class MainActivity : GeoActivity(),
 
     override fun onActivityReenter(resultCode: Int, data: Intent) {
         super.onActivityReenter(resultCode, data)
-        if (resultCode == SEARCH_ACTIVITY) {
-            val f = findManagementFragment()
-            f?.prepareReenterTransition()
-        }
+//        if (resultCode == SEARCH_ACTIVITY) {
+//            val f = findManagementFragment()
+//            f?.prepareReenterTransition()
+//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -174,7 +173,7 @@ class MainActivity : GeoActivity(),
         super.onDestroy()
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentsLifecycleCallback)
         EventBus.instance
-            .with(Location::class.java)
+            .with(Phone::class.java)
             .removeObserver(backgroundUpdateObserver)
     }
 
@@ -200,11 +199,9 @@ class MainActivity : GeoActivity(),
         if (!viewModel.checkIsNewInstance()) {
             return
         }
-        if (newActivity) {
-            viewModel.init(formattedId = getLocationId(intent))
-        } else {
-            viewModel.init()
-        }
+
+        viewModel.init()
+
     }
 
     private fun getLocationId(intent: Intent?): String? {
@@ -311,23 +308,11 @@ class MainActivity : GeoActivity(),
             || request.target == null) {
             return
         }
+        viewModel.updateWithUpdatingChecking(
+            request.triggeredByUser,
+            false
+        )
 
-        grantResults.zip(permissions).firstOrNull { // result, permission
-            it.first != PackageManager.PERMISSION_GRANTED
-                    && isEssentialLocationPermission(permission = it.second)
-        }?.let {
-            // if the user denied an essential location permissions.
-            if (request.target.isUsable || isLocationPermissionsGranted) {
-                viewModel.updateWithUpdatingChecking(
-                    request.triggeredByUser,
-                    false
-                )
-            } else {
-                viewModel.cancelRequest()
-            }
-
-            return
-        }
 
         // check background location permissions.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
@@ -383,7 +368,7 @@ class MainActivity : GeoActivity(),
         ) == PackageManager.PERMISSION_GRANTED
 
     val isDaylight
-        get() = viewModel.currentLocation.value!!.daylight
+        get() = viewModel.currentPhone.value!!.daylight
 
     // control.
 
@@ -392,16 +377,16 @@ class MainActivity : GeoActivity(),
         if (TextUtils.isEmpty(action)) {
             return
         }
-        val formattedId = intent.getStringExtra(KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID)
-        if (ACTION_SHOW_ALERTS == action) {
-            IntentHelper.startAlertActivity(this, formattedId)
-            return
-        }
-        if (ACTION_SHOW_DAILY_FORECAST == action) {
-            val index = intent.getIntExtra(KEY_DAILY_INDEX, 0)
-            IntentHelper.startDailyWeatherActivity(this, formattedId, index)
-            return
-        }
+//        val formattedId = intent.getStringExtra(KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID)
+//        if (ACTION_SHOW_ALERTS == action) {
+//            IntentHelper.startAlertActivity(this, formattedId)
+//            return
+//        }
+//        if (ACTION_SHOW_DAILY_FORECAST == action) {
+//            val index = intent.getIntExtra(KEY_DAILY_INDEX, 0)
+//            IntentHelper.startDailyWeatherActivity(this, formattedId, index)
+//            return
+//        }
         if (ACTION_MANAGEMENT == action) {
             setManagementFragmentVisibility(true)
         }
@@ -491,16 +476,16 @@ class MainActivity : GeoActivity(),
     }
 
     private fun refreshBackgroundViews(
-        resetBackground: Boolean, locationList: List<Location>?,
+        resetBackground: Boolean, locationList: List<Phone>?,
         defaultLocationChanged: Boolean, updateRemoteViews: Boolean
     ) {
-        if (resetBackground) {
-            AsyncHelper.delayRunOnIO({
-                PollingManager.resetAllBackgroundTask(
-                    this, false
-                )
-            }, 1000)
-        }
+//        if (resetBackground) {
+//            AsyncHelper.delayRunOnIO({
+//                PollingManager.resetAllBackgroundTask(
+//                    this, false
+//                )
+//            }, 1000)
+//        }
         if (updateRemoteViews && locationList != null && locationList.isNotEmpty()) {
             AsyncHelper.delayRunOnIO({
                 if (defaultLocationChanged) {
@@ -510,9 +495,9 @@ class MainActivity : GeoActivity(),
 //                WidgetHelper.updateWidgetIfNecessary(this, locationList)
             }, 1000)
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                ShortcutsHelper.refreshShortcutsInNewThread(this, locationList)
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+//                ShortcutsHelper.refreshShortcutsInNewThread(this, locationList)
+//            }
         }
     }
 

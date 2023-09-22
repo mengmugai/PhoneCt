@@ -2,10 +2,12 @@ package com.mmg.phonect.main
 
 import android.content.Context
 import com.mmg.phonect.common.basic.models.Location
+import com.mmg.phonect.common.basic.models.Phone
 import com.mmg.phonect.common.utils.helpers.AsyncHelper
 import com.mmg.phonect.db.DatabaseHelper
 import com.mmg.phonect.location.LocationHelper
 import com.mmg.phonect.device.DeviceHelper
+import com.mmg.phonect.device.DeviceHelper.OnRequestDeviceListener
 import com.mmg.phonect.device.DeviceHelper.OnRequestWeatherListener
 import java.util.concurrent.Executors
 import javax.inject.Inject
@@ -18,7 +20,7 @@ class MainActivityRepository @Inject constructor(
 
     interface WeatherRequestCallback {
         fun onCompleted(
-            location: Location,
+            phone: Phone,
             locationFailed: Boolean?,
             weatherRequestFailed: Boolean
         )
@@ -28,135 +30,107 @@ class MainActivityRepository @Inject constructor(
         cancelWeatherRequest()
     }
 
-    fun initLocations(context: Context, formattedId: String): List<Location> {
-        val list = DatabaseHelper.getInstance(context).readLocationList()
-
-        var index = 0
-        for (i in list.indices) {
-            if (list[i].formattedId == formattedId) {
-                index = i
-                break
-            }
+    fun initPhone(context: Context): Phone {
+        var phone = DatabaseHelper.getInstance(context).readPhone()
+        if (phone == null){
+            phone = Phone.buildPhone()
         }
 
-        list[index] = Location.copy(
-            src = list[index],
-            weather = DatabaseHelper.getInstance(context).readWeather(list[index])
-        )
-        return list
+        return phone
     }
 
     fun getWeatherCacheForLocations(
         context: Context,
-        oldList: List<Location>,
-        ignoredFormattedId: String,
-        callback: AsyncHelper.Callback<List<Location>>
+        phone: Phone,
+        callback: AsyncHelper.Callback<Phone>
     ) {
         AsyncHelper.runOnExecutor({ emitter ->
             emitter.send(
-                oldList.map {
-                    if (it.formattedId == ignoredFormattedId) {
-                        it
-                    } else {
-                        Location.copy(
-                            src = it,
-                            weather = DatabaseHelper.getInstance(context).readWeather(it)
-                        )
-                    }
-                },
+
+                        Phone.copy(
+                            src = phone,
+                            device = DatabaseHelper.getInstance(context).readDevice(phone)
+                        ),
+
                 true
             )
         }, callback, singleThreadExecutor)
     }
 
-    fun writeLocationList(context: Context, locationList: List<Location>) {
+    fun writeLocationList(context: Context, phoneList: List<Phone>) {
         AsyncHelper.runOnExecutor({ 
-            DatabaseHelper.getInstance(context).writeLocationList(locationList)
+            DatabaseHelper.getInstance(context).writeLocationList(phoneList)
         }, singleThreadExecutor)
     }
 
-    fun deleteLocation(context: Context, location: Location) {
+    fun deleteLocation(context: Context, phone: Phone) {
         AsyncHelper.runOnExecutor({
-            DatabaseHelper.getInstance(context).deleteLocation(location)
-            DatabaseHelper.getInstance(context).deleteWeather(location)
+            DatabaseHelper.getInstance(context).deleteLocation(phone)
+            DatabaseHelper.getInstance(context).deleteWeather(phone)
         }, singleThreadExecutor)
     }
 
     fun getWeather(
         context: Context,
-        location: Location,
+        phone: Phone,
         locate: Boolean,
         callback: WeatherRequestCallback,
     ) {
         if (locate) {
-            ensureValidLocationInformation(context, location, callback)
+            //确保有效的位置信息
+            ensureValidLocationInformation(context, phone, callback)
         } else {
-            getWeatherWithValidLocationInformation(context, location, null, callback)
+            //获取具有有效位置信息的天气
+            getWeatherWithValidLocationInformation(context, phone, null, callback)
         }
     }
 
     private fun ensureValidLocationInformation(
         context: Context,
-        location: Location,
+        phone: Phone,
         callback: WeatherRequestCallback,
     ) = locationHelper.requestLocation(
         context,
-        location,
+        phone,
         false,
-        object : LocationHelper.OnRequestLocationListener {
+        object : LocationHelper.OnRequestPhoneListener {
 
-            override fun requestLocationSuccess(requestLocation: Location) {
-                if (requestLocation.formattedId != location.formattedId) {
-                    return
-                }
+            override fun requestPhoneSuccess(requestPhone: Phone) {
+
                 getWeatherWithValidLocationInformation(
                     context,
-                    requestLocation,
+                    requestPhone,
                     false,
                     callback
                 )
             }
 
-            override fun requestLocationFailed(requestLocation: Location) {
-                if (requestLocation.formattedId != location.formattedId) {
-                    return
-                }
-                getWeatherWithValidLocationInformation(
-                    context,
-                    requestLocation,
-                    true,
-                    callback
-                )
-            }
+
         }
     )
 
     private fun getWeatherWithValidLocationInformation(
         context: Context,
-        location: Location,
+        phone: Phone,
         locationFailed: Boolean?,
         callback: WeatherRequestCallback,
     ) = deviceHelper.requestWeather(
         context,
-        location,
-        object : OnRequestWeatherListener {
-            override fun requestWeatherSuccess(requestLocation: Location) {
-                if (requestLocation.formattedId != location.formattedId) {
-                    return
-                }
+        phone,
+        object : OnRequestDeviceListener {
+            override fun requestDeviceSuccess(requestPhone: Phone) {
+
                 callback.onCompleted(
-                    requestLocation,
+                    requestPhone,
                     locationFailed = locationFailed,
                     weatherRequestFailed = false
                 )
             }
 
-            override fun requestWeatherFailed(requestLocation: Location) {
-                if (requestLocation.formattedId != location.formattedId) {
-                    return
-                }
+            override fun requestDeviceFailed(requestPhone: Phone) {
+
                 callback.onCompleted(
-                    requestLocation,
+                    requestPhone,
                     locationFailed = locationFailed,
                     weatherRequestFailed = true
                 )

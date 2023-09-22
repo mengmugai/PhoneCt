@@ -1,6 +1,9 @@
 package com.mmg.phonect.device.info;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
@@ -9,11 +12,18 @@ import android.util.Log;
 import android.webkit.WebSettings;
 
 
+import androidx.core.content.ContextCompat;
+import androidx.core.util.Pair;
+
 import com.mmg.phonect.PhoneCt;
+import com.mmg.phonect.device.json.DebugInfoResult;
 import com.mmg.phonect.device.json.DeviceResult;
 import com.mmg.phonect.device.utils.CommandUtils;
+import com.mmg.phonect.device.utils.DebugUtils;
+import com.mmg.phonect.device.utils.FileUtils;
 
 import java.lang.reflect.Method;
+import java.util.Random;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -24,21 +34,7 @@ import io.reactivex.schedulers.Schedulers;
 public class DeviceInfo {
 
 
-    public static Observable<String> getAndroidIdObservable(Context context) {
-        return Observable.fromCallable(() -> {
 
-            return Settings.System.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        }).subscribeOn(Schedulers.io());
-    }
-
-    // 获取 IMEI
-    public static Observable<String> getImeiObservable(Context context) {
-        return Observable.fromCallable(() -> {
-            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-//            String imei = telephonyManager.getImei();
-            return  telephonyManager.getDeviceId();
-        }).subscribeOn(Schedulers.io());
-    }
 
     public static Observable<DeviceResult> getDeviceInfoObservable(final Context context) {
         Log.d("mmg", "androidId: ++++++++++++++++++++++++");
@@ -51,19 +47,45 @@ public class DeviceInfo {
                     // 获取设备信息
                     TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     Log.d("mmg", "androidId: -----------------------------1");
-//                    String imei = telephonyManager.getDeviceId();
-                    String imei = "telephonyManager.getDeviceId()";
-                    Log.d("mmg", "androidId: -----------------------------2");
-                    String meid = null;
+                    String imei = "";
+                    String imei2 = "";
+                    String meid = "";
+                    String meid2 = "";
+                    int readIMEI= ContextCompat.checkSelfPermission(context,
+                            Manifest.permission.READ_PHONE_STATE);
+
+                    if (readIMEI == PackageManager.PERMISSION_GRANTED) {
+                        try {
+                            imei = telephonyManager.getDeviceId();
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                                imei2 = telephonyManager.getImei(1);
+
+                                meid = telephonyManager.getMeid();
+                                meid2 = telephonyManager.getMeid(1);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            imei = "未知";
+                            imei2 = "未知";
+                            meid = CommandUtils.getProperty("persist.sys.meid");
+                            Log.d("mmg", "meid: ---------"+meid+"--------------");
+                            meid2 = "未知";
+                        }
+
+                    }else {
+                        Log.d("mmg", "androidId: ---------权限不足--------------");
+                    }
+                    Log.d("mmg", "androidId: -----------------------------"+imei);
+
                     String ua = getDefaultUserAgent(context);
                     Log.d("mmg", "androidId: -----------------------------3");
-                    String bootid = null;
+                    String bootid = FileUtils.readFile("/proc/sys/kernel/random/boot_id");
                     String serial = getSerial();
-                    Log.d("mmg", "androidId: -----------------------------4");
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        meid = telephonyManager.getMeid();
-//                        meid = "telephonyManager.getMeid();";
-                    }
+                    Log.d("mmg", "androidId: ------------"+bootid+"-----------------4");
+
+
+
                     Log.d("mmg", "androidId: -----------------------------5");
                     String androidId = Settings.System.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
                     Log.d("mmg", "androidId: "+androidId);
@@ -72,7 +94,37 @@ public class DeviceInfo {
 
 
                     // 发射设备信息
-                    emitter.onNext(new DeviceResult(androidId, imei,null, meid, ua, bootid, serial));
+                    emitter.onNext(new DeviceResult(androidId, imei,imei2, meid, meid2, ua, bootid, serial));
+                    emitter.onComplete();
+                } catch (Exception e) {
+                    Log.e("mmg", e.getMessage() );
+                    emitter.onError(e);
+                }
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<DebugInfoResult> getDebugInfoObservable(final Context context) {
+        Log.d("mmg", "debuginfo: ++++++++++++++++++++++++");
+        return Observable.create(new ObservableOnSubscribe<DebugInfoResult>() {
+            @Override
+            public void subscribe(ObservableEmitter<DebugInfoResult> emitter) throws Exception {
+
+                try {
+
+                    String debugOpen = DebugUtils.isOpenDebug(context) + "";
+                    String usbDebugStatus = DebugUtils.getUsbDebugStatus();
+                    String tracerPid = DebugUtils.getTracerPid() + "";
+                    String debugVersion = DebugUtils.isDebugVersion(context) + "";
+                    String debugConnected = DebugUtils.isDebugConnected() + "";
+//                    String allowMockLocation = DebugUtils.isAllowMockLocation(context) + "";
+                    String allowMockLocation =  "";
+
+
+
+
+                    // 发射设备信息
+                    emitter.onNext(new DebugInfoResult(debugOpen,usbDebugStatus,tracerPid,debugVersion,debugConnected,allowMockLocation));
                     emitter.onComplete();
                 } catch (Exception e) {
                     Log.e("mmg", e.getMessage() );

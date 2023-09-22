@@ -18,10 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mmg.phonect.R;
 import com.mmg.phonect.common.basic.GeoActivity;
 import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.common.ui.widgets.trend.TrendRecyclerViewAdapter;
 import com.mmg.phonect.main.adapters.AppListAdapter;
 import com.mmg.phonect.main.adapters.DeviceAdapter;
-import com.mmg.phonect.main.dialogs.HourlyWeatherDialog;
+//import com.mmg.phonect.main.dialogs.HourlyWeatherDialog;
 import com.mmg.phonect.main.utils.MainThemeColorProvider;
 
 import java.util.ArrayList;
@@ -95,11 +96,11 @@ public abstract class AbsAppListTrendAdapter extends RecyclerView.Adapter<AbsApp
         }
     }
 
-    public AbsAppListTrendAdapter(Context context, Location location) {
+    public AbsAppListTrendAdapter(Context context, Phone phone) {
 //        super(location);
 //        mActivity = activity;
         mIndexList = new ArrayList<>();
-        mLightTheme = MainThemeColorProvider.isLightTheme(context, location);
+        mLightTheme = MainThemeColorProvider.isLightTheme(context, phone);
     }
 
     @NonNull
@@ -124,10 +125,10 @@ public abstract class AbsAppListTrendAdapter extends RecyclerView.Adapter<AbsApp
                                         Location location,
                                         int adapterPosition) {
         if (activity.isActivityResumed()) {
-            HourlyWeatherDialog.show(
-                    activity,
-                    location.getWeather().getHourlyForecast().get(adapterPosition)
-            );
+//            HourlyWeatherDialog.show(
+//                    activity,
+//                    location.getWeather().getHourlyForecast().get(adapterPosition)
+//            );
         }
     }
 

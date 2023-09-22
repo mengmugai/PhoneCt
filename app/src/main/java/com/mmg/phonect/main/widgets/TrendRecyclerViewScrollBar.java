@@ -31,21 +31,21 @@ public class TrendRecyclerViewScrollBar extends RecyclerView.ItemDecoration {
         super();
     }
 
-    public void resetColor(Location location) {
-        mThemeChanged = true;
-
-        mEndPointsColor = MainThemeColorProvider.getColor(location, R.attr.colorMainCardBackground);
-        mCenterColor = DisplayUtils.blendColor(
-//                lightTheme
-//                        ? Color.argb((int) (0.02 * 255), 0, 0, 0)
-//                        : Color.argb((int) (0.08 * 255), 0, 0, 0),
-                ColorUtils.setAlphaComponent(
-                        MainThemeColorProvider.getColor(location, R.attr.colorPrimary),
-                        (int) (0.05 * 255)
-                ),
-                MainThemeColorProvider.getColor(location, R.attr.colorMainCardBackground)
-        );
-    }
+//    public void resetColor(Location location) {
+//        mThemeChanged = true;
+//
+//        mEndPointsColor = MainThemeColorProvider.getColor(location, R.attr.colorMainCardBackground);
+//        mCenterColor = DisplayUtils.blendColor(
+////                lightTheme
+////                        ? Color.argb((int) (0.02 * 255), 0, 0, 0)
+////                        : Color.argb((int) (0.08 * 255), 0, 0, 0),
+//                ColorUtils.setAlphaComponent(
+//                        MainThemeColorProvider.getColor(location, R.attr.colorPrimary),
+//                        (int) (0.05 * 255)
+//                ),
+//                MainThemeColorProvider.getColor(location, R.attr.colorMainCardBackground)
+//        );
+//    }
 
     @Override
     public void onDraw(@NonNull Canvas c,

@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import com.mmg.phonect.R;
 import com.mmg.phonect.common.basic.GeoActivity;
 import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.main.adapters.main.FirstCardHeaderController;
 import com.mmg.phonect.main.utils.MainThemeColorProvider;
 import com.mmg.phonect.theme.ThemeManager;
@@ -29,10 +30,10 @@ public abstract class AbstractMainCardViewHolder extends AbstractMainViewHolder 
     }
 
     @CallSuper
-    public void onBindView(GeoActivity activity, @NonNull Location location,
+    public void onBindView(GeoActivity activity, @NonNull Phone phone,
                            @NonNull ResourceProvider provider,
                            boolean listAnimationEnabled, boolean itemAnimationEnabled, boolean firstCard) {
-        super.onBindView(activity, location, provider, listAnimationEnabled, itemAnimationEnabled);
+        super.onBindView(activity, phone, provider, listAnimationEnabled, itemAnimationEnabled);
 
         PhoneCtThemeDelegate delegate = ThemeManager
                 .getInstance(activity)
@@ -42,7 +43,7 @@ public abstract class AbstractMainCardViewHolder extends AbstractMainViewHolder 
         card.setRadius(delegate.getHomeCardRadius(activity));
         card.setElevation(delegate.getHomeCardElevation(activity));
         card.setCardBackgroundColor(
-                MainThemeColorProvider.getColor(location, R.attr.colorMainCardBackground)
+                MainThemeColorProvider.getColor(phone, R.attr.colorMainCardBackground)
         );
 
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
@@ -55,7 +56,7 @@ public abstract class AbstractMainCardViewHolder extends AbstractMainViewHolder 
         card.setLayoutParams(params);
 
         if (firstCard) {
-            mFirstCardHeaderController = new FirstCardHeaderController(activity, location);
+            mFirstCardHeaderController = new FirstCardHeaderController(activity, phone);
             mFirstCardHeaderController.bind((LinearLayout) card.getChildAt(0));
         }
     }
@@ -63,7 +64,7 @@ public abstract class AbstractMainCardViewHolder extends AbstractMainViewHolder 
     @SuppressLint("MissingSuperCall")
     @Deprecated
     @Override
-    public void onBindView(Context context, @NonNull Location location,
+    public void onBindView(Context context, @NonNull Phone phone,
                            @NonNull ResourceProvider provider,
                            boolean listAnimationEnabled, boolean itemAnimationEnabled) {
         throw new RuntimeException("Deprecated method.");

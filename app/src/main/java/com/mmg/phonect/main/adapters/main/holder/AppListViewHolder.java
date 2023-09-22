@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mmg.phonect.R;
 import com.mmg.phonect.common.basic.GeoActivity;
 import com.mmg.phonect.common.basic.models.Location;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.common.basic.models.options.appearance.AppListTrendDisplay;
 import com.mmg.phonect.common.basic.models.weather.Daily;
+import com.mmg.phonect.common.basic.models.weather.Device;
 import com.mmg.phonect.common.basic.models.weather.Weather;
 import com.mmg.phonect.common.ui.adapters.TagAdapter;
 import com.mmg.phonect.common.ui.decotarions.GridMarginsDecoration;
@@ -67,33 +69,33 @@ public class AppListViewHolder extends AbstractMainCardViewHolder {
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onBindView(GeoActivity activity, @NonNull Location location,
+    public void onBindView(GeoActivity activity, @NonNull Phone phone,
                            @NonNull ResourceProvider provider,
                            boolean listAnimationEnabled, boolean itemAnimationEnabled, boolean firstCard) {
-        super.onBindView(activity, location, provider, listAnimationEnabled, itemAnimationEnabled, firstCard);
+        super.onBindView(activity, phone, provider, listAnimationEnabled, itemAnimationEnabled, firstCard);
 
-        Weather weather = location.getWeather();
-        assert weather != null;
+        Device device = phone.getDevice();
+        assert device != null;
 
         int[] colors = ThemeManager
                 .getInstance(context)
                 .getPhoneCtThemeDelegate()
                 .getThemeColors(
                         context,
-                        WeatherViewController.getWeatherKind(weather),
-                        location.isDaylight()
+                        WeatherViewController.getWeatherKind(device),
+                        phone.isDaylight()
                 );
 
         mTitle.setTextColor(colors[0]);
-
-        if (TextUtils.isEmpty(weather.getCurrent().getDailyForecast())) {
-            mSubtitle.setVisibility(View.GONE);
-        } else {
+        //todo: 判断整个卡片显不显示的判断
+//        if (TextUtils.isEmpty(device.getCurrent().getDailyForecast())) {
+//            mSubtitle.setVisibility(View.GONE);
+//        } else {
             mSubtitle.setVisibility(View.VISIBLE);
-            mSubtitle.setText(weather.getCurrent().getDailyForecast());
-        }
+            mSubtitle.setText("未来两小时不会下雨，放心出门吧");
+//        }
 
-        List<TagAdapter.Tag> tagList = getTagList(weather);
+        List<TagAdapter.Tag> tagList = getTagList(device);
         if (tagList.size() < 2) {
             mTagView.setVisibility(View.GONE);
         } else {
@@ -111,23 +113,23 @@ public class AppListViewHolder extends AbstractMainCardViewHolder {
             );
 
 //            mTagView.setLayoutManager(new LinearLayoutManager(context));
-//            mTagView.setAdapter(new DetailsAdapter(context, location));
+//            mTagView.setAdapter(new DetailsAdapter(context, phone));
 
 
             mTagView.setLayoutManager(new TrendHorizontalLinearLayoutManager(context));
             mTagView.setAdapter(
                     new TagAdapter(
                             tagList,
-                            MainThemeColorProvider.getColor(location, R.attr.colorOnPrimary),
-                            MainThemeColorProvider.getColor(location, R.attr.colorOnSurface),
-                            MainThemeColorProvider.getColor(location, R.attr.colorPrimary),
+                            MainThemeColorProvider.getColor(phone, R.attr.colorOnPrimary),
+                            MainThemeColorProvider.getColor(phone, R.attr.colorOnSurface),
+                            MainThemeColorProvider.getColor(phone, R.attr.colorPrimary),
                             DisplayUtils.getWidgetSurfaceColor(
                                     DisplayUtils.DEFAULT_CARD_LIST_ITEM_ELEVATION_DP,
-                                    MainThemeColorProvider.getColor(location, R.attr.colorPrimary),
-                                    MainThemeColorProvider.getColor(location, R.attr.colorSurface)
+                                    MainThemeColorProvider.getColor(phone, R.attr.colorPrimary),
+                                    MainThemeColorProvider.getColor(phone, R.attr.colorSurface)
                             ),
                             (checked, oldPosition, newPosition) -> {
-                                setTrendAdapterByTag(location, (AppListTag) tagList.get(newPosition));
+                                setTrendAdapterByTag(phone, (AppListTag) tagList.get(newPosition));
                                 return false;
                             },
                             0
@@ -138,7 +140,7 @@ public class AppListViewHolder extends AbstractMainCardViewHolder {
 
         mTrendRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mTrendRecyclerView.setAdapter(mTrendAdapter);
-//        mTrendRecyclerView.setAdapter(new AppListAdapter(context,location));
+//        mTrendRecyclerView.setAdapter(new AppListAdapter(context,phone));
 
 //        mTrendRecyclerView.setLayoutManager(
 //                new TrendHorizontalLinearLayoutManager(
@@ -146,23 +148,23 @@ public class AppListViewHolder extends AbstractMainCardViewHolder {
 //                        DisplayUtils.isLandscape(context) ? 7 : 5
 //                )
 //        );
-//        mTrendRecyclerView.setLineColor(MainThemeColorProvider.getColor(location, R.attr.colorOutline));
+//        mTrendRecyclerView.setLineColor(MainThemeColorProvider.getColor(phone, R.attr.colorOutline));
 //        mTrendRecyclerView.setAdapter(mTrendAdapter);
 //        mTrendRecyclerView.setKeyLineVisibility(
 //                SettingsManager.getInstance(context).isTrendHorizontalLinesEnabled());
-        setTrendAdapterByTag(location, (AppListTag) tagList.get(0));
+        setTrendAdapterByTag(phone, (AppListTag) tagList.get(0));
 
-//        mScrollBar.resetColor(location);
+//        mScrollBar.resetColor(phone);
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void setTrendAdapterByTag(Location location, AppListTag tag) {
+    private void setTrendAdapterByTag(Phone phone, AppListTag tag) {
         switch (tag.getType()) {
             case XPOSEDMODULE:
                 mTrendAdapter.xposedModule(
                         context,
                         mTrendRecyclerView,
-                        location,
+                        phone,
                         provider,
                         SettingsManager.getInstance(context).getTemperatureUnit()
                 );
@@ -172,7 +174,7 @@ public class AppListViewHolder extends AbstractMainCardViewHolder {
                 mTrendAdapter.hookFramework(
                         context,
                         mTrendRecyclerView,
-                        location,
+                        phone,
                         provider,
                         SettingsManager.getInstance(context).getPrecipitationUnit()
                 );
@@ -183,7 +185,7 @@ public class AppListViewHolder extends AbstractMainCardViewHolder {
         mTrendAdapter.notifyDataSetChanged();
     }
 
-    private List<TagAdapter.Tag> getTagList(Weather weather) {
+    private List<TagAdapter.Tag> getTagList(Device device) {
         List<TagAdapter.Tag> tagList = new ArrayList<>();
         List<AppListTrendDisplay> displayList
                 = SettingsManager.getInstance(context).getAppListTrendDisplay();
@@ -194,12 +196,12 @@ public class AppListViewHolder extends AbstractMainCardViewHolder {
                     break;
 
                 case TAG_HOOK_FRAMEWORK:
-                    for (Daily daily : weather.getDailyForecast()) {
-                        if (daily.getAirQuality().isValid()) {
+                        // todo： 应该判断存不存在
+                        if (device.getImei() != null) {
                             tagList.add(new AppListTag(context.getString(R.string.hook_framework), AppListTag.Type.HOOK_FRAMEWORK));
                             break;
                         }
-                    }
+
                     break;
 
             }

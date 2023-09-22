@@ -2,6 +2,7 @@ package com.mmg.phonect.main.adapters;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mmg.phonect.R;
-import com.mmg.phonect.common.basic.models.Location;
-import com.mmg.phonect.common.basic.models.options.unit.CloudCoverUnit;
-import com.mmg.phonect.common.basic.models.options.unit.RelativeHumidityUnit;
-import com.mmg.phonect.common.basic.models.options.unit.SpeedUnit;
-import com.mmg.phonect.common.basic.models.weather.Weather;
-import com.mmg.phonect.common.basic.models.weather.Device;
+import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.main.utils.MainThemeColorProvider;
 import com.mmg.phonect.settings.SettingsManager;
 
@@ -87,121 +83,76 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         }
     }
 
-    public DeviceAdapter(Context context, Location location) {
-        mLightTheme = MainThemeColorProvider.isLightTheme(context, location);
+    public DeviceAdapter(Context context, Phone phone) {
+        mLightTheme = MainThemeColorProvider.isLightTheme(context, phone);
 
         mIndexList = new ArrayList<>();
-        SettingsManager settings = SettingsManager.getInstance(context);
-        SpeedUnit speedUnit = settings.getSpeedUnit();
-        Weather weather = location.getWeather();
-        assert weather != null;
+//        SettingsManager settings = SettingsManager.getInstance(context);
+//        Device device = phone.getDevice();
+//        assert weather != null;
 
-        String windTitle = context.getString(R.string.live)
-                + " : "
-                + weather.getCurrent().getWind().getWindDescription(context, speedUnit);
-        String windContent = context.getString(R.string.daytime)
-                + " : "
-                + weather.getDailyForecast().get(0).day().getWind().getWindDescription(context, speedUnit)
-                + "\n"
-                + context.getString(R.string.nighttime)
-                + " : "
-                + weather.getDailyForecast().get(0).night().getWind().getWindDescription(context, speedUnit);
-        mIndexList.add(
-                new Index(
-                        R.drawable.ic_wind,
-                        windTitle,
-                        windContent,
-                        context.getString(R.string.wind)
-                                + ", " + windTitle
-                                + ", " + windContent.replace("\n", ", ")
-                )
-        );
+        Log.d("mmg", "DeviceAdapter: "+phone.getDevice().getBootid());
 
-        if (weather.getCurrent().getDevice() != null) {
+        if (phone.getDevice() != null) {
+
+            String windTitle = "IMEI";
+            String windContent = "imei 1"
+                    + " : "
+                    + phone.getDevice().getImei()
+                    + "\n"
+                    + "imei2"
+                    + " : "
+                    +phone.getDevice().getImei2();
+            mIndexList.add(
+                    new Index(
+                            R.drawable.ic_wind,
+                            windTitle,
+                            windContent,
+                            context.getString(R.string.wind)
+                                    + ", " + windTitle
+                                    + ", " + windContent.replace("\n", ", ")
+                    )
+            );
             mIndexList.add(
                     new Index(
                             R.drawable.ic_water_percent,
                             context.getString(R.string.android_id),
-                            weather.getCurrent().getDevice().getAndroidid()
+                            phone.getDevice().getAndroidid()
 
                     )
             );
-        }
-
-        if (weather.getCurrent().getUV().isValid()) {
-            mIndexList.add(
-                    new Index(
-                            R.drawable.ic_uv,
-                            context.getString(R.string.uv_index),
-                            weather.getCurrent().getUV().getUVDescription()
-                    )
-            );
-        }
-
-        if (weather.getCurrent().getPressure() != null) {
+            // todo: 这里都该改成R.string 的形式
             mIndexList.add(
                     new Index(
                             R.drawable.ic_gauge,
-                            context.getString(R.string.pressure),
-                            settings.getPressureUnit().getValueText(context, weather.getCurrent().getPressure()),
-                            context.getString(R.string.pressure)
-                                    + ", " + settings.getPressureUnit().getValueVoice(context, weather.getCurrent().getPressure())
+                            "booid",
+                            phone.getDevice().getBootid()
+                    )
+            );
+            mIndexList.add(
+                    new Index(
+                            R.drawable.ic_alipay,
+                            "Serial",
+                            phone.getDevice().getSerial()
+                    )
+            );
+            mIndexList.add(
+                    new Index(
+                            R.drawable.ic_aqi,
+                            "Ua",
+                            phone.getDevice().getUa()
+                    )
+            );
+            mIndexList.add(
+                    new Index(
+                            R.drawable.ic_briefing,
+                            "meid",
+                            "meid:"+phone.getDevice().getMeid()+"\nmeid2:"+phone.getDevice().getMeid2()
                     )
             );
         }
 
-        if (weather.getCurrent().getVisibility() != null) {
-            mIndexList.add(
-                    new Index(
-                            R.drawable.ic_eye,
-                            context.getString(R.string.visibility),
-                            settings.getDistanceUnit().getValueText(context, weather.getCurrent().getVisibility()),
-                            context.getString(R.string.visibility)
-                                    + ", " + settings.getDistanceUnit().getValueVoice(context, weather.getCurrent().getVisibility())
-                    )
-            );
-        }
 
-        if (weather.getCurrent().getDewPoint() != null) {
-            mIndexList.add(
-                    new Index(
-                            R.drawable.ic_water,
-                            context.getString(R.string.dew_point),
-                            settings.getTemperatureUnit().getValueText(
-                                    context,
-                                    weather.getCurrent().getDewPoint()
-                            )
-                    )
-            );
-        }
-
-        if (weather.getCurrent().getCloudCover() != null) {
-            mIndexList.add(
-                    new Index(
-                            R.drawable.ic_cloud,
-                            context.getString(R.string.cloud_cover),
-                            CloudCoverUnit.PERCENT.getValueText(
-                                    context,
-                                    weather.getCurrent().getCloudCover()
-                            )
-                    )
-            );
-        }
-
-        if (weather.getCurrent().getCeiling() != null) {
-            mIndexList.add(
-                    new Index(
-                            R.drawable.ic_top,
-                            context.getString(R.string.ceiling),
-                            settings.getDistanceUnit().getValueText(
-                                    context,
-                                    weather.getCurrent().getCeiling()
-                            ),
-                            context.getString(R.string.ceiling) + ", " + settings.getDistanceUnit().getValueVoice(
-                                    context, weather.getCurrent().getCeiling())
-                    )
-            );
-        }
     }
 
     @NonNull

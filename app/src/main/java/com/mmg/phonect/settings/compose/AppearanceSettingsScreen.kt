@@ -74,30 +74,30 @@ fun AppearanceSettingsScreen(
                 }
             }
         }
-        clickablePreferenceItem(
-            R.string.settings_title_daily_trend_display
-        ) {
-            PreferenceView(
-                title = stringResource(it),
-                summary = DailyTrendDisplay.getSummary(context, dailyTrendDisplayList),
-            ) {
-                (context as? Activity)?.let { a ->
-                    IntentHelper.startDailyTrendDisplayManageActivity(a)
-                }
-            }
-        }
-        clickablePreferenceItem(
-            R.string.settings_title_hourly_trend_display
-        ) {
-            PreferenceView(
-                title = stringResource(it),
-                summary = HourlyTrendDisplay.getSummary(context, hourlyTrendDisplayList),
-            ) {
-                (context as? Activity)?.let { a ->
-                    IntentHelper.startHourlyTrendDisplayManageActivityForResult(a)
-                }
-            }
-        }
+//        clickablePreferenceItem(
+//            R.string.settings_title_daily_trend_display
+//        ) {
+//            PreferenceView(
+//                title = stringResource(it),
+//                summary = DailyTrendDisplay.getSummary(context, dailyTrendDisplayList),
+//            ) {
+//                (context as? Activity)?.let { a ->
+//                    IntentHelper.startDailyTrendDisplayManageActivity(a)
+//                }
+//            }
+//        }
+//        clickablePreferenceItem(
+//            R.string.settings_title_hourly_trend_display
+//        ) {
+//            PreferenceView(
+//                title = stringResource(it),
+//                summary = HourlyTrendDisplay.getSummary(context, hourlyTrendDisplayList),
+//            ) {
+//                (context as? Activity)?.let { a ->
+//                    IntentHelper.startHourlyTrendDisplayManageActivityForResult(a)
+//                }
+//            }
+//        }
         checkboxPreferenceItem(R.string.settings_title_trend_horizontal_line_switch) { id ->
             CheckboxPreferenceView(
                 titleId = id,

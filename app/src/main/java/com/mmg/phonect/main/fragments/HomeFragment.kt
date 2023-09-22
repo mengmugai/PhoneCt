@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mmg.phonect.R
 import com.mmg.phonect.common.basic.GeoActivity
 import com.mmg.phonect.common.basic.livedata.EqualtableLiveData
-import com.mmg.phonect.common.basic.models.Location
+import com.mmg.phonect.common.basic.models.Phone
 import com.mmg.phonect.common.ui.widgets.SwipeSwitchLayout
 import com.mmg.phonect.common.ui.widgets.SwipeSwitchLayout.OnSwitchListener
 import com.mmg.phonect.databinding.FragmentHomeBinding
@@ -191,22 +191,23 @@ class HomeFragment : MainModuleFragment() {
         binding.recyclerView.addOnScrollListener(OnScrollListener().also { scrollListener = it })
         binding.recyclerView.setOnTouchListener(indicatorStateListener)
 
-        viewModel.currentLocation.observe(viewLifecycleOwner) {
-            updateViews(it.location)
+        viewModel.currentPhone.observe(viewLifecycleOwner) {
+            updateViews(it.phone)
         }
 
         viewModel.loading.observe(viewLifecycleOwner) { setRefreshing(it) }
 
         viewModel.indicator.observe(viewLifecycleOwner) {
-            binding.switchLayout.isEnabled = it.total > 1
+            binding.switchLayout.isEnabled = false
 
-            if (binding.switchLayout.totalCount != it.total
-                || binding.switchLayout.position != it.index) {
-                binding.switchLayout.setData(it.index, it.total)
+            if (binding.switchLayout.totalCount != 1
+                || binding.switchLayout.position != 0) {
+                binding.switchLayout.setData(0, 1)
                 binding.indicator.setSwitchView(binding.switchLayout)
             }
 
-            binding.indicator.visibility = if (it.total > 1) View.VISIBLE else View.GONE
+//            binding.indicator.visibility = if (it.total > 1) View.VISIBLE else View.GONE
+            binding.indicator.visibility =  View.GONE
         }
 
         previewOffset.observe(viewLifecycleOwner) {
@@ -221,7 +222,7 @@ class HomeFragment : MainModuleFragment() {
     private fun updateDayNightColors() {
         binding.refreshLayout.setProgressBackgroundColorSchemeColor(
             MainThemeColorProvider.getColor(
-                location = viewModel.currentLocation.value!!.location,
+                phone = viewModel.currentPhone.value!!.phone,
                 id = R.attr.colorSurface
             )
         )
@@ -230,9 +231,9 @@ class HomeFragment : MainModuleFragment() {
     // control.
 
     @JvmOverloads
-    fun updateViews(location: Location = viewModel.currentLocation.value!!.location) {
+    fun updateViews(phone: Phone = viewModel.currentPhone.value!!.phone) {
         ensureResourceProvider()
-        updateContentViews(location = location)
+        updateContentViews(phone = phone)
         binding.root.post {
             if (isFragmentViewCreated) {
                 updatePreviewSubviews()
@@ -241,7 +242,7 @@ class HomeFragment : MainModuleFragment() {
     }
 
     @SuppressLint("ClickableViewAccessibility", "NotifyDataSetChanged")
-    private fun updateContentViews(location: Location) {
+    private fun updateContentViews(phone: Phone) {
         if (recyclerViewAnimator != null) {
             recyclerViewAnimator!!.cancel()
             recyclerViewAnimator = null
@@ -251,7 +252,7 @@ class HomeFragment : MainModuleFragment() {
 
         binding.switchLayout.reset()
 
-        if (location.weather == null) {
+        if (phone.device == null) {
             adapter!!.setNullWeather()
             adapter!!.notifyDataSetChanged()
             binding.recyclerView.setOnTouchListener { _, event ->
@@ -280,7 +281,7 @@ class HomeFragment : MainModuleFragment() {
             (requireActivity() as GeoActivity),
             binding.recyclerView,
             weatherView,
-            location,
+            phone,
             resourceProvider!!,
             listAnimationEnabled,
             itemAnimationEnabled
@@ -311,17 +312,15 @@ class HomeFragment : MainModuleFragment() {
     }
 
     private fun updatePreviewSubviews() {
-        val location = viewModel.getValidLocation(
-            previewOffset.value!!
-        )
-        val daylight = location.isDaylight
+        val phone = viewModel.getValidLocation()
+        val daylight = phone.isDaylight
 
-        binding.toolbar.title = location.getCityName(requireContext())
+//        binding.toolbar.title = phone.getPhoneName(requireContext())
         // 标头赋值给手机型号
-//        binding.toolbar.title = Build.BRAND + "-" + Build.MODEL
+        binding.toolbar.title = Build.BRAND + "-" + Build.MODEL
         WeatherViewController.setWeatherCode(
             weatherView,
-            location.weather,
+            phone.device,
             daylight,
             resourceProvider!!
         )
@@ -331,7 +330,7 @@ class HomeFragment : MainModuleFragment() {
                 .phoneCtThemeDelegate
                 .getThemeColors(
                     requireContext(),
-                    WeatherViewController.getWeatherKind(location.weather),
+                    WeatherViewController.getWeatherKind(phone.device),
                     daylight
                 )[0]
         )
@@ -365,7 +364,7 @@ class HomeFragment : MainModuleFragment() {
     }
 
     // on swipe listener (swipe switch layout).
-
+    // 左右滑动更换城市的  old
     private val switchListener: OnSwitchListener = object : OnSwitchListener {
 
         override fun onSwiped(swipeDirection: Int, progress: Float) {
@@ -383,9 +382,9 @@ class HomeFragment : MainModuleFragment() {
         override fun onSwitched(swipeDirection: Int) {
             binding.indicator.setDisplayState(false)
 
-            viewModel.offsetLocation(
-                if (swipeDirection == SwipeSwitchLayout.SWIPE_DIRECTION_LEFT) 1 else -1
-            )
+//            viewModel.offsetLocation(
+//                if (swipeDirection == SwipeSwitchLayout.SWIPE_DIRECTION_LEFT) 1 else -1
+//            )
             previewOffset.setValue(0)
         }
     }
