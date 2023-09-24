@@ -8,9 +8,9 @@
 - 等各种状态识别
 
 # 初步形态
-![软件界面1](imgs/img1.png)
+![软件界面1](imgs/img_1.png)
 ![软件界面2](imgs/img.png)
-![软件界面3](imgs/img2.png)
+![软件界面3](imgs/img_2.png)
 
 
 
