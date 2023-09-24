@@ -406,6 +406,7 @@
     <string name="settings_notification_hide_big_view_on">隐藏</string>
     <string name="settings_notification_hide_big_view_off">显示</string>
     <string name="device_info">设备信息</string>
+    <string name="abnormal_info">病情</string>
 
 
     <string name="geometric_weather">Geometric Weather</string>

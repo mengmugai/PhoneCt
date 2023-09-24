@@ -8,7 +8,9 @@
 - 等各种状态识别
 
 # 初步形态
-![软件界面](imgs/img.png)
+![软件界面1](imgs/img1.png)
+![软件界面2](imgs/img.png)
+![软件界面3](imgs/img2.png)
 
 
 
@@ -16,3 +18,11 @@
 [外观参考](https://github.com/WangDaYeeeeee/GeometricWeather)
 
 [信息参考](https://github.com/song-dev/device-info)
+
+frida 检测参考
+
+[frida:rpc ](https://github.com/xxr0ss/AntiFrida/blob/main/app/src/main/cpp/antifrida.cpp)
+
+[部分参考(珍惜)](https://bbs.kanxue.com/thread-277402.htm#msg_header_h3_9)
+
+# 未完成参考

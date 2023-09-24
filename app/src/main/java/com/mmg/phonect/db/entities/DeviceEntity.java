@@ -19,9 +19,36 @@ public class DeviceEntity {
 
     public String serial;
 
-    @Generated(hash = 1742342683)
+
+    // 解锁状态
+    public String deviceLock;
+    public String fridaCheck;
+    public String xposedCheck;
+    public String vmCheck;
+    public String rootCheck;
+    public String signCheck;
+
+    // 调试状态
+    public String debugOpen;
+    //  USB 调试状态
+    public String usbDebugStatus;
+    public String tracerPid;
+    //APP 是否是 debug 版本
+    public String debugVersion;
+    //是否正在调试
+    public String debugConnected;
+    // 虚拟位置
+    public String allowMockLocation;
+
+
+
+    @Generated(hash = 717815474)
     public DeviceEntity(Long id, String androidid, String imei, String imei2,
-            String meid, String meid2, String ua, String bootid, String serial) {
+            String meid, String meid2, String ua, String bootid, String serial,
+            String deviceLock, String fridaCheck, String xposedCheck,
+            String vmCheck, String rootCheck, String signCheck, String debugOpen,
+            String usbDebugStatus, String tracerPid, String debugVersion,
+            String debugConnected, String allowMockLocation) {
         this.id = id;
         this.androidid = androidid;
         this.imei = imei;
@@ -31,6 +58,18 @@ public class DeviceEntity {
         this.ua = ua;
         this.bootid = bootid;
         this.serial = serial;
+        this.deviceLock = deviceLock;
+        this.fridaCheck = fridaCheck;
+        this.xposedCheck = xposedCheck;
+        this.vmCheck = vmCheck;
+        this.rootCheck = rootCheck;
+        this.signCheck = signCheck;
+        this.debugOpen = debugOpen;
+        this.usbDebugStatus = usbDebugStatus;
+        this.tracerPid = tracerPid;
+        this.debugVersion = debugVersion;
+        this.debugConnected = debugConnected;
+        this.allowMockLocation = allowMockLocation;
     }
 
     @Generated(hash = 1449836520)
@@ -107,5 +146,101 @@ public class DeviceEntity {
 
     public void setSerial(String serial) {
         this.serial = serial;
+    }
+
+    public String getDeviceLock() {
+        return this.deviceLock;
+    }
+
+    public void setDeviceLock(String deviceLock) {
+        this.deviceLock = deviceLock;
+    }
+
+    public String getFridaCheck() {
+        return this.fridaCheck;
+    }
+
+    public void setFridaCheck(String fridaCheck) {
+        this.fridaCheck = fridaCheck;
+    }
+
+    public String getXposedCheck() {
+        return this.xposedCheck;
+    }
+
+    public void setXposedCheck(String xposedCheck) {
+        this.xposedCheck = xposedCheck;
+    }
+
+    public String getVmCheck() {
+        return this.vmCheck;
+    }
+
+    public void setVmCheck(String vmCheck) {
+        this.vmCheck = vmCheck;
+    }
+
+    public String getRootCheck() {
+        return this.rootCheck;
+    }
+
+    public void setRootCheck(String rootCheck) {
+        this.rootCheck = rootCheck;
+    }
+
+    public String getSignCheck() {
+        return this.signCheck;
+    }
+
+    public void setSignCheck(String signCheck) {
+        this.signCheck = signCheck;
+    }
+
+    public String getDebugOpen() {
+        return this.debugOpen;
+    }
+
+    public void setDebugOpen(String debugOpen) {
+        this.debugOpen = debugOpen;
+    }
+
+    public String getUsbDebugStatus() {
+        return this.usbDebugStatus;
+    }
+
+    public void setUsbDebugStatus(String usbDebugStatus) {
+        this.usbDebugStatus = usbDebugStatus;
+    }
+
+    public String getTracerPid() {
+        return this.tracerPid;
+    }
+
+    public void setTracerPid(String tracerPid) {
+        this.tracerPid = tracerPid;
+    }
+
+    public String getDebugVersion() {
+        return this.debugVersion;
+    }
+
+    public void setDebugVersion(String debugVersion) {
+        this.debugVersion = debugVersion;
+    }
+
+    public String getDebugConnected() {
+        return this.debugConnected;
+    }
+
+    public void setDebugConnected(String debugConnected) {
+        this.debugConnected = debugConnected;
+    }
+
+    public String getAllowMockLocation() {
+        return this.allowMockLocation;
+    }
+
+    public void setAllowMockLocation(String allowMockLocation) {
+        this.allowMockLocation = allowMockLocation;
     }
 }

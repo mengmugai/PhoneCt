@@ -143,7 +143,7 @@ public class CardDisplayManageActivity extends GeoActivity {
 //        otherCards.add(CardDisplay.CARD_AIR_QUALITY);
 //        otherCards.add(CardDisplay.CARD_ALLERGEN);
 //        otherCards.add(CardDisplay.CARD_SUNRISE_SUNSET);
-//        otherCards.add(CardDisplay.CARD_LIFE_DETAILS);
+        otherCards.add(CardDisplay.CARD_ABNORMAL_INFO);
         otherCards.add(CardDisplay.CARD_DEVICE_INFO);
         otherCards.add(CardDisplay.CARD_APP_LIST);
         for (int i = otherCards.size() - 1; i >= 0; i --) {

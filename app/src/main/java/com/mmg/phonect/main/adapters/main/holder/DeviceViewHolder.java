@@ -40,7 +40,7 @@ public class DeviceViewHolder extends AbstractMainCardViewHolder {
         super.onBindView(activity, phone, provider,
                 listAnimationEnabled, itemAnimationEnabled, firstCard);
 
-        if (phone.getBrand() != null) {
+        if (phone.getDevice() != null) {
             mTitle.setTextColor(
                     ThemeManager
                             .getInstance(context)

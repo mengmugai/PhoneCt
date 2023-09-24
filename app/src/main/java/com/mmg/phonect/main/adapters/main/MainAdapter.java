@@ -16,6 +16,7 @@ import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.common.basic.models.options.appearance.CardDisplay;
 import com.mmg.phonect.common.basic.models.weather.Device;
 import com.mmg.phonect.common.basic.models.weather.Weather;
+import com.mmg.phonect.main.adapters.main.holder.AbnormalViewHolder;
 import com.mmg.phonect.main.adapters.main.holder.DeviceViewHolder;
 import com.mmg.phonect.main.adapters.main.holder.AppListViewHolder;
 import com.mmg.phonect.theme.weatherView.WeatherView;
@@ -113,8 +114,8 @@ public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
 //            case ViewType.ASTRO:
 //                return new AstroViewHolder(parent);
 
-//            case ViewType.DETAILS:
-//                return new DetailsViewHolder(parent);
+            case ViewType.ABNORMAL:
+                return new AbnormalViewHolder(parent);
 
             case ViewType.DEVICE:
 
@@ -172,8 +173,8 @@ public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
 //                    || type == ViewType.AIR_QUALITY
 //                    || type == ViewType.ALLERGEN
 //                    || type == ViewType.ASTRO
-//                    || type == ViewType.DETAILS
-                    type == ViewType.DEVICE
+                    type == ViewType.ABNORMAL
+                    || type == ViewType.DEVICE
                     || type == ViewType.APPLIST) {
                 mFirstCardPosition = i;
                 return;
@@ -207,8 +208,8 @@ public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
 //            case CARD_DAILY_OVERVIEW:
 //                return ViewType.DAILY;
 
-//            case CARD_HOURLY_OVERVIEW:
-//                return ViewType.HOURLY;
+            case CARD_ABNORMAL_INFO:
+                return ViewType.ABNORMAL;
 //
 //            case CARD_AIR_QUALITY:
 //                return ViewType.AIR_QUALITY;

@@ -13,6 +13,9 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!-- 获取蓝牙设备信息 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
     <!-- 存储权限 -->
 <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
 <!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->

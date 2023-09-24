@@ -88,7 +88,11 @@ public class DeviceHelper {
 
     public String[] getPermissions() {
 
-        return new String[]{Manifest.permission.READ_PHONE_STATE};
+        return new String[]{
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.READ_SMS,
+
+        };
     }
 
     public void cancel() {

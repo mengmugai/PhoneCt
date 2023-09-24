@@ -11,6 +11,9 @@ cmake_minimum_required(VERSION 3.4.1)
 
 project("phonect")
 
+set(can_use_assembler TRUE)
+enable_language(ASM)
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -21,8 +24,8 @@ add_library( # Sets the name of the library.
 
              # Sets the library as a shared library.
              SHARED
-
-             # Provides a relative path to your source file(s).
+            syscall.S
+        # Provides a relative path to your source file(s).
              phonect.cpp
              debug-check.cpp
         )

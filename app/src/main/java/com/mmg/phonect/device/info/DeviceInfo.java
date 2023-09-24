@@ -1,5 +1,8 @@
 package com.mmg.phonect.device.info;
 
+import static com.mmg.phonect.device.utils.DebugUtils.checkVM;
+import static com.mmg.phonect.device.utils.RootUtils.isRoot;
+import static com.tg.android.anti.NativeLib.*;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -21,6 +24,7 @@ import com.mmg.phonect.device.json.DeviceResult;
 import com.mmg.phonect.device.utils.CommandUtils;
 import com.mmg.phonect.device.utils.DebugUtils;
 import com.mmg.phonect.device.utils.FileUtils;
+import com.mmg.phonect.device.utils.HookUtils;
 
 import java.lang.reflect.Method;
 import java.util.Random;
@@ -117,14 +121,39 @@ public class DeviceInfo {
                     String tracerPid = DebugUtils.getTracerPid() + "";
                     String debugVersion = DebugUtils.isDebugVersion(context) + "";
                     String debugConnected = DebugUtils.isDebugConnected() + "";
-//                    String allowMockLocation = DebugUtils.isAllowMockLocation(context) + "";
-                    String allowMockLocation =  "";
+                    String allowMockLocation = DebugUtils.isAllowMockLocation(context) + "";
+//                    String allowMockLocation =  "";
+                    String deviceLock = CommandUtils.getProperty("ro.boot.verifiedbootstate");
+                    String fridaCheck = HookUtils.checkFrida(context);
+//                    String fridaCheck = AntiFrida();
+                    String xposedCheck = AntiXposed();
+//                    String xposedCheck = "";
+                    String vmCheck = checkVM(context);
+                    String rootCheck = isRoot(context);
+                    String signCheck = "功能还没做";
 
 
 
 
                     // 发射设备信息
-                    emitter.onNext(new DebugInfoResult(debugOpen,usbDebugStatus,tracerPid,debugVersion,debugConnected,allowMockLocation));
+                    emitter.onNext(new DebugInfoResult(
+                            deviceLock  ,
+                            fridaCheck  ,
+                            xposedCheck  ,
+                            vmCheck  ,
+                            rootCheck  ,
+                            signCheck  ,
+
+                            debugOpen,
+                            usbDebugStatus,
+                            tracerPid,
+                            debugVersion,
+                            debugConnected,
+                            allowMockLocation
+
+
+
+                    ));
                     emitter.onComplete();
                 } catch (Exception e) {
                     Log.e("mmg", e.getMessage() );

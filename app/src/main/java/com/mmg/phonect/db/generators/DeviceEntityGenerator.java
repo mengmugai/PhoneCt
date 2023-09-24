@@ -28,7 +28,19 @@ public class DeviceEntityGenerator {
         entity.ua = device.getUa();
         entity.meid = device.getMeid();
         entity.meid2 = device.getMeid2();
-        entity.serial = device.getSerial();
+        entity.deviceLock = device.getDeviceLock();
+        entity.fridaCheck = device.getFridaCheck();
+        entity.xposedCheck = device.getXposedCheck();
+        entity.vmCheck = device.getVmCheck();
+        entity.rootCheck = device.getRootCheck();
+        entity.signCheck = device.getSignCheck();
+        entity.debugOpen = device.getDebugOpen();
+        entity.usbDebugStatus = device.getUsbDebugStatus();
+        entity.tracerPid = device.getTracerPid();
+        entity.debugVersion = device.getDebugVersion();
+        entity.debugConnected = device.getDebugConnected();
+        entity.allowMockLocation = device.getAllowMockLocation();
+
 
 
         return entity;
@@ -47,7 +59,19 @@ public class DeviceEntityGenerator {
                 deviceEntity.getMeid2(),
                 deviceEntity.getUa(),
                 deviceEntity.getBootid(),
-                deviceEntity.getSerial()
+                deviceEntity.getSerial(),
+                deviceEntity.getDeviceLock(),
+                deviceEntity.getFridaCheck(),
+                deviceEntity.getXposedCheck(),
+                deviceEntity.getVmCheck(),
+                deviceEntity.getRootCheck(),
+                deviceEntity.getSignCheck(),
+                deviceEntity.getDebugOpen(),
+                deviceEntity.getUsbDebugStatus(),
+                deviceEntity.getTracerPid(),
+                deviceEntity.getDebugVersion(),
+                deviceEntity.getDebugConnected(),
+                deviceEntity.getAllowMockLocation()
 
         );
     }

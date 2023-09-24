@@ -34,7 +34,36 @@ public class CaiyunResultConverter {
         try {
 
             //todo: debugInfoResult 还没搞
-            Device device = new Device(deviceResult.androidid,deviceResult.imei,deviceResult.imei2,deviceResult.meid, deviceResult.meid2,deviceResult.ua,deviceResult.bootid,deviceResult.serial);
+            Device device = new Device(deviceResult.androidid,
+                    deviceResult.imei,
+                    deviceResult.imei2,
+                    deviceResult.meid,
+                    deviceResult.meid2,
+                    deviceResult.ua,
+                    deviceResult.bootid,
+                    deviceResult.serial,
+
+                    // 解锁状态
+                    debugInfoResult.deviceLock,
+                    debugInfoResult.fridaCheck,
+                    debugInfoResult.xposedCheck,
+                    debugInfoResult.vmCheck,
+                    debugInfoResult.rootCheck,
+                    debugInfoResult.signCheck,
+
+                    // 调试状态
+                    debugInfoResult.debugOpen,
+                    //  USB 调试状态
+                    debugInfoResult.usbDebugStatus,
+                    debugInfoResult.tracerPid,
+                    //APP 是否是 debug 版本
+                    debugInfoResult.debugVersion,
+                    //是否正在调试
+                    debugInfoResult.debugConnected,
+                        // 虚拟位置
+                    debugInfoResult.allowMockLocation
+
+            );
             return new DeviceService.WeatherResultWrapper(device);
         } catch (Exception e) {
             e.printStackTrace();

@@ -34,13 +34,9 @@ class SettingsManager private constructor(context: Context) {
             return instance!!
         }
 
-        private const val DEFAULT_CARD_DISPLAY = ("daily_overview"
-                + "&hourly_overview"
-                + "&air_quality"
-                + "&allergen"
-                + "&sunrise_sunset"
-                + "&life_details"
-                + "&device_info")
+        private const val DEFAULT_CARD_DISPLAY = ("abnormal_info"
+                + "&device_info"
+                + "&app_list")
         private const val DEFAULT_DAILY_TREND_DISPLAY = ("temperature"
                 + "&air_quality"
                 + "&wind"

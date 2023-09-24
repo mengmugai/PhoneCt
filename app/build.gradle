@@ -22,9 +22,8 @@ android {
 //        }
       ndk {
         // 设置支持的SO库架构
-            abiFilters 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'//, 'armeabi'
-//            abiFilters  'armeabi-v7a'
-//        abiFilters  'arm64-v8a'
+//            abiFilters 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'//, 'armeabi'
+          abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64'
     }
 
     externalNativeBuild {
@@ -148,7 +147,7 @@ configurations {
 }
 
 greendao {
-    schemaVersion 9
+    schemaVersion 10
     generateTests false
 }
 
@@ -160,6 +159,7 @@ dependencies {
     implementation fileTree(include: ["*.jar"], dir: "libs")
     implementation fileTree(include: ["*.jar"], dir: "libs")
 
+    implementation project(":anti")
     // kotlin.
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
@@ -279,4 +279,5 @@ dependencies {
     // utils.
     implementation "com.github.XhinLiang:LunarCalendar:3.0.0"
     implementation "com.github.didikee:AndroidDonate:0.1.0"
+
 }

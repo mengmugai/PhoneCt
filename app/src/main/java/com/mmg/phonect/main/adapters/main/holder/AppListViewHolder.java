@@ -92,7 +92,7 @@ public class AppListViewHolder extends AbstractMainCardViewHolder {
 //            mSubtitle.setVisibility(View.GONE);
 //        } else {
             mSubtitle.setVisibility(View.VISIBLE);
-            mSubtitle.setText("未来两小时不会下雨，放心出门吧");
+            mSubtitle.setText("此处只做显示  不作为风险标识");
 //        }
 
         List<TagAdapter.Tag> tagList = getTagList(device);

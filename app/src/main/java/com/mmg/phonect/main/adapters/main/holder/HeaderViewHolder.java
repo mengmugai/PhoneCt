@@ -83,7 +83,7 @@ public class HeaderViewHolder extends AbstractMainViewHolder {
         mTemperatureUnit = SettingsManager.getInstance(context).getTemperatureUnit();
         if (phone.getDevice() != null) {
             mTemperatureCFrom = mTemperatureCTo;
-            mTemperatureCTo = 100;
+            mTemperatureCTo = phone.getDevice().getScore();
 
             mTemperature.setEnableAnim(itemAnimationEnabled);
             mTemperature.setDuration(
@@ -93,14 +93,24 @@ public class HeaderViewHolder extends AbstractMainViewHolder {
                     )
             );
             mTemperature.setPostfixString(mTemperatureUnit.getShortName(context));
-
-            StringBuilder title = new StringBuilder(phone.getBrand() + "暂时就这");
-            if (phone.getModel() != null) {
-                title.append(", ")
-                        .append(context.getString(R.string.feels_like))
-                        .append(" ")
-                        .append(phone.getModel());
+            String disease = "满分100分   ";
+            if(mTemperatureCTo == 100){
+                disease += "设备没有检查出异常  可以出院了";
             }
+            else if (mTemperatureCTo< 100 && mTemperatureCTo>80) {
+                disease += "你有点不正常哦~";
+            }else {
+                disease += "你这有点病危了！！！！";
+            }
+
+//            StringBuilder title = new StringBuilder(phone.getBrand() + "暂时就这");
+            StringBuilder title = new StringBuilder(disease);
+//            if (phone.getModel() != null) {
+//                title.append(", ")
+//                        .append(context.getString(R.string.feels_like))
+//                        .append(" ")
+//                        .append(phone.getModel());
+//            }
             mWeather.setText(title.toString());
 
             if (phone.getBrand() == null) {
