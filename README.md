@@ -19,6 +19,8 @@
 
 [信息参考](https://github.com/song-dev/device-info)
 
+[xposed检测参考](https://github.com/TUGOhost/anti_Android)
+
 frida 检测参考
 
 [frida:rpc ](https://github.com/xxr0ss/AntiFrida/blob/main/app/src/main/cpp/antifrida.cpp)
