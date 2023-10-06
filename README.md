@@ -3,14 +3,13 @@
 做一个美观的设备识别软件
 
 - 设备指纹识别
-- hook框架识别
+- frida框架检测
+- xposed框架检测
 - root状态识别
 - 等各种状态识别
 
 # 初步形态
-![软件界面1](imgs/img_1.png)
-![软件界面2](imgs/img.png)
-![软件界面3](imgs/img_2.png)
+![软件界面](imgs/img.png))
 
 
 
@@ -24,6 +23,7 @@
 frida 检测参考
 
 [frida:rpc ](https://github.com/xxr0ss/AntiFrida/blob/main/app/src/main/cpp/antifrida.cpp)
+[D-bus 检测](https://github.com/muellerberndt/frida-detection)
 
 [部分参考(珍惜)](https://bbs.kanxue.com/thread-277402.htm#msg_header_h3_9)
 
