@@ -1,7 +1,7 @@
 
 # PhoneCT
 <p align="center">
-<img src="imgs/README_header.png" alt="PhoneCT" >
+<img src="imgs/github文档头.jpg" alt="PhoneCT" >
 </p>
 
 ---
