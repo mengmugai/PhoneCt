@@ -1,6 +1,13 @@
-# PhoneCt
+
+# PhoneCT
+<p align="center">
+<img src="imgs/README_header.png" alt="PhoneCT" >
+</p>
+
+---
 
 做一个美观的设备识别软件
+
 
 - 设备指纹识别
 - frida框架检测
@@ -23,6 +30,7 @@
 frida 检测参考
 
 [frida:rpc ](https://github.com/xxr0ss/AntiFrida/blob/main/app/src/main/cpp/antifrida.cpp)
+
 [D-bus 检测](https://github.com/muellerberndt/frida-detection)
 
 [部分参考(珍惜)](https://bbs.kanxue.com/thread-277402.htm#msg_header_h3_9)
