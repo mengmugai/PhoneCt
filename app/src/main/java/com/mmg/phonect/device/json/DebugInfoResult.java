@@ -26,9 +26,10 @@ public class DebugInfoResult {
 
     // 虚拟位置
     public String allowMockLocation;
+    public String allDiseaseInfo;
 
 
-    public DebugInfoResult(String deviceLock, String fridaCheck, String xposedCheck, String vmCheck, String rootCheck, String signCheck, String debugOpen, String usbDebugStatus, String tracerPid, String debugVersion, String debugConnected, String allowMockLocation) {
+    public DebugInfoResult(String deviceLock, String fridaCheck, String xposedCheck, String vmCheck, String rootCheck, String signCheck, String debugOpen, String usbDebugStatus, String tracerPid, String debugVersion, String debugConnected, String allowMockLocation,String allDiseaseInfo) {
         this.deviceLock = deviceLock;
         this.fridaCheck = fridaCheck;
         this.xposedCheck = xposedCheck;
@@ -41,6 +42,7 @@ public class DebugInfoResult {
         this.debugVersion = debugVersion;
         this.debugConnected = debugConnected;
         this.allowMockLocation = allowMockLocation;
+        this.allDiseaseInfo = allDiseaseInfo;
     }
 
 

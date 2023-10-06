@@ -111,10 +111,6 @@
 
 
 
-        <activity
-            android:name=".daily.DailyWeatherActivity"
-            android:label="@string/daily_overview"
-            android:theme="@style/PhoneCtTheme" />
 
 
 
@@ -138,12 +134,6 @@
         <activity
             android:name=".settings.activities.DailyTrendDisplayManageActivity"
             android:label="@string/settings_title_daily_trend_display"
-            android:theme="@style/PhoneCtTheme"
-            android:screenOrientation="user" />
-
-        <activity
-            android:name=".settings.activities.HourlyTrendDisplayManageActivity"
-            android:label="@string/settings_title_hourly_trend_display"
             android:theme="@style/PhoneCtTheme"
             android:screenOrientation="user" />
 

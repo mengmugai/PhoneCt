@@ -40,6 +40,7 @@ public class DeviceEntityGenerator {
         entity.debugVersion = device.getDebugVersion();
         entity.debugConnected = device.getDebugConnected();
         entity.allowMockLocation = device.getAllowMockLocation();
+        entity.allDiseaseInfo = device.getAllDiseaseInfo();
 
 
 
@@ -71,7 +72,8 @@ public class DeviceEntityGenerator {
                 deviceEntity.getTracerPid(),
                 deviceEntity.getDebugVersion(),
                 deviceEntity.getDebugConnected(),
-                deviceEntity.getAllowMockLocation()
+                deviceEntity.getAllowMockLocation(),
+                deviceEntity.getAllDiseaseInfo()
 
         );
     }

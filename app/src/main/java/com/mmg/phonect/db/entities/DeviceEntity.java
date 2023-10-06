@@ -40,15 +40,19 @@ public class DeviceEntity {
     // 虚拟位置
     public String allowMockLocation;
 
+    // 保存所有异常信息
+    public String allDiseaseInfo;
 
 
-    @Generated(hash = 717815474)
+
+    @Generated(hash = 2107687065)
     public DeviceEntity(Long id, String androidid, String imei, String imei2,
             String meid, String meid2, String ua, String bootid, String serial,
             String deviceLock, String fridaCheck, String xposedCheck,
             String vmCheck, String rootCheck, String signCheck, String debugOpen,
             String usbDebugStatus, String tracerPid, String debugVersion,
-            String debugConnected, String allowMockLocation) {
+            String debugConnected, String allowMockLocation,
+            String allDiseaseInfo) {
         this.id = id;
         this.androidid = androidid;
         this.imei = imei;
@@ -70,6 +74,7 @@ public class DeviceEntity {
         this.debugVersion = debugVersion;
         this.debugConnected = debugConnected;
         this.allowMockLocation = allowMockLocation;
+        this.allDiseaseInfo = allDiseaseInfo;
     }
 
     @Generated(hash = 1449836520)
@@ -242,5 +247,13 @@ public class DeviceEntity {
 
     public void setAllowMockLocation(String allowMockLocation) {
         this.allowMockLocation = allowMockLocation;
+    }
+
+    public String getAllDiseaseInfo() {
+        return this.allDiseaseInfo;
+    }
+
+    public void setAllDiseaseInfo(String allDiseaseInfo) {
+        this.allDiseaseInfo = allDiseaseInfo;
     }
 }

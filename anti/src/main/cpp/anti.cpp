@@ -9,6 +9,7 @@
 #include "xposeddetector/xposed.h"
 #include "check/anti_mem_dump.h"
 #include "check/anti_emulator.h"
+#include "anti_root.h"
 
 
 #define JNI_CLASS_NAME "com/tg/android/anti/NativeLib"
@@ -37,6 +38,10 @@ static jstring anti_L_xposed(JNIEnv *env, jclass clazz) {
 }
 
 static jstring anti_root(JNIEnv *env, jclass clazz) {
+    AntiRoot antiRoot;
+    if (antiRoot.get_root_status()){
+        return jh::createJString("存在root相关文件");
+    }
     return jh::createJString("security");
 }
 

@@ -19,6 +19,8 @@ add_library(
         check/anti_frida.h
         check/anti_dual_app.cpp
         check/anti_dual_app.h
+        check/anti_root.cpp
+        check/anti_root.h
         check/anti_xposed.cpp
         check/anti_xposed.h
         check/anti_emulator.cpp

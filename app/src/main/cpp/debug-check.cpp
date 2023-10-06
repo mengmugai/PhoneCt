@@ -21,6 +21,13 @@
 #include <link.h>
 #include <fcntl.h>
 #include <cerrno>
+#include <sys/endian.h>
+
+
+#include <sys/socket.h>
+
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 
 //#include <sys/prctl.h>
@@ -230,12 +237,66 @@ bool check_fridaRpc(JNIEnv *env,jstring signature) {
     return result;
 }
 
+bool check_fridaDbus(){
+    /*
+     * Mini-portscan to detect frida-server on any local port.
+     */
+    struct sockaddr_in sa;
+    memset(&sa, 0, sizeof(sa));
+    sa.sin_family = AF_INET;
+    inet_aton("127.0.0.1", &(sa.sin_addr));
+    int sock;
+    int i;
+    int ret;
+    char res[7];
+    /*
+     * 1: Frida Server Detection.
+     */
+
+    for(i=27000;i<28000;i++){
+        sock = socket(AF_INET,SOCK_STREAM,0);
+        sa.sin_port = htons(i);
+//        LOGI("entering frida server detect loop started,now i is %d",i);
+
+        if (connect(sock , (struct sockaddr*)&sa , sizeof sa) != -1) {
+            LOGI("aaFOUND FRIDA SERVER: ,FRIDA DETECTED [1] - frida server running on port %d!",
+                 i);
+            memset(res, 0 , 7);
+            int j;
+            for(j = 0 ; j <= 3 ; j++) {
+                send(sock, "\x00", 1, NULL);
+                send(sock, "AUTH\r\n", 6, NULL);
+                usleep(500); // Give it some time to answer
+
+                if ((ret = recv(sock, res, 6, MSG_DONTWAIT)) != -1) {
+                    LOGI("bbFRIDA DETECTED [1] - frida server running on port %s!",
+                                        res);
+                    if (strcmp(res, "REJECT") == 0) {
+                        LOGI("FOUND FRIDA SERVER: ,FRIDA DETECTED [1] - frida server running on port %d!",
+                             i);
+                        return true;
+                    } else {
+                        LOGI("not FOUND FRIDA SERVER");
+                    }
+                }
+            }
+        }
+        close(sock);
+    }
+
+    return false;
+}
 
 
 
 extern "C"
 JNIEXPORT jstring JNICALL
 Java_com_mmg_phonect_device_utils_DebugUtils_checkFrida(JNIEnv *env, jclass clazz) {
+
+    if (check_fridaDbus()){
+        return env->NewStringUTF("frida D-bus 被检测");
+    }
+
 
     if (findFridaMaps()){
         return env->NewStringUTF("maps找到frida-agent");
@@ -265,13 +326,13 @@ Java_com_mmg_phonect_device_utils_DebugUtils_checkFrida(JNIEnv *env, jclass claz
 
 
 
-    //没啥效果  暂时不用了
-//    jstring signature = env->NewStringUTF("LIBFRIDA");
-////    const char *sig = ;
-//    if (check_fridaRpc(env, signature)){
-//
-//        return env->NewStringUTF("找到LIBFRIDA");
-//    }
+
+    jstring signature = env->NewStringUTF("ZnJpZGE6cnBj=");
+//    const char *sig = ;
+    if (check_fridaRpc(env, signature)){
+
+        return env->NewStringUTF("找到去特征后的strongR-frida");
+    }
 
     return env->NewStringUTF("");
 

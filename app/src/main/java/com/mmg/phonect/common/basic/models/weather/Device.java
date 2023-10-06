@@ -50,13 +50,18 @@ public final class Device implements Serializable {
     // 虚拟位置
     public String allowMockLocation;
 
+
+
+    // 保存所有异常信息
+    public String allDiseaseInfo;
+
     public int getScore() {
         return score;
     }
 
     public int score = 100;
 
-    public Device(String androidid, String imei, String imei2, String meid, String meid2, String ua, String bootid, String serial, String deviceLock, String fridaCheck, String xposedCheck, String vmCheck, String rootCheck, String signCheck, String debugOpen, String usbDebugStatus, String tracerPid, String debugVersion, String debugConnected, String allowMockLocation) {
+    public Device(String androidid, String imei, String imei2, String meid, String meid2, String ua, String bootid, String serial, String deviceLock, String fridaCheck, String xposedCheck, String vmCheck, String rootCheck, String signCheck, String debugOpen, String usbDebugStatus, String tracerPid, String debugVersion, String debugConnected, String allowMockLocation, String allDiseaseInfo) {
         this.androidid = androidid;
         this.imei = imei;
         this.imei2 = imei2;
@@ -77,6 +82,7 @@ public final class Device implements Serializable {
         this.debugVersion = debugVersion;
         this.debugConnected = debugConnected;
         this.allowMockLocation = allowMockLocation;
+        this.allDiseaseInfo = allDiseaseInfo;
 
         calculateScore();
     }
@@ -222,6 +228,14 @@ public final class Device implements Serializable {
 
     public void setAllowMockLocation(String allowMockLocation) {
         this.allowMockLocation = allowMockLocation;
+    }
+
+    public String getAllDiseaseInfo() {
+        return allDiseaseInfo;
+    }
+
+    public void setAllDiseaseInfo(String allDiseaseInfo) {
+        this.allDiseaseInfo = allDiseaseInfo;
     }
 
     public boolean isDaylight(TimeZone timeZone) {

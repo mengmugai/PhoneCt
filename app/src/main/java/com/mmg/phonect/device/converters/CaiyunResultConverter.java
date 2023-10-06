@@ -61,7 +61,9 @@ public class CaiyunResultConverter {
                     //是否正在调试
                     debugInfoResult.debugConnected,
                         // 虚拟位置
-                    debugInfoResult.allowMockLocation
+                    debugInfoResult.allowMockLocation,
+
+                    debugInfoResult.allDiseaseInfo
 
             );
             return new DeviceService.WeatherResultWrapper(device);

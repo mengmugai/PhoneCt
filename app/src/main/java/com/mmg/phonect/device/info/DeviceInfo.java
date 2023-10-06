@@ -129,8 +129,10 @@ public class DeviceInfo {
                     String xposedCheck = AntiXposed();
 //                    String xposedCheck = "";
                     String vmCheck = checkVM(context);
-                    String rootCheck = isRoot(context);
+//                    String rootCheck = isRoot(context);
+                    String rootCheck = AntiRoot();
                     String signCheck = "功能还没做";
+                    String allDiseaseInfo = "功能还没做";
 
 
 
@@ -149,7 +151,8 @@ public class DeviceInfo {
                             tracerPid,
                             debugVersion,
                             debugConnected,
-                            allowMockLocation
+                            allowMockLocation,
+                            allDiseaseInfo
 
 
 

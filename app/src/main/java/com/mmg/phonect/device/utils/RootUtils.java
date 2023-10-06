@@ -1,5 +1,8 @@
 package com.mmg.phonect.device.utils;
 
+import static com.mmg.phonect.device.utils.CommandUtils.exec;
+import static com.tg.android.anti.NativeLib.AntiRoot;
+
 import android.content.Context;
 import android.content.pm.PackageManager;
 
@@ -12,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -27,7 +31,7 @@ public class RootUtils {
      */
 
     public  static String isRoot(Context context) {
-        return (existingRWPaths().size() > 0 || existingDangerousProperties().size() > 0 || existingRootFiles().size() > 0 || existingRootPackages(context).size() > 0) ? "发现root" : "未发现";
+        return (existingRWPaths().size() > 0 || existingDangerousProperties().size() > 0 || existingRootFiles().size() > 0 || existingRootPackages(context).size() > 0 || !Objects.equals(AntiRoot(), "security")) ? "发现root" : "未发现";
     }
 
 
@@ -35,7 +39,9 @@ public class RootUtils {
             "/system/app/Superuser.apk",
             "/sbin/su",
             "/system/bin/su",
+            "/system/bin/mysu",
             "/system/xbin/su",
+            "/system/xbin/mysu",
             "/data/local/xbin/su",
             "/data/local/bin/su",
             "/system/sd/xbin/su",
@@ -49,7 +55,8 @@ public class RootUtils {
             "com.koushikdutta.superuser",
             "com.thirdparty.superuser",
             "com.yellowes.su",
-            "com.topjohnwu.magisk"};
+            "com.topjohnwu.magisk",
+            "me.weishu.kernelsu"};
     private static final String[] KNOWN_DANGEROUS_APPS_PACKAGES = {
             "com.koushikdutta.rommanager",
             "com.dimonvideo.luckypatcher",
