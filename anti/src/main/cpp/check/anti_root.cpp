@@ -13,7 +13,7 @@ int check_system_property(){
     LOGD("ro.secure : %s",value);
     __system_property_get("ro.debuggable",value1);
     LOGD("ro.debuggable : %s:",value);
-    if(value[0] == 0x31 || value1[0] == 0x31)
+    if(value[0] == 0x30 || value1[0] == 0x31)
         return 1;
     else
         return 0;
@@ -34,6 +34,15 @@ int check_su_files(){
         LOGD("su files has been found");
         return  1;
     } else{
+        fp = fopen("/data/adb/magisk","r");
+        fp1= fopen("/data/adb/magisk.db","r");
+        fp2= fopen("/sbin/.magisk","r");
+        fp3= fopen("/cache/.disable_magisk","r");
+        fp4= fopen("/dev/.magisk.unblock","r");
+        if (fp || fp1 || fp2 || fp3 || fp4 ){
+            LOGD("su files has been found2");
+            return  1;
+        }
         LOGD("su files has not been found");
         return 0;
     }

@@ -11,6 +11,7 @@ extern int _errno;
 long ___set_errno_internal(int n);
 int ___close(int);
 int __openat(int, const char *, int, int);
+int __faccessat(int, const char *, int, int);
 int _open(const char *pathname, int flags, ...);
 int _close(int fd);
 ssize_t _write(int __fd, const void *__buf, size_t __count);

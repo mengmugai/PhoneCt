@@ -1,5 +1,6 @@
 package com.mmg.phonect
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.os.Process
@@ -23,6 +24,8 @@ class PhoneCt : MultiDexApplication(),
     Configuration.Provider {
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
+        lateinit var appContext: Context
 
         @JvmStatic
         lateinit var instance: PhoneCt
@@ -188,7 +191,7 @@ class PhoneCt : MultiDexApplication(),
 
     override fun onCreate() {
         super.onCreate()
-
+        appContext = this
         instance = this
         LanguageUtils.setLanguage(
             this,

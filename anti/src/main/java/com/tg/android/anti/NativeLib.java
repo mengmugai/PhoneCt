@@ -27,4 +27,6 @@ public class NativeLib {
 
     // anti dual app
     public static native String AntiDualApp();
+
+    public static native String AntiEnv();
 }

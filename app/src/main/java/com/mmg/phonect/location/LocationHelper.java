@@ -93,7 +93,7 @@ public class LocationHelper {
         // 2. get available location by weather service.
 
 
-        DatabaseHelper.getInstance(context).writeLocation(phone);
+//        DatabaseHelper.getInstance(context).writeLocation(phone);
         l.requestPhoneSuccess(phone);
 
     }

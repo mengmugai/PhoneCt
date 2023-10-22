@@ -92,7 +92,9 @@ public class HeaderViewHolder extends AbstractMainViewHolder {
                             Math.abs(mTemperatureCTo - mTemperatureCFrom) / 10f * 1000
                     )
             );
-            mTemperature.setPostfixString(mTemperatureUnit.getShortName(context));
+//            mTemperature.setPostfixString(mTemperatureUnit.getShortName(context));
+//            mTemperature.setPostfixString("分");
+            mTemperature.setPostfixString("");
             String disease = "满分100分   ";
             if(mTemperatureCTo == 100){
                 disease += "设备没有检查出异常  可以出院了";
@@ -144,6 +146,8 @@ public class HeaderViewHolder extends AbstractMainViewHolder {
         mTemperature.setNumberString(
                 String.format("%d", mTemperatureUnit.getValueWithoutUnit(mTemperatureCFrom)),
                 String.format("%d", mTemperatureUnit.getValueWithoutUnit(mTemperatureCTo))
+//                String.format("%d", mTemperatureCFrom),
+//                String.format("%d", mTemperatureCTo)
         );
     }
 

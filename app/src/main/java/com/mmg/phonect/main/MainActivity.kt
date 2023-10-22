@@ -67,7 +67,7 @@ class MainActivity : GeoActivity(),
     private val backgroundUpdateObserver: Observer<Phone> = Observer { phone ->
         phone?.let {
             viewModel.updateLocationFromBackground(it)
-
+            Log.d("mmg","xxxxxxxxxxx11111xxxxxxxxxx")
             if (isActivityStarted) {
                 SnackbarHelper.showSnackbar(getString(R.string.feedback_updated_in_background))
             }
@@ -109,9 +109,11 @@ class MainActivity : GeoActivity(),
             .with(Phone::class.java)
             .observeForever(backgroundUpdateObserver)
         EventBus.instance.with(SettingsChangedMessage::class.java).observe(this) {
-            viewModel.init()
-
+            Log.d("tag","youhoho0")
+//            viewModel.init()
+            Log.d("tag","youhoho1")
             findHomeFragment()?.updateViews()
+            Log.d("tag","youhoho2")
 
             // update notification immediately.
 //            AsyncHelper.runOnIO {
@@ -120,6 +122,8 @@ class MainActivity : GeoActivity(),
 //                    viewModel.validLocationList.value!!.locationList
 //                )
 //            }
+//            错误在这里
+
 //            refreshBackgroundViews(
 //                resetBackground = true,
 //                locationList = viewModel.validLocationList.value!!.locationList,
@@ -224,12 +228,12 @@ class MainActivity : GeoActivity(),
 //                    it.locationList
 //                )
 //            }
-            refreshBackgroundViews(
-                resetBackground = false,
-                locationList = it.locationList,
-                defaultLocationChanged = true,
-                updateRemoteViews = true
-            )
+//            refreshBackgroundViews(
+//                resetBackground = false,
+//                locationList = it.locationList,
+//                defaultLocationChanged = true,
+//                updateRemoteViews = true
+//            )
         }
         viewModel.permissionsRequest.observe(this) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M

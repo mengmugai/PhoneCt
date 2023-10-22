@@ -28,7 +28,7 @@ public class CommandUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
     }
 
     public static String[] exec(String command) {
@@ -53,6 +53,10 @@ public class CommandUtils {
             e.printStackTrace();
         }
         return allPaths.split("\n");
+    }
+
+    public static String getExecProperty(String command) {
+        return execute("getprop " + command);
     }
 
     public static String execute(String command) {

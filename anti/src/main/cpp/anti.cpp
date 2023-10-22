@@ -10,6 +10,7 @@
 #include "check/anti_mem_dump.h"
 #include "check/anti_emulator.h"
 #include "anti_root.h"
+#include "anti_env.h"
 
 
 #define JNI_CLASS_NAME "com/tg/android/anti/NativeLib"
@@ -70,6 +71,13 @@ static jstring anti_dual_app(JNIEnv *env, jclass clazz) {
     return jh::createJString(antiDualApp.check());
 }
 
+static jstring anti_env(JNIEnv *env, jclass clazz) {
+    jh::JNIEnvironmentGuarantee jniEnvironmentGuarantee;
+    AntiEnv antiDualApp;
+
+    return jh::createJString(antiDualApp.check());
+}
+
 
 JNIEXPORT jint
 
@@ -97,6 +105,7 @@ JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
                     {"AntiMemDump",  "()Ljava/lang/String;", (void *) anti_mem_dump},
                     {"AntiEmulator", "()Ljava/lang/String;", (void *) anti_emulator},
                     {"AntiDualApp",  "()Ljava/lang/String;", (void *) anti_dual_app},
+                    {"AntiEnv",  "()Ljava/lang/String;", (void *) anti_env},
             };
 
     if (__predict_false(0 != env->RegisterNatives(cls, m, sizeof(m) / sizeof(m[0]))))

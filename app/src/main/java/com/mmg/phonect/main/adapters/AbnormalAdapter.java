@@ -16,10 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mmg.phonect.R;
 import com.mmg.phonect.common.basic.models.Phone;
+import com.mmg.phonect.common.basic.models.weather.Disease;
 import com.mmg.phonect.main.utils.MainThemeColorProvider;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class AbnormalAdapter extends RecyclerView.Adapter<AbnormalAdapter.ViewHolder> {
 
@@ -90,67 +94,96 @@ public class AbnormalAdapter extends RecyclerView.Adapter<AbnormalAdapter.ViewHo
 //        Device device = phone.getDevice();
 //        assert weather != null;
 
-        Log.d("mmg", "AbnormalAdapter: "+phone.getDevice().getBootid());
+//        Log.d("mmg", "AbnormalAdapter: "+phone.getDevice().getBootid());
+        List<Disease> allDiseaseInfo= phone.getDevice().getAllDiseaseInfo();
+        Map<String, Integer> drawableMap = new HashMap<>();
+        drawableMap.put("root", R.drawable.ic_root);
+        drawableMap.put("frida", R.drawable.ic_frida);
+        drawableMap.put("TracerPid", R.drawable.ic_tracerpid);
+        drawableMap.put("xposed", R.drawable.ic_xposed);
+        drawableMap.put("VM", R.drawable.ic_vm);
+        drawableMap.put("调试状态", R.drawable.ic_usbdebug);
+        drawableMap.put("OEM锁", R.drawable.ic_oem);
+        drawableMap.put("网络代理", R.drawable.ic_vpn);
+//        drawableMap.put("riru", R.drawable.ic_vpn);
+        drawableMap.put("环境", R.drawable.ic_env);
+        drawableMap.put("多开", R.drawable.ic_dual);
 
-        if (phone.getDevice() != null) {
 
-            String windTitle = "root";
-            String windContent = phone.getDevice().getRootCheck();
-            mIndexList.add(
-                    new Index(
-                            R.drawable.ic_wind,
-                            windTitle,
-                            windContent,
-                            context.getString(R.string.wind)
-                                    + ", " + windTitle
-                                    + ", " + windContent.replace("\n", ", ")
-                    )
-            );
-            mIndexList.add(
-                    new Index(
-                            R.drawable.ic_water_percent,
-                            "frida",
-                            phone.getDevice().getFridaCheck()
+        for (Disease disease : allDiseaseInfo) {
+            try {
+                String diseaseName = disease.getDiseaseName();
+                String diseaseInfo = disease.getDiseaseInfo();
+                mIndexList.add(
+                        new Index(
+                                drawableMap.get(diseaseName),
+                                diseaseName,
+                                diseaseInfo
+                        )
+                );
+            }catch (Exception exception){
+                Log.d("mmg",exception.getMessage()+disease.getDiseaseName());
+            }
 
-                    )
-            );
-            // todo: 这里都该改成R.string 的形式
-            mIndexList.add(
-                    new Index(
-                            R.drawable.ic_gauge,
-                            "TracerPid",
-                            phone.getDevice().getTracerPid()
-                    )
-            );
-            mIndexList.add(
-                    new Index(
-                            R.drawable.ic_alipay,
-                            "xposed",
-                            phone.getDevice().getXposedCheck()
-                    )
-            );
-            mIndexList.add(
-                    new Index(
-                            R.drawable.ic_aqi,
-                            "VM",
-                            phone.getDevice().getVmCheck()
-                    )
-            );
-            mIndexList.add(
-                    new Index(
-                            R.drawable.ic_briefing,
-                            "设备锁",
-                            phone.getDevice().getDeviceLock()
-                    )
-            );
-            mIndexList.add(
-                    new Index(
-                            R.drawable.ic_cloud,
-                            "调试状态",
-                            phone.getDevice().getDebugOpen()
-                    )
-            );
+
         }
+
+//        if (phone.getDevice() != null) {
+//
+//            String windTitle = "root";
+//            String windContent = phone.getDevice().getRootCheck();
+//            mIndexList.add(
+//                    new Index(
+//                            R.drawable.ic_root,
+//                            windTitle,
+//                            windContent
+//                    )
+//            );
+//            mIndexList.add(
+//                    new Index(
+//                            R.drawable.ic_frida,
+//                            "frida",
+//                            phone.getDevice().getFridaCheck()
+//
+//                    )
+//            );
+//            // todo: 这里都该改成R.string 的形式
+//            mIndexList.add(
+//                    new Index(
+//                            R.drawable.ic_tracerpid,
+//                            "TracerPid",
+//                            phone.getDevice().getTracerPid()
+//                    )
+//            );
+//            mIndexList.add(
+//                    new Index(
+//                            R.drawable.ic_xposed,
+//                            "xposed",
+//                            phone.getDevice().getXposedCheck()
+//                    )
+//            );
+//            mIndexList.add(
+//                    new Index(
+//                            R.drawable.ic_vm,
+//                            "VM",
+//                            phone.getDevice().getVmCheck()
+//                    )
+//            );
+//            mIndexList.add(
+//                    new Index(
+//                            R.drawable.ic_oem,
+//                            "OEM锁",
+//                            phone.getDevice().getDeviceLock()
+//                    )
+//            );
+//            mIndexList.add(
+//                    new Index(
+//                            R.drawable.ic_usbdebug,
+//                            "调试状态",
+//                            phone.getDevice().getUsbDebugStatus()
+//                    )
+//            );
+//        }
 
 
     }

@@ -49,7 +49,7 @@ public class FirstCardHeaderController{
         if (phone.getDevice() != null) {
             Device device = phone.getDevice();
 
-            mView.setOnClickListener(v -> ((MainActivity) activity).setManagementFragmentVisibility(true));
+//            mView.setOnClickListener(v -> ((MainActivity) activity).setManagementFragmentVisibility(true));
             // 此处可以判断设备是否处于风险状态   没风险则显示时间图标  有风险展示感叹号
             if (0 == 0) {
                 timeIcon.setEnabled(false);

@@ -115,22 +115,22 @@ class SettingsActivity : GeoActivity() {
                         hourlyTrendDisplayList = remember { hourlyTrendDisplayState }.value,
                     )
                 }
-                composable(SettingsScreenRouter.ServiceProvider.route) {
-                    ServiceProviderSettingsScreen(
-                        context = this@SettingsActivity,
-                        navController = navController
-                    )
-                }
-                composable(SettingsScreenRouter.ServiceProviderAdvanced.route) {
-                    SettingsProviderAdvancedSettingsScreen(
-                        context = this@SettingsActivity
-                    )
-                }
-                composable(SettingsScreenRouter.Unit.route) {
-                    UnitSettingsScreen(
-                        context = this@SettingsActivity
-                    )
-                }
+//                composable(SettingsScreenRouter.ServiceProvider.route) {
+//                    ServiceProviderSettingsScreen(
+//                        context = this@SettingsActivity,
+//                        navController = navController
+//                    )
+//                }
+//                composable(SettingsScreenRouter.ServiceProviderAdvanced.route) {
+//                    SettingsProviderAdvancedSettingsScreen(
+//                        context = this@SettingsActivity
+//                    )
+//                }
+//                composable(SettingsScreenRouter.Unit.route) {
+//                    UnitSettingsScreen(
+//                        context = this@SettingsActivity
+//                    )
+//                }
             }
         }
     }

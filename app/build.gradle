@@ -147,7 +147,7 @@ configurations {
 }
 
 greendao {
-    schemaVersion 10
+    schemaVersion 11
     generateTests false
 }
 
@@ -279,5 +279,8 @@ dependencies {
     // utils.
     implementation "com.github.XhinLiang:LunarCalendar:3.0.0"
     implementation "com.github.didikee:AndroidDonate:0.1.0"
+
+
+    implementation "org.lsposed.hiddenapibypass:hiddenapibypass:4.3"
 
 }

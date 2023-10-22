@@ -90,6 +90,7 @@
     <color name="md_theme_onError">#FFFFFF</color>
     <color name="md_theme_onErrorContainer">#410E0B</color>
     <color name="md_theme_background">#FDFBFF</color>
+    <color name="md_theme_launch_background">#5EC7D3</color>
     <color name="md_theme_onBackground">#1B1B1D</color>
     <color name="md_theme_surface">#FDFBFF</color>
     <color name="md_theme_onSurface">#1B1B1D</color>

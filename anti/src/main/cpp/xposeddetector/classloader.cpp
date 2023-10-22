@@ -42,10 +42,10 @@ public:
     }
 
     void VisitRoot(art::mirror::Object *root, const art::RootInfo &info ATTRIBUTE_UNUSED) final {
-        LOGE("in VisitRoot");
+//        LOGE("in VisitRoot");
         jobject object = newLocalRef((JNIEnv *) env_, (jobject) root);
         if (object != nullptr) {
-            LOGE("in VisitRoot object != nullptr");
+//            LOGE("in VisitRoot object != nullptr");
             if ((*env_)->IsInstanceOf((JNIEnv *) env_, object, classLoader_)) {
                 xposed::doAntiXposed(env_, object, (intptr_t) root);
             }
@@ -78,10 +78,10 @@ public:
     }
 
     art::mirror::Object *IsMarked(art::mirror::Object *obj) override {
-        LOGE("in IsMarked");
+//        LOGE("in IsMarked");
         jobject object = newLocalRef((JNIEnv *) env_, (jobject) obj);
         if (object != nullptr) {
-            LOGE("in IsMarked object != nullptr");
+//            LOGE("in IsMarked object != nullptr");
             if ((*env_)->IsInstanceOf((JNIEnv *) env_, object, classLoader_)) {
                 xposed::doAntiXposed(env_, object, (intptr_t) obj);
             }

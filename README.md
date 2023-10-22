@@ -15,6 +15,9 @@
 - root状态识别
 - 等各种状态识别
 
+# 最新状态图
+![软件界面](imgs/最新状态图.png)
+
 # 初步形态
 ![软件界面](imgs/合并图.png))
 
@@ -34,5 +37,7 @@ frida 检测参考
 [D-bus 检测](https://github.com/muellerberndt/frida-detection)
 
 [部分参考(珍惜)](https://bbs.kanxue.com/thread-277402.htm#msg_header_h3_9)
+
+[部分参考](https://github.com/AhmedAbouelkher/security_tester)
 
 # 未完成参考

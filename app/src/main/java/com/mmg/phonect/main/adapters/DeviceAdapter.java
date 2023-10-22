@@ -20,7 +20,6 @@ import java.util.List;
 import com.mmg.phonect.R;
 import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.main.utils.MainThemeColorProvider;
-import com.mmg.phonect.settings.SettingsManager;
 
 public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder> {
 
@@ -91,7 +90,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
 //        Device device = phone.getDevice();
 //        assert weather != null;
 
-        Log.d("mmg", "DeviceAdapter: "+phone.getDevice().getBootid());
+        Log.d("mmg", "DeviceAdapter: "+phone.getDevice().getMacAddress());
 
         if (phone.getDevice() != null) {
 
@@ -105,7 +104,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
                     +phone.getDevice().getImei2();
             mIndexList.add(
                     new Index(
-                            R.drawable.ic_wind,
+                            R.drawable.ic_imei,
                             windTitle,
                             windContent,
                             context.getString(R.string.wind)
@@ -115,7 +114,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             );
             mIndexList.add(
                     new Index(
-                            R.drawable.ic_water_percent,
+                            R.drawable.ic_androidid,
                             context.getString(R.string.android_id),
                             phone.getDevice().getAndroidid()
 
@@ -124,21 +123,21 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             // todo: 这里都该改成R.string 的形式
             mIndexList.add(
                     new Index(
-                            R.drawable.ic_gauge,
-                            "booid",
-                            phone.getDevice().getBootid()
+                            R.drawable.ic_mac,
+                            "Mac",
+                            phone.getDevice().getMacAddress()
                     )
             );
             mIndexList.add(
                     new Index(
-                            R.drawable.ic_alipay,
+                            R.drawable.ic_serial,
                             "Serial",
                             phone.getDevice().getSerial()
                     )
             );
             mIndexList.add(
                     new Index(
-                            R.drawable.ic_aqi,
+                            R.drawable.ic_ua,
                             "Ua",
                             phone.getDevice().getUa()
                     )

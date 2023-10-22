@@ -31,7 +31,7 @@ public class RootUtils {
      */
 
     public  static String isRoot(Context context) {
-        return (existingRWPaths().size() > 0 || existingDangerousProperties().size() > 0 || existingRootFiles().size() > 0 || existingRootPackages(context).size() > 0 || !Objects.equals(AntiRoot(), "security")) ? "发现root" : "未发现";
+        return (existingRWPaths().size() > 0 || existingDangerousProperties().size() > 0 || existingRootFiles().size() > 0 || checkBuildTag() || existingRootPackages(context).size() > 0 || !Objects.equals(AntiRoot(), "security")) ? "发现root" : "未发现";
     }
 
 
@@ -47,7 +47,9 @@ public class RootUtils {
             "/system/sd/xbin/su",
             "/system/bin/failsafe/su",
             "/data/local/su",
-            "/su/bin/su"};
+            "/su/bin/su",
+
+    };
     private static final String[] KNOWN_ROOT_APPS_PACKAGES = {
             "com.noshufou.android.su",
             "com.noshufou.android.su.elite",
@@ -56,7 +58,15 @@ public class RootUtils {
             "com.thirdparty.superuser",
             "com.yellowes.su",
             "com.topjohnwu.magisk",
-            "me.weishu.kernelsu"};
+            "me.weishu.kernelsu",
+            "com.topjohnwu.magisk",
+            "com.kingroot.kinguser",
+            "com.kingo.root",
+            "com.smedialink.oneclickroot",
+            "com.zhiqupk.root.global",
+            "com.alephzain.framaroot"
+
+    };
     private static final String[] KNOWN_DANGEROUS_APPS_PACKAGES = {
             "com.koushikdutta.rommanager",
             "com.dimonvideo.luckypatcher",
@@ -225,6 +235,15 @@ public class RootUtils {
             //忽略异常
         }
         return allPaths.split("\n");
+    }
+
+    public static boolean checkBuildTag() {
+        // get from build info
+        String buildTags = android.os.Build.TAGS;
+        if (buildTags != null && buildTags.contains("test-keys")) {
+            return true;
+        }
+        return false;
     }
 
 }

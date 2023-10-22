@@ -38,6 +38,10 @@ int _open(const char *pathname, int flags, ...) {
     return __openat(AT_FDCWD, pathname, force_O_LARGEFILE(flags), mode);
 }
 
+int _access(const char* path, int mode) {
+    return __faccessat(AT_FDCWD, path, mode, 0);
+}
+
 int _close(int fd) {
     // if(_arm_on_x86()){
     //		return close(fd);

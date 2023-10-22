@@ -436,11 +436,7 @@ class SettingsManager private constructor(context: Context) {
 //            customValue = customAccuCurrentKey,
 //            defaultValue = BuildConfig.ACCU_CURRENT_KEY,
 //        )
-    val providerOwmKey: String
-        get() = getProviderSettingValue(
-            customValue = customOwmKey,
-            defaultValue = "d9c9103a74a438eac0952a34d1b580e6",
-        )
+
 
 
 

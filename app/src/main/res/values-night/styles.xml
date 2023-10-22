@@ -42,6 +42,7 @@
 
         <item name="colorControlHighlight">@color/colorRipple</item>
         <item name="colorTitleText">@color/colorTextTitle</item>
+
         <item name="colorBodyText">@color/colorTextContent</item>
         <item name="colorCaptionText">@color/colorTextSubtitle</item>
         <item name="colorMainCardBackground">@color/colorMainCardBackground</item>
@@ -50,8 +51,10 @@
     </style>
 
     <style name="PhoneCtTheme.Main" parent="PhoneCtTheme">
+        <item name="android:colorBackground">@color/md_theme_launch_background</item>
         <item name="android:windowBackground">@drawable/launch_background</item>
         <item name="colorControlHighlight">@color/colorRipple_regular</item>
+
     </style>
 
 

@@ -98,35 +98,35 @@ fun AppearanceSettingsScreen(
 //                }
 //            }
 //        }
-        checkboxPreferenceItem(R.string.settings_title_trend_horizontal_line_switch) { id ->
-            CheckboxPreferenceView(
-                titleId = id,
-                summaryOnId = R.string.on,
-                summaryOffId = R.string.off,
-                checked = SettingsManager.getInstance(context).isTrendHorizontalLinesEnabled,
-                onValueChanged = {
-                    SettingsManager.getInstance(context).isTrendHorizontalLinesEnabled = it
-                },
-            )
-        }
-        checkboxPreferenceItem(R.string.settings_title_exchange_day_night_temp_switch) { id ->
-            CheckboxPreferenceView(
-                title = stringResource(id),
-                summary = { context, it ->
-                    Temperature.getTrendTemperature(
-                        context,
-                        3,
-                        7,
-                        SettingsManager.getInstance(context).temperatureUnit,
-                        it
-                    )
-                },
-                checked = SettingsManager.getInstance(context).isExchangeDayNightTempEnabled,
-                onValueChanged = {
-                    SettingsManager.getInstance(context).isExchangeDayNightTempEnabled = it
-                },
-            )
-        }
+//        checkboxPreferenceItem(R.string.settings_title_trend_horizontal_line_switch) { id ->
+//            CheckboxPreferenceView(
+//                titleId = id,
+//                summaryOnId = R.string.on,
+//                summaryOffId = R.string.off,
+//                checked = SettingsManager.getInstance(context).isTrendHorizontalLinesEnabled,
+//                onValueChanged = {
+//                    SettingsManager.getInstance(context).isTrendHorizontalLinesEnabled = it
+//                },
+//            )
+//        }
+//        checkboxPreferenceItem(R.string.settings_title_exchange_day_night_temp_switch) { id ->
+//            CheckboxPreferenceView(
+//                title = stringResource(id),
+//                summary = { context, it ->
+//                    Temperature.getTrendTemperature(
+//                        context,
+//                        3,
+//                        7,
+//                        SettingsManager.getInstance(context).temperatureUnit,
+//                        it
+//                    )
+//                },
+//                checked = SettingsManager.getInstance(context).isExchangeDayNightTempEnabled,
+//                onValueChanged = {
+//                    SettingsManager.getInstance(context).isExchangeDayNightTempEnabled = it
+//                },
+//            )
+//        }
         checkboxPreferenceItem(R.string.settings_title_gravity_sensor_switch) { id ->
             CheckboxPreferenceView(
                 titleId = id,

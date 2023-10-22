@@ -43,6 +43,7 @@ public class Constants {
     private static final String SHORTCUTS_THUNDERSTORM = "shortcuts_thunderstorm";
 
     public static final String DAY = "day";
+    public static final String UNKNOWN = "$unknown";
     public static final String NIGHT = "night";
     public static final String MINI = "mini";
     public static final String LIGHT = "light";

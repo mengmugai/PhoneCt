@@ -10,19 +10,19 @@ public class DeviceResult {
     public String meid;
     public String meid2;
     public String ua;
-    public String bootid;
+    public String macAddress;
 
     public String serial;
 
 
-    public DeviceResult(String androidid, String imei, String imei2, String meid, String meid2, String ua, String bootid, String serial) {
+    public DeviceResult(String androidid, String imei, String imei2, String meid, String meid2, String ua, String macAddress, String serial) {
         this.androidid = androidid;
         this.imei = imei;
         this.imei2 = imei2;
         this.meid = meid;
         this.meid2 = meid2;
         this.ua = ua;
-        this.bootid = bootid;
+        this.macAddress = macAddress;
         this.serial = serial;
     }
 
@@ -75,11 +75,11 @@ public class DeviceResult {
     }
 
     public String getBootid() {
-        return bootid;
+        return macAddress;
     }
 
-    public void setBootid(String bootid) {
-        this.bootid = bootid;
+    public void setBootid(String macAddress) {
+        this.macAddress = macAddress;
     }
 
     public String getSerial() {

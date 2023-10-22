@@ -2,11 +2,12 @@ package com.mmg.phonect.main.adapters.trend.applist;
 
 import static com.mmg.phonect.device.info.AppListInfo.getAppListInfo;
 
+//import com.mmg.phonect.device.info.XposedModules;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.mmg.phonect.common.basic.models.Phone;
 import com.mmg.phonect.common.basic.models.weather.XposedModule;
 
@@ -80,13 +81,13 @@ public class AppListXposedAdapter extends AbsAppListTrendAdapter {
     @SuppressLint("SimpleDateFormat")
     public AppListXposedAdapter(Context context,RecyclerView parent, Phone phone) {
         super(context, phone);
-        Log.d("TAG", "AppListXposedAdapter: ");
 
 //        SettingsManager settings = SettingsManager.getInstance(activity);
         List<XposedModule> xposedModules = getAppListInfo(context);
+//        List<XposedModule> xposedModules = XposedModules.getXposedAppListInfo(context);
         for (com.mmg.phonect.common.basic.models.weather.XposedModule bean : xposedModules) {
             try {
-                Log.d("TAG", "AppListXposedAdapter:11111111");
+
                 mIndexList.add(
                         new Index(
                                 bean.getIcon(),
@@ -99,7 +100,6 @@ public class AppListXposedAdapter extends AbsAppListTrendAdapter {
                 Log.d("TAG", "AppListXposedAdapter:"+bean.getName());
 
             } catch (Exception e) {
-                Log.d("TAG", "AppListXposedAdapter: "+e.getMessage());
                 e.printStackTrace();
             }
         }

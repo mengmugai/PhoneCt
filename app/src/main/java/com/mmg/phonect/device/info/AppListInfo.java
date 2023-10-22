@@ -24,20 +24,18 @@ public class AppListInfo {
      */
     public static List<XposedModule> getAppListInfo(Context context) {
         List<XposedModule> list = new ArrayList<>();
-        Log.d("TAG", "AppListXposedAdapter: 0000000000");
         PackageManager packageManager = context.getApplicationContext().getPackageManager();
-        Log.d("TAG", "AppListXposedAdapter:0000000111");
         List<PackageInfo> installedPackages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
-        Log.d("TAG", "AppListXposedAdapter:00000222222");
-        for (PackageInfo info : installedPackages) {
-            Log.d("TAG", "AppListXposedAdapter:000033333");
 
+        for (PackageInfo info : installedPackages) {
             XposedModule bean = new XposedModule();
             ApplicationInfo app = info.applicationInfo;
+//            Log.d("TAG","XposedModule---"+info.applicationInfo.loadLabel(packageManager).toString());
 //            if (!app.enabled)
 //                continue;
 
-            if (app.metaData != null && app.metaData.containsKey("xposedmodule")) {
+            if (app.metaData != null && (app.metaData.containsKey("xposedmodule")|| app.metaData.containsKey("lspatch")
+                    || app.metaData.containsKey("xposedminversion")|| app.metaData.containsKey("jshook"))) {
                 bean.setName(info.applicationInfo.loadLabel(packageManager).toString());
                 bean.setPackageName(info.packageName);
                 bean.setVersion(info.versionName);

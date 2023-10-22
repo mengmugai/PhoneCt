@@ -1,5 +1,7 @@
 package com.mmg.phonect.device.utils;
 
+import static com.mmg.phonect.device.utils.FileUtils.readFile;
+
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -22,12 +24,44 @@ public class HookUtils {
     public static String checkFrida(Context context){
         if (checkRunningProcesses(context)){
             return "查找到frida 进程";
-        } else  {
+        } if(mCheckFridaTcp()){
+            return "tcp存在端口特征";
+        }else  {
 
             return DebugUtils.checkFrida();
         }
 
     }
+
+//    frida-server启动后/proc/net/tcp和/proc/net/tcp6中会有特殊标识:69a2，可以通过搜索tcp中的字符串来检测frida是否启动
+//    27024的16进制版本
+    public static boolean mCheckFridaTcp(){
+        String[] stringArrayTcp6;
+        String[] stringArrayTcp;
+        String tcpStringTcp6 = readFile("/proc/net/tcp6");
+        String tcpStringTcp = readFile("/proc/net/tcp");
+        boolean isFridaExits = false;
+        if(null != tcpStringTcp6 && !"".equals(tcpStringTcp6)){
+            stringArrayTcp6 = tcpStringTcp6.split("\n");
+            for(String sa : stringArrayTcp6){
+                if(sa.toLowerCase().contains(":69a2")){
+                    Log.e("TAG","tcp文件中发现Frida特征");
+                    isFridaExits = true;
+                }
+            }
+        }
+        if(null != tcpStringTcp && !"".equals(tcpStringTcp)){
+            stringArrayTcp = tcpStringTcp.split("\n");
+            for(String sa : stringArrayTcp){
+                if(sa.toLowerCase().contains(":69a2")){
+                    Log.e("TAG","tcp文件中发现Frida特征");
+                    isFridaExits = true;
+                }
+            }
+        }
+        return isFridaExits;
+    }
+
     
     
 
@@ -176,7 +210,7 @@ public class HookUtils {
         }
         return false;
     }
-    public static boolean riruCheck(Context context)  {
+    public static boolean riruCheck()  {
         File riruModuleDir = new File("/data/adb/modules/riru");
         if (riruModuleDir.exists() && riruModuleDir.isDirectory()) {
             return true;

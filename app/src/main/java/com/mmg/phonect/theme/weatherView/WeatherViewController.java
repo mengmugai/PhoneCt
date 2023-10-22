@@ -1,6 +1,7 @@
 package com.mmg.phonect.theme.weatherView;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,11 +71,22 @@ public class WeatherViewController {
     public static int getWeatherKind(@Nullable Device device) {
         if (device == null) {
             return WeatherView.WEATHER_KIND_CLEAR;
+        }else {
+            if (device.getScore() < 0){
+                return WeatherView.WEATHER_KIND_THUNDERSTORM;
+            }
+//            else if (device.getScore()>90) {
+//                return 2;
+//            } else if (device.getScore()>80) {
+//                return 3;
+//            }
+            Log.d("TAG", "getWeatherKind: "+(11 - (device.getScore() / 10)));
+            return 11 - (device.getScore() / 10);
         }
-        Random random = new Random();
-
-        // 随机生成一个 0 到 11（包括 11）之间的整数  具体含义见getWeatherKind方法
-        return random.nextInt(11) + 1;
+//        Random random = new Random();
+//
+//        // 随机生成一个 0 到 11（包括 11）之间的整数  具体含义见getWeatherKind方法
+//        return random.nextInt(11) + 1;
 
     }
     // 获取状态

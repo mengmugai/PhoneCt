@@ -2,7 +2,6 @@ package com.mmg.phonect.main
 
 import android.app.Application
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -13,10 +12,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import com.mmg.phonect.common.basic.GeoViewModel
 import com.mmg.phonect.common.basic.livedata.BusLiveData
 import com.mmg.phonect.common.basic.livedata.EqualtableLiveData
-import com.mmg.phonect.common.basic.models.Location
 import com.mmg.phonect.common.basic.models.Phone
 import com.mmg.phonect.main.utils.StatementManager
-import com.mmg.phonect.settings.SettingsManager
 import javax.inject.Inject
 
 
@@ -61,11 +58,14 @@ class MainActivityViewModel @Inject constructor(
     fun init() {
         onCleared()
 
+//        val current = getValidPhone()
+//        // 初始化实时数据。
+//        if (current==null){
+//            val current = repository.initPhone(
+//                context = getApplication()
+//            )
+//        }
 
-        // 初始化实时数据。
-        val current = repository.initPhone(
-            context = getApplication()
-        )
 
 //        val validList = Location.excludeInvalidResidentLocation(getApplication(), totalList)
 //
@@ -74,7 +74,17 @@ class MainActivityViewModel @Inject constructor(
 
         initCompleted = false
 
-        currentPhone.setValue(DayNightPhone(phone = current))
+//        val current = getValidPhone()
+        // 初始化实时数据。
+        if (currentPhone.value==null){
+            currentPhone.setValue(DayNightPhone(phone = repository.initPhone(
+                context = getApplication()
+            )))
+        }else{
+            return
+        }
+
+
 //        validLocationList.value = SelectableLocationList(locationList = validList, selectedId = id)
 //        totalLocationList.value = SelectableLocationList(locationList = totalList, selectedId = id)
 
@@ -89,14 +99,18 @@ class MainActivityViewModel @Inject constructor(
         permissionsRequest.value = null
         mainMessage.setValue(null)
 
-        // read weather caches.
-        repository.getWeatherCacheForLocations(
-            context = getApplication(),
-            phone = current,
-        ) { newList, _ ->
-            initCompleted = true
-            newList?.let { updateInnerData(it) }
-        }
+
+        initCompleted = true
+//        updateInnerData(current)
+
+//         read weather caches.
+//        repository.getWeatherCacheForLocations(
+//            context = getApplication(),
+//            phone = current,
+//        ) { newList, _ ->
+//            initCompleted = true
+//            newList?.let { updateInnerData(it) }
+//        }
     }
 
     // 更新内部数据。
@@ -145,9 +159,9 @@ class MainActivityViewModel @Inject constructor(
         } else if (!locationResult) {
             mainMessage.setValue(MainMessage.LOCATION_FAILED)
         }
-
+        Log.d("tag","onUpdateResult++++++++++++++++++")
         updateInnerData(phone)
-
+        Log.d("tag","onUpdateResult++++++++++++++++++2")
         loading.setValue(false)
         updating = false
     }
@@ -191,24 +205,27 @@ class MainActivityViewModel @Inject constructor(
 
         // don't need to request any permission -> request data directly.
         // 直接从数据库取出地址
-        if (
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.M
-            || !checkPermissions
-        ) {
-            updating = true
-            repository.getWeather(
-                getApplication(),
-                currentPhone.value!!.phone,
-                true,
-                this
-            )
-            return
-        }
+//        if (
+//            Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+//            || !checkPermissions
+//        ) {
+//            updating = true
+//            repository.getWeather(
+//                getApplication(),
+//                currentPhone.value!!.phone,
+//                true,
+//                this
+//            )
+//            return
+//        }
 
         // check permissions. 没有地址需要 获取地址权限
         val permissionList = getDeniedPermissionList()
+//        updating = true
+//        return
         if (permissionList.isEmpty()) {
             // already got all permissions -> request data directly.
+            Log.d("tag","updating = true")
             updating = true
             repository.getWeather(
                 getApplication(),
@@ -405,7 +422,7 @@ class MainActivityViewModel @Inject constructor(
 
     // MARK: - getter.
 
-    fun getValidLocation(): Phone {
+    fun getValidPhone(): Phone {
         // ensure current index.
 
 
@@ -419,6 +436,7 @@ class MainActivityViewModel @Inject constructor(
         locationFailed: Boolean?,
         weatherRequestFailed: Boolean
     ) {
+        Log.d("tag","onUpdateResult++++++++++++++++++0")
         onUpdateResult(
             phone = phone,
             locationResult = locationFailed != true,

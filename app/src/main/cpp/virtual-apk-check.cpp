@@ -11,6 +11,17 @@
 #include <string.h>
 #include <errno.h>
 
+//extern "C" int my_access(const char* __path, int __mode);
+//extern "C" long __set_errno_internal(int n) {
+//    errno = n;
+//    return -1;
+//}
+
+//int exists(const char *path) {
+//    return access(path, F_OK) == 0 ? 1 : 0;
+////    return openat(path, F_OK) == 0 ? 1 : 0;
+//}
+
 /**
  * 0. 多开检测 false
  * 1. 多开检测 true
@@ -22,6 +33,7 @@ int moreOpenCheck(JNIEnv *env, jobject context) {
 
     // 判断是否支持ls命令
     if (exists("/system/bin/ls")) {
+        LOGD("my_access通过了");
         char path[BUF_SIZE_256] = {0};
         jstring packageName = getPackageName(env, context);
         if (packageName == NULL) {
@@ -54,4 +66,11 @@ int moreOpenCheck(JNIEnv *env, jobject context) {
         return -1;
     }
 
+}
+
+
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_mmg_phonect_device_utils_DebugUtils_moreOpenCheck(JNIEnv *env, jclass clazz) {
+    return moreOpenCheck(env, clazz);
 }

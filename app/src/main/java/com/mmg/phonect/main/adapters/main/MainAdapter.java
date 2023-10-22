@@ -1,6 +1,7 @@
 package com.mmg.phonect.main.adapters.main;
 
 import android.animation.Animator;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -95,6 +96,7 @@ public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
     @NonNull
     @Override
     public AbstractMainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.d("TAG", "onCreateViewHolder: "+viewType);
         switch (viewType) {
             case ViewType.HEADER:
                 return new HeaderViewHolder(parent, mWeatherView);

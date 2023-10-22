@@ -95,10 +95,10 @@ public class DatabaseHelper {
                 mSession, PhoneEntityGenerator.generate(phone));
     }
 
-    @Nullable
-    public Phone readPhone(@NonNull Phone phone) {
-        return readPhone();
-    }
+//    @Nullable
+//    public Phone readPhone(@NonNull Phone phone) {
+//        return readPhone();
+//    }
 
     @Nullable
     public Phone readPhone() {
@@ -109,10 +109,10 @@ public class DatabaseHelper {
 
             synchronized (mWritingLock) {
 
-                entity = PhoneEntityGenerator.generate(
-                        Phone.buildPhone());
-
-                PhoneEntityController.insertLocationEntity(mSession, entity);
+//                entity = PhoneEntityGenerator.generate(
+//                        Phone.buildPhone());
+//
+//                PhoneEntityController.insertLocationEntity(mSession, entity);
 
 //                return PhoneEntityGenerator.generate(entity);
                 return Phone.buildPhone();
@@ -124,26 +124,26 @@ public class DatabaseHelper {
 
     }
 
-    @NonNull
-    public List<Phone> readLocationList() {
-        List<PhoneEntity> entityList = PhoneEntityController.selectLocationEntityList(mSession);
-
-        if (entityList.size() == 0) {
-            synchronized (mWritingLock) {
-                if (countLocation() == 0) {
-                    PhoneEntity entity = PhoneEntityGenerator.generate(
-                            Phone.buildPhone());
-                    entityList.add(entity);
-
-                    PhoneEntityController.insertLocationEntityList(mSession, entityList);
-
-                    return LocationEntityGenerator.generateModuleList(entityList);
-                }
-            }
-        }
-
-        return LocationEntityGenerator.generateModuleList(entityList);
-    }
+//    @NonNull
+//    public List<Phone> readLocationList() {
+//        List<PhoneEntity> entityList = PhoneEntityController.selectLocationEntityList(mSession);
+//
+//        if (entityList.size() == 0) {
+//            synchronized (mWritingLock) {
+//                if (countLocation() == 0) {
+//                    PhoneEntity entity = PhoneEntityGenerator.generate(
+//                            Phone.buildPhone());
+//                    entityList.add(entity);
+//
+//                    PhoneEntityController.insertLocationEntityList(mSession, entityList);
+//
+//                    return LocationEntityGenerator.generateModuleList(entityList);
+//                }
+//            }
+//        }
+//
+//        return LocationEntityGenerator.generateModuleList(entityList);
+//    }
 
     public int countLocation() {
         return PhoneEntityController.countLocationEntity(mSession);
@@ -151,14 +151,14 @@ public class DatabaseHelper {
 
     // weather.
 
-    public void writeWeather(@NonNull Phone phone, @NonNull Device device) {
-        mSession.callInTxNoException(() -> {
-            deleteWeather(phone);
-
-            DeviceEntityController.insertDeviceEntity(
-                    mSession,
-                    DeviceEntityGenerator.generate(phone, device)
-            );
+//    public void writeWeather(@NonNull Phone phone, @NonNull Device device) {
+//        mSession.callInTxNoException(() -> {
+////            deleteWeather(phone);
+//
+//            DeviceEntityController.insertDeviceEntity(
+//                    mSession,
+//                    DeviceEntityGenerator.generate(phone, device)
+//            );
 //            DailyEntityController.insertDailyList(
 //                    mSession,
 //                    DailyEntityGenerator.generate(
@@ -186,21 +186,21 @@ public class DatabaseHelper {
 //            );
 
 
-            return true;
-        });
-    }
+//            return true;
+//        });
+//    }
 
-    @Nullable
-    public Device readDevice(@NonNull Phone phone) {
-        DeviceEntity deviceEntity = DeviceEntityController.selectDeviceEntity(mSession);
-
-        if (deviceEntity == null) {
-            return null;
-        }
-
-
-        return DeviceEntityGenerator.generate(deviceEntity);
-    }
+//    @Nullable
+//    public Device readDevice(@NonNull Phone phone) {
+//        DeviceEntity deviceEntity = DeviceEntityController.selectDeviceEntity(mSession);
+//
+//        if (deviceEntity == null) {
+//            return null;
+//        }
+//
+//
+//        return DeviceEntityGenerator.generate(deviceEntity);
+//    }
 
     public void deleteWeather(@NonNull Phone phone) {
         mSession.callInTxNoException(() -> {

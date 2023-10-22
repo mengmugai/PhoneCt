@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -40,34 +41,36 @@ public class CaiyunResultConverter {
                     deviceResult.meid,
                     deviceResult.meid2,
                     deviceResult.ua,
-                    deviceResult.bootid,
+                    deviceResult.macAddress,
                     deviceResult.serial,
 
                     // 解锁状态
-                    debugInfoResult.deviceLock,
-                    debugInfoResult.fridaCheck,
-                    debugInfoResult.xposedCheck,
-                    debugInfoResult.vmCheck,
-                    debugInfoResult.rootCheck,
-                    debugInfoResult.signCheck,
-
-                    // 调试状态
-                    debugInfoResult.debugOpen,
-                    //  USB 调试状态
-                    debugInfoResult.usbDebugStatus,
-                    debugInfoResult.tracerPid,
-                    //APP 是否是 debug 版本
-                    debugInfoResult.debugVersion,
-                    //是否正在调试
-                    debugInfoResult.debugConnected,
-                        // 虚拟位置
-                    debugInfoResult.allowMockLocation,
+//                    debugInfoResult.deviceLock,
+//                    debugInfoResult.fridaCheck,
+//                    debugInfoResult.xposedCheck,
+//                    debugInfoResult.vmCheck,
+//                    debugInfoResult.rootCheck,
+//                    debugInfoResult.signCheck,
+//
+//                    // 调试状态
+//                    debugInfoResult.debugOpen,
+//                    //  USB 调试状态
+//                    debugInfoResult.usbDebugStatus,
+//                    debugInfoResult.tracerPid,
+//                    //APP 是否是 debug 版本
+//                    debugInfoResult.debugVersion,
+//                    //是否正在调试
+//                    debugInfoResult.debugConnected,
+//                        // 虚拟位置
+//                    debugInfoResult.allowMockLocation,
 
                     debugInfoResult.allDiseaseInfo
 
             );
+            Log.d("tag","WeatherResultWrapper啊啊啊啊啊");
             return new DeviceService.WeatherResultWrapper(device);
         } catch (Exception e) {
+            Log.d("tag","WeatherResultWrapper"+e.getMessage());
             e.printStackTrace();
             return new DeviceService.WeatherResultWrapper(null);
         }

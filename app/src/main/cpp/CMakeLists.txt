@@ -28,6 +28,8 @@ add_library( # Sets the name of the library.
         # Provides a relative path to your source file(s).
              phonect.cpp
              debug-check.cpp
+             utils.cpp
+             virtual-apk-check.cpp
         )
 
 # Searches for a specified prebuilt library and stores the path as a

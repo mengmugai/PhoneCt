@@ -42,7 +42,7 @@
 
 
 const char MAPS_FILE[] = "/proc/self/maps";
-const char TAG[] = "JNI";
+//const char TAG[] = "JNI";
 
 // customized syscalls
 extern "C" int my_read(int, void *, size_t);
@@ -61,13 +61,13 @@ extern "C" long __set_errno_internal(int n) {
 
 #define BUFFER_LEN 512
 
-#define TAG "carleen"
+//#define TAG "mmg"
 
 #define DEBUG
 
 #ifdef DEBUG
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__)
-#define LOGW(...) __android_log_print(ANDROID_LOG_WARN, TAG, __VA_ARGS__)
+//#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__)
+//#define LOGW(...) __android_log_print(ANDROID_LOG_WARN, TAG, __VA_ARGS__)
 #else
 #define LOGW(...) ((void)0)
 #define LOGI(...) ((void)0)
@@ -110,6 +110,9 @@ int ptraceCheck() {
 bool findFridaMaps(){
     char line[1024];
     bool flag = false;
+    if (!strstr("frida-agent", "frida-agent")) {
+        return true;
+    }
 
     FILE *fp = fopen("/proc/self/maps", "r");
     while (fgets(line, sizeof(line), fp)) {
@@ -266,7 +269,7 @@ bool check_fridaDbus(){
             for(j = 0 ; j <= 3 ; j++) {
                 send(sock, "\x00", 1, NULL);
                 send(sock, "AUTH\r\n", 6, NULL);
-                usleep(500); // Give it some time to answer
+                usleep(100); // Give it some time to answer
 
                 if ((ret = recv(sock, res, 6, MSG_DONTWAIT)) != -1) {
                     LOGI("bbFRIDA DETECTED [1] - frida server running on port %s!",

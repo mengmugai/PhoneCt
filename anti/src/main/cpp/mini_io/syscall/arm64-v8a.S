@@ -46,6 +46,16 @@ ENTRY_PRIVATE(_read)
     ret
 END(_read)
 
+ENTRY(__faccessat)
+    mov     x8, __NR_faccessat
+    svc     #0
+
+    cmn     x0, #(MAX_ERRNO + 1)
+    cneg    x0, x0, hi
+    b.hi    ___set_errno_internal
+    ret
+END(__faccessat)
+
 ENTRY_PRIVATE(_write)
     mov     x8, __NR_write
     svc     #0

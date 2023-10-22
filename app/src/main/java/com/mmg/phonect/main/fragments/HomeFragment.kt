@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -133,7 +134,7 @@ class HomeFragment : MainModuleFragment() {
     @SuppressLint("ClickableViewAccessibility", "NonConstantResourceId", "NotifyDataSetChanged")
     private fun initView() {
         ensureResourceProvider()
-
+        // 启动重力感应
         weatherView.setGravitySensorEnabled(
             SettingsManager.getInstance(requireContext()).isGravitySensorEnabled
         )
@@ -146,9 +147,9 @@ class HomeFragment : MainModuleFragment() {
         binding.toolbar.inflateMenu(R.menu.activity_main)
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.action_manage -> if (callback != null) {
-                    callback!!.onManageIconClicked()
-                }
+//                R.id.action_manage -> if (callback != null) {
+//                    callback!!.onManageIconClicked()
+//                }
                 R.id.action_settings -> if (callback != null) {
                     callback!!.onSettingsIconClicked()
                 }
@@ -220,6 +221,10 @@ class HomeFragment : MainModuleFragment() {
     }
 
     private fun updateDayNightColors() {
+        Log.e("tag","-xxx----------------"+MainThemeColorProvider.getColor(
+            phone = viewModel.currentPhone.value!!.phone,
+            id = R.attr.colorSurface
+        ))
         binding.refreshLayout.setProgressBackgroundColorSchemeColor(
             MainThemeColorProvider.getColor(
                 phone = viewModel.currentPhone.value!!.phone,
@@ -243,21 +248,26 @@ class HomeFragment : MainModuleFragment() {
 
     @SuppressLint("ClickableViewAccessibility", "NotifyDataSetChanged")
     private fun updateContentViews(phone: Phone) {
+        Log.d("mmg","updateContentViews++++++++++")
         if (recyclerViewAnimator != null) {
             recyclerViewAnimator!!.cancel()
             recyclerViewAnimator = null
         }
-
+        Log.d("mmg","updateContentViews++++++++++2")
         updateDayNightColors()
-
-        binding.switchLayout.reset()
-
+        Log.d("mmg","updateContentViews++++++++++3")
+//        binding.switchLayout.reset()
+        Log.d("mmg","updateContentViews++++++++++4")
         if (phone.device == null) {
+            Log.d("mmg","updateContentViews++++++++++null")
             adapter!!.setNullWeather()
             adapter!!.notifyDataSetChanged()
             binding.recyclerView.setOnTouchListener { _, event ->
+                Log.d("mmg","updateContentViews++++++++++action:"+event.action)
+                Log.d("mmg","updateContentViews++++++++++isRefreshing:"+!binding.refreshLayout.isRefreshing)
                 if (event.action == MotionEvent.ACTION_DOWN
                     && !binding.refreshLayout.isRefreshing) {
+                    Log.d("mmg","updateContentViews++++++++++isRefreshing")
 
                         viewModel.updateWithUpdatingChecking(
                         triggeredByUser = true,
@@ -268,7 +278,7 @@ class HomeFragment : MainModuleFragment() {
             }
             return
         }
-
+        Log.d("mmg","updateContentViews++++++++++5")
         binding.recyclerView.setOnTouchListener(null)
 
         val listAnimationEnabled = SettingsManager
@@ -312,7 +322,7 @@ class HomeFragment : MainModuleFragment() {
     }
 
     private fun updatePreviewSubviews() {
-        val phone = viewModel.getValidLocation()
+        val phone = viewModel.getValidPhone()
         val daylight = phone.isDaylight
 
 //        binding.toolbar.title = phone.getPhoneName(requireContext())

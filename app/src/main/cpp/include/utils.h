@@ -21,6 +21,7 @@
  * path: 路径
  * 返回值 1:文件存在; 0:文件不存在
  */
+int my_access(const char* path, int mode);
 int exists(const char *path);
 
 int getProperty(const char *name, char *dest);

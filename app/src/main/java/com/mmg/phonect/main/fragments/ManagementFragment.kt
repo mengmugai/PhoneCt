@@ -3,6 +3,7 @@ package com.mmg.phonect.main.fragments
 import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +14,10 @@ import androidx.core.widget.ImageViewCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mmg.phonect.R
 import com.mmg.phonect.common.basic.models.Location
+import com.mmg.phonect.common.ui.decotarions.Material3ListItemDecoration
 import com.mmg.phonect.common.utils.DisplayUtils
 import com.mmg.phonect.databinding.FragmentManagementBinding
 import com.mmg.phonect.main.MainActivityViewModel
@@ -136,20 +139,20 @@ open class ManagementFragment : MainModuleFragment() {
 //            RecyclerView.VERTICAL,
 //            false
 //        ).also { layout = it }
-//        while (binding.recyclerView.itemDecorationCount > 0) {
-//            binding.recyclerView.removeItemDecorationAt(0)
-//        }
-//        binding.recyclerView.addItemDecoration(Material3ListItemDecoration(requireContext()))
-//        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                scrollOffset = recyclerView.computeVerticalScrollOffset().toFloat()
-//                updateAppBarColor()
-//
-//                if (dy != 0) {
-//                    adapterAnimWrapper!!.setScrolled()
-//                }
-//            }
-//        })
+        while (binding.recyclerView.itemDecorationCount > 0) {
+            binding.recyclerView.removeItemDecorationAt(0)
+        }
+        binding.recyclerView.addItemDecoration(Material3ListItemDecoration(requireContext()))
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                scrollOffset = recyclerView.computeVerticalScrollOffset().toFloat()
+                updateAppBarColor()
+
+                if (dy != 0) {
+                    adapterAnimWrapper!!.setScrolled()
+                }
+            }
+        })
 //
 //        itemTouchHelper = ItemTouchHelper(
 //            LocationItemTouchCallback(
@@ -160,6 +163,8 @@ open class ManagementFragment : MainModuleFragment() {
 //        )
 //        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 //
+
+
 //        viewModel.totalLocationList.observe(viewLifecycleOwner) {
 //            adapter.update(it.locationList, it.selectedId)
 //            setCurrentLocationButtonEnabled(it.locationList)
@@ -168,6 +173,10 @@ open class ManagementFragment : MainModuleFragment() {
 
     private fun updateDayNightColors() {
         val lightTheme = !DisplayUtils.isDarkMode(requireContext())
+        Log.e("tag","-xxx2----------------"+MainThemeColorProvider.getColor(
+            lightTheme = lightTheme,
+            id = R.attr.colorSurfaceVariant
+        ))
 
         updateAppBarColor()
 

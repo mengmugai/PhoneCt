@@ -40,6 +40,7 @@ public class AbnormalViewHolder extends AbstractMainCardViewHolder {
         super.onBindView(activity, phone, provider,
                 listAnimationEnabled, itemAnimationEnabled, firstCard);
 
+        mTitle.setText(R.string.abnormal_info);
         if (phone.getDevice() != null) {
             mTitle.setTextColor(
                     ThemeManager

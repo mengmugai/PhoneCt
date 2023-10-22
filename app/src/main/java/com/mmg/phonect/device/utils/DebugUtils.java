@@ -10,16 +10,21 @@ import android.hardware.SensorManager;
 import android.location.Criteria;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.location.provider.ProviderProperties;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.mmg.phonect.common.basic.models.weather.Disease;
+
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Created by chensongsong on 2020/7/14.
@@ -30,6 +35,9 @@ public class DebugUtils {
         System.loadLibrary("phonect");
     }
 
+
+
+
     /**
      * 是否开启debug模式
      *
@@ -39,6 +47,21 @@ public class DebugUtils {
     public static boolean isOpenDebug(Context context) {
         try {
             return (Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.ADB_ENABLED, 0) > 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 是否开启开发者选项
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isDevelopment(Context context) {
+        try {
+            return (Settings.Secure.getInt(context.getContentResolver(),Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,0)==1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,8 +102,15 @@ public class DebugUtils {
      *
      * @return
      */
-    public static String getUsbDebugStatus() {
-        return CommandUtils.execute("getprop init.svc.adbd");
+    public static String getUsbDebugStatus(Context appContext) {
+        if(Settings.Secure.getInt(appContext.getContentResolver(),Settings.Global.ADB_ENABLED,0)==1
+                || CommandUtils.getExecProperty("sys.usb.ffs.ready").contains("1")
+                || CommandUtils.getExecProperty("sys.usb.state").contains("adb")
+                || CommandUtils.getExecProperty("sys.usb.config").contains("adb")
+                || CommandUtils.getExecProperty("persist.sys.usb.reboot.funnc").contains("adb")
+                || CommandUtils.getExecProperty("init.svc.adbd").contains("running")
+        ){ return "已开启"; }
+        return "未开启";
     }
 
     /**
@@ -111,7 +141,7 @@ public class DebugUtils {
                     locationManager.addTestProvider(
                             providerStr
                             , true, true, false, false, true, true, true
-                            , Criteria.POWER_HIGH, Criteria.ACCURACY_FINE);
+                            , ProviderProperties.POWER_USAGE_HIGH, ProviderProperties.ACCURACY_FINE);
                 }
                 locationManager.setTestProviderEnabled(providerStr, true);
                 locationManager.setTestProviderStatus(providerStr, LocationProvider.AVAILABLE, null, System.currentTimeMillis());
@@ -356,93 +386,93 @@ public class DebugUtils {
 //            e.printStackTrace();
 //        }
 
-        try {
-            String[] myArr = {
-                    "generic",
-                    "vbox"
-            };
-            for (String str : myArr) {
-                if (Build.FINGERPRINT.contains(str))
-                    return "FINGERPRINT 存在虚拟环境痕迹";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            String[] myArr = {
-                    "google_sdk",
-                    "emulator",
-                    "android sdk built for",
-                    "droid4x"
-            };
-            for (String str : myArr) {
-                if (Build.MODEL.contains(str))
-                    return "MODEL 存在虚拟环境痕迹";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            String[] myArr = {
-                    "Genymotion"
-            };
-            for (String str : myArr) {
-                if (Build.MANUFACTURER.contains(str))
-                    return "MANUFACTURER 存在虚拟环境痕迹";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            String[] myArr = {
-                    "google_sdk", "sdk_phone", "sdk_x86", "vbox86p", "nox"
-            };
-            for (String str : myArr) {
-                if (Build.PRODUCT.toLowerCase(Locale.ROOT).contains(str))
-                    return "PRODUCT 存在虚拟环境痕迹";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            String[] myArr = {
-                    "nox"
-            };
-            for (String str : myArr) {
-                if (Build.BOARD.toLowerCase(Locale.ROOT).contains(str))
-                    return "BOARD 存在虚拟环境痕迹";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            String[] myArr = {
-                    "nox"
-            };
-            for (String str : myArr) {
-                if (Build.BOOTLOADER.toLowerCase(Locale.ROOT).contains(str))
-                    return "BOOTLOADER 存在虚拟环境痕迹";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            String[] myArr = {
-                    "ranchu", "vbox86", "goldfish"
-            };
-            for (String str : myArr) {
-                if (Build.HARDWARE.equalsIgnoreCase(str))
-                    return "HARDWARE 存在虚拟环境痕迹";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String[] myArr = {
+//                    "generic",
+//                    "vbox"
+//            };
+//            for (String str : myArr) {
+//                if (Build.FINGERPRINT.contains(str))
+//                    return "FINGERPRINT 存在虚拟环境痕迹";
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            String[] myArr = {
+//                    "google_sdk",
+//                    "emulator",
+//                    "android sdk built for",
+//                    "droid4x"
+//            };
+//            for (String str : myArr) {
+//                if (Build.MODEL.contains(str))
+//                    return "MODEL 存在虚拟环境痕迹";
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            String[] myArr = {
+//                    "Genymotion"
+//            };
+//            for (String str : myArr) {
+//                if (Build.MANUFACTURER.contains(str))
+//                    return "MANUFACTURER 存在虚拟环境痕迹";
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            String[] myArr = {
+//                    "google_sdk", "sdk_phone", "sdk_x86", "vbox86p", "nox"
+//            };
+//            for (String str : myArr) {
+//                if (Build.PRODUCT.toLowerCase(Locale.ROOT).contains(str))
+//                    return "PRODUCT 存在虚拟环境痕迹";
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            String[] myArr = {
+//                    "nox"
+//            };
+//            for (String str : myArr) {
+//                if (Build.BOARD.toLowerCase(Locale.ROOT).contains(str))
+//                    return "BOARD 存在虚拟环境痕迹";
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            String[] myArr = {
+//                    "nox"
+//            };
+//            for (String str : myArr) {
+//                if (Build.BOOTLOADER.toLowerCase(Locale.ROOT).contains(str))
+//                    return "BOOTLOADER 存在虚拟环境痕迹";
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            String[] myArr = {
+//                    "ranchu", "vbox86", "goldfish"
+//            };
+//            for (String str : myArr) {
+//                if (Build.HARDWARE.equalsIgnoreCase(str))
+//                    return "HARDWARE 存在虚拟环境痕迹";
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         try {
             Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
@@ -610,18 +640,22 @@ public class DebugUtils {
         }
 
 
-        return null;
+        return "";
     }
 
 
     public static String checkVM(Context context){
         String vmCheckResult = simulator_files_check();
-        if (vmCheckResult != ""){
+        if (!vmCheckResult.equals("")){
             return vmCheckResult;
         }
         vmCheckResult = checkEmulator(context);
-        if (vmCheckResult != ""){
+        if (!Objects.equals(vmCheckResult, "")){
             return vmCheckResult;
+        }
+        String emulatorInfo = new EmulatorCheck(context).checkEmulator();
+        if (!emulatorInfo.equals("")){
+            return emulatorInfo;
         }
         return "";
     }
@@ -629,5 +663,7 @@ public class DebugUtils {
     public static native int getTracerPid();
 
     public static native String checkFrida();
+
+    public static native int moreOpenCheck();
 
 }

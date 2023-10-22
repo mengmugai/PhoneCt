@@ -6,14 +6,25 @@
 #include <string.h>
 #include "include/utils.h"
 #include "include/log.h"
+#include <errno.h>
+#include <fcntl.h>
+extern "C" int my_faccessat(int, const char*, int, int);
+//extern "C" long __set_errno_internal(int n) {
+//    errno = n;
+//    return -1;
+//};
 
+int my_access(const char* path, int mode) {
+    return my_faccessat(AT_FDCWD, path, mode, 0);
+}
 /**
  * 判断文件是否存在
  * path: 路径
  * 返回值 1:文件存在; 0:文件不存在
  */
 int exists(const char *path) {
-    return access(path, F_OK) == 0 ? 1 : 0;
+    return my_access(path, F_OK) == 0 ? 1 : 0;
+//    return my_access(path, F_OK) == 0 ? 1 : 0;
 }
 
 /**

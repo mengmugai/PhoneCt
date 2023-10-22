@@ -51,6 +51,18 @@ ENTRY_PRIVATE(_read)
     ret
 END(_read)
 
+ENTRY_PRIVATE(__faccessat)
+movl    $__NR_faccessat, %eax
+        syscall
+cmpq    $-MAX_ERRNO, %rax
+        jb      1f
+negl    %eax
+        movl    %eax, %edi
+        call    ___set_errno_internal
+1:
+ret
+END(__faccessat)
+
 ENTRY_PRIVATE(_write)
     movl    $__NR_write, %eax
     syscall

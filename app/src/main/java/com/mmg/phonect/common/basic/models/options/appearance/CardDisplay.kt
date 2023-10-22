@@ -17,7 +17,7 @@ enum class CardDisplay(
 //    CARD_ALLERGEN("allergen", R.string.allergen),
 //    CARD_SUNRISE_SUNSET("sunrise_sunset", R.string.sunrise_sunset),
 //    CARD_LIFE_DETAILS("life_details", R.string.life_details),
-    CARD_ABNORMAL_INFO("abnormal_info", R.string.life_details),
+    CARD_ABNORMAL_INFO("abnormal_info", R.string.abnormal_info),
     CARD_DEVICE_INFO("device_info", R.string.device_info),
     CARD_APP_LIST("app_list", R.string.app_list);
 

@@ -28,6 +28,9 @@ add_library(
         check/anti_mem_dump.cpp
         check/anti_mem_dump.h
 
+        check/anti_env.cpp
+        check/anti_env.h
+
         JNIHelper/utils/JavaObjectPointer.cpp
         JNIHelper/utils/JStringUtils.cpp
         JNIHelper/native/JavaNativeMethod.cpp

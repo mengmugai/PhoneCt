@@ -145,22 +145,22 @@ fun RootSettingsView(context: Context, navController: NavHostController) {
 //                IntentHelper.startLiveWallpaperActivity(context)
 //            }
 //        }
-        clickablePreferenceItem(R.string.settings_title_service_provider) { id ->
-            PreferenceView(
-                titleId = id,
-                summaryId = R.string.settings_summary_service_provider
-            ) {
-                navController.navigate(SettingsScreenRouter.ServiceProvider.route)
-            }
-        }
-        clickablePreferenceItem(R.string.settings_title_unit) { id ->
-            PreferenceView(
-                titleId = id,
-                summaryId = R.string.settings_summary_unit
-            ) {
-                navController.navigate(SettingsScreenRouter.Unit.route)
-            }
-        }
+//        clickablePreferenceItem(R.string.settings_title_service_provider) { id ->
+//            PreferenceView(
+//                titleId = id,
+//                summaryId = R.string.settings_summary_service_provider
+//            ) {
+//                navController.navigate(SettingsScreenRouter.ServiceProvider.route)
+//            }
+//        }
+//        clickablePreferenceItem(R.string.settings_title_unit) { id ->
+//            PreferenceView(
+//                titleId = id,
+//                summaryId = R.string.settings_summary_unit
+//            ) {
+//                navController.navigate(SettingsScreenRouter.Unit.route)
+//            }
+//        }
         clickablePreferenceItem(R.string.settings_title_appearance) { id ->
             PreferenceView(
                 titleId = id,

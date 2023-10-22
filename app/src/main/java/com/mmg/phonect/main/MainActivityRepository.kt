@@ -1,6 +1,7 @@
 package com.mmg.phonect.main
 
 import android.content.Context
+import android.util.Log
 import com.mmg.phonect.common.basic.models.Location
 import com.mmg.phonect.common.basic.models.Phone
 import com.mmg.phonect.common.utils.helpers.AsyncHelper
@@ -8,7 +9,7 @@ import com.mmg.phonect.db.DatabaseHelper
 import com.mmg.phonect.location.LocationHelper
 import com.mmg.phonect.device.DeviceHelper
 import com.mmg.phonect.device.DeviceHelper.OnRequestDeviceListener
-import com.mmg.phonect.device.DeviceHelper.OnRequestWeatherListener
+//import com.mmg.phonect.device.DeviceHelper.OnRequestWeatherListener
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
@@ -31,44 +32,45 @@ class MainActivityRepository @Inject constructor(
     }
 
     fun initPhone(context: Context): Phone {
-        var phone = DatabaseHelper.getInstance(context).readPhone()
-        if (phone == null){
-            phone = Phone.buildPhone()
-        }
+//        var phone = viewModel.currentPhone.value!!.phone
+//        var phone = DatabaseHelper.getInstance(context).readPhone()
+//        if (phone == null){
+        var phone = Phone.buildPhone()
+//        }
 
         return phone
     }
 
-    fun getWeatherCacheForLocations(
-        context: Context,
-        phone: Phone,
-        callback: AsyncHelper.Callback<Phone>
-    ) {
-        AsyncHelper.runOnExecutor({ emitter ->
-            emitter.send(
+//    fun getWeatherCacheForLocations(
+//        context: Context,
+//        phone: Phone,
+//        callback: AsyncHelper.Callback<Phone>
+//    ) {
+//        AsyncHelper.runOnExecutor({ emitter ->
+//            emitter.send(
+//
+//                        Phone.copy(
+//                            src = phone,
+//                            device = DatabaseHelper.getInstance(context).readDevice(phone)
+//                        ),
+//
+//                true
+//            )
+//        }, callback, singleThreadExecutor)
+//    }
 
-                        Phone.copy(
-                            src = phone,
-                            device = DatabaseHelper.getInstance(context).readDevice(phone)
-                        ),
-
-                true
-            )
-        }, callback, singleThreadExecutor)
-    }
-
-    fun writeLocationList(context: Context, phoneList: List<Phone>) {
-        AsyncHelper.runOnExecutor({ 
-            DatabaseHelper.getInstance(context).writeLocationList(phoneList)
-        }, singleThreadExecutor)
-    }
-
-    fun deleteLocation(context: Context, phone: Phone) {
-        AsyncHelper.runOnExecutor({
-            DatabaseHelper.getInstance(context).deleteLocation(phone)
-            DatabaseHelper.getInstance(context).deleteWeather(phone)
-        }, singleThreadExecutor)
-    }
+//    fun writeLocationList(context: Context, phoneList: List<Phone>) {
+//        AsyncHelper.runOnExecutor({
+//            DatabaseHelper.getInstance(context).writeLocationList(phoneList)
+//        }, singleThreadExecutor)
+//    }
+//
+//    fun deleteLocation(context: Context, phone: Phone) {
+//        AsyncHelper.runOnExecutor({
+//            DatabaseHelper.getInstance(context).deleteLocation(phone)
+//            DatabaseHelper.getInstance(context).deleteWeather(phone)
+//        }, singleThreadExecutor)
+//    }
 
     fun getWeather(
         context: Context,
@@ -78,8 +80,10 @@ class MainActivityRepository @Inject constructor(
     ) {
         if (locate) {
             //确保有效的位置信息
+            Log.d("tag","onUpdateResult   0")
             ensureValidLocationInformation(context, phone, callback)
         } else {
+            Log.d("tag","onUpdateResult   1")
             //获取具有有效位置信息的天气
             getWeatherWithValidLocationInformation(context, phone, null, callback)
         }
@@ -96,7 +100,7 @@ class MainActivityRepository @Inject constructor(
         object : LocationHelper.OnRequestPhoneListener {
 
             override fun requestPhoneSuccess(requestPhone: Phone) {
-
+                Log.d("tag","onUpdateResult   0-1")
                 getWeatherWithValidLocationInformation(
                     context,
                     requestPhone,
@@ -119,7 +123,7 @@ class MainActivityRepository @Inject constructor(
         phone,
         object : OnRequestDeviceListener {
             override fun requestDeviceSuccess(requestPhone: Phone) {
-
+                Log.d("tag","onUpdateResult   0-1-0")
                 callback.onCompleted(
                     requestPhone,
                     locationFailed = locationFailed,
@@ -128,7 +132,7 @@ class MainActivityRepository @Inject constructor(
             }
 
             override fun requestDeviceFailed(requestPhone: Phone) {
-
+                Log.d("tag","onUpdateResult   0-1-1")
                 callback.onCompleted(
                     requestPhone,
                     locationFailed = locationFailed,
