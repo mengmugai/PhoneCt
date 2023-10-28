@@ -41,3 +41,9 @@ frida 检测参考
 [部分参考](https://github.com/AhmedAbouelkher/security_tester)
 
 # 未完成参考
+
+
+
+# 可参考
+[AntiEmulator](https://github.com/strazzere/anti-emulator/blob/master/AntiEmulator/src/diff/strazzere/anti/emulator/FindEmulator.java)
+[较全的文档](https://github.com/doridori/Android-Security-Reference/tree/6ce20baa7f77d2ed8b470421aa2a3304c029e7b6)

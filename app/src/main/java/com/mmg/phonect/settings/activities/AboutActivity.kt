@@ -51,16 +51,16 @@ private class ContributorItem(
 
 class AboutActivity : GeoActivity() {
 
-    private val aboutAppLinks = arrayOf(1
-//        AboutAppLinkItem(
-//            iconId = R.drawable.ic_github,
-//            titleId = R.string.gitHub,
-//        ) {
-//            IntentHelper.startWebViewActivity(
-//                this@AboutActivity,
-//                "https://github.com/WangDaYeeeeee/GeometricWeather"
-//            )
-//        },
+    private val aboutAppLinks = arrayOf(
+        AboutAppLinkItem(
+            iconId = R.drawable.ic_github,
+            titleId = R.string.gitHub,
+        ) {
+            IntentHelper.startWebViewActivity(
+                this@AboutActivity,
+                "https://github.com/mengmugai/PhoneCt"
+            )
+        }
 //        AboutAppLinkItem(
 //            iconId = R.drawable.ic_email,
 //            titleId = R.string.email,
@@ -133,13 +133,13 @@ class AboutActivity : GeoActivity() {
                     Header()
                     SectionTitle(stringResource(R.string.about_app))
                 }
-//                items(aboutAppLinks) { item ->
-//                    AboutAppLink(
-//                        iconId = item.iconId,
-//                        title = stringResource(item.titleId),
-//                        onClick = item.onClick,
-//                    )
-//                }
+                items(aboutAppLinks) { item ->
+                    AboutAppLink(
+                        iconId = item.iconId,
+                        title = stringResource(item.titleId),
+                        onClick = item.onClick,
+                    )
+                }
 //
 //                item { SectionTitle(stringResource(R.string.donate)) }
 //                items(donateLinks) { item ->
