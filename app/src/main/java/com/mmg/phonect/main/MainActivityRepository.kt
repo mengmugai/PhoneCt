@@ -1,20 +1,19 @@
 package com.mmg.phonect.main
 
+//import com.mmg.phonect.device.DeviceHelper.OnRequestWeatherListener
 import android.content.Context
+import android.os.Build
 import android.util.Log
-import com.mmg.phonect.common.basic.models.Location
 import com.mmg.phonect.common.basic.models.Phone
-import com.mmg.phonect.common.utils.helpers.AsyncHelper
-import com.mmg.phonect.db.DatabaseHelper
-import com.mmg.phonect.location.LocationHelper
 import com.mmg.phonect.device.DeviceHelper
 import com.mmg.phonect.device.DeviceHelper.OnRequestDeviceListener
-//import com.mmg.phonect.device.DeviceHelper.OnRequestWeatherListener
+//import com.mmg.phonect.location.LocationHelper
+import java.util.*
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
 class MainActivityRepository @Inject constructor(
-    private val locationHelper: LocationHelper,
+//    private val locationHelper: LocationHelper,
     private val deviceHelper: DeviceHelper
 ) {
     private val singleThreadExecutor = Executors.newSingleThreadExecutor()
@@ -78,40 +77,56 @@ class MainActivityRepository @Inject constructor(
         locate: Boolean,
         callback: WeatherRequestCallback,
     ) {
-        if (locate) {
-            //确保有效的位置信息
-            Log.d("tag","onUpdateResult   0")
-            ensureValidLocationInformation(context, phone, callback)
-        } else {
+//        if (locate) {
+//            //确保有效的位置信息
+//            Log.d("tag","onUpdateResult   0")
+//            ensureValidLocationInformation(context, phone, callback)
+//        } else {
+
+        // 获取phone 数据
+        //timeZone: TimeZone? = null,
+        //        brand: String? = null,
+        //        model: String? = null,
+        //        country: String? = null,
+        //        province: String? = null,
+        //        city: String? = null,
+        //        district: String? = null,
+        //        device: Device? = null,
+        //        weatherSource: WeatherSource? = null,
+            phone.copy(
+                TimeZone.getTimeZone("Asia/Shanghai"),
+                Build.BRAND,
+                Build.MODEL
+            )
             Log.d("tag","onUpdateResult   1")
             //获取具有有效位置信息的天气
             getWeatherWithValidLocationInformation(context, phone, null, callback)
-        }
+//        }
     }
 
-    private fun ensureValidLocationInformation(
-        context: Context,
-        phone: Phone,
-        callback: WeatherRequestCallback,
-    ) = locationHelper.requestLocation(
-        context,
-        phone,
-        false,
-        object : LocationHelper.OnRequestPhoneListener {
-
-            override fun requestPhoneSuccess(requestPhone: Phone) {
-                Log.d("tag","onUpdateResult   0-1")
-                getWeatherWithValidLocationInformation(
-                    context,
-                    requestPhone,
-                    false,
-                    callback
-                )
-            }
-
-
-        }
-    )
+//    private fun ensureValidLocationInformation(
+//        context: Context,
+//        phone: Phone,
+//        callback: WeatherRequestCallback,
+//    ) = locationHelper.requestLocation(
+//        context,
+//        phone,
+//        false,
+//        object : LocationHelper.OnRequestPhoneListener {
+//
+//            override fun requestPhoneSuccess(requestPhone: Phone) {
+//                Log.d("tag","onUpdateResult   0-1")
+//                getWeatherWithValidLocationInformation(
+//                    context,
+//                    requestPhone,
+//                    false,
+//                    callback
+//                )
+//            }
+//
+//
+//        }
+//    )
 
     private fun getWeatherWithValidLocationInformation(
         context: Context,
@@ -142,12 +157,10 @@ class MainActivityRepository @Inject constructor(
         }
     )
 
-    fun getLocatePermissionList(context: Context) = locationHelper
-        .getPermissions(context)
-        .toList() + deviceHelper.getPermissions().toList()
+    fun getLocatePermissionList(context: Context) = deviceHelper.getPermissions().toList()
 
     fun cancelWeatherRequest() {
-        locationHelper.cancel()
+//        locationHelper.cancel()
         deviceHelper.cancel()
     }
 }

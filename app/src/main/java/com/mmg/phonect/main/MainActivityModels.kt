@@ -61,6 +61,7 @@ class SelectableLocationList(
 enum class MainMessage {
     LOCATION_FAILED,
     WEATHER_REQ_FAILED,
+    DEVICE_REFRESHED,
 }
 
 class DayNightPhone(

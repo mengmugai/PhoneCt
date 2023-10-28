@@ -254,7 +254,7 @@ class MainActivity : GeoActivity(),
             if (needShowDialog && !viewModel.statementManager.isLocationPermissionDeclared) {
                 // only show dialog once.
                 MaterialAlertDialogBuilder(this)
-                    .setTitle(R.string.feedback_location_permissions_title)
+                    .setTitle(R.string.feedback_device_permissions_title)
                     .setMessage(R.string.feedback_location_permissions_statement)
                     .setPositiveButton(R.string.next) { _, _ ->
                         // mark declared.
@@ -292,6 +292,11 @@ class MainActivity : GeoActivity(),
                     MainMessage.WEATHER_REQ_FAILED -> {
                         SnackbarHelper.showSnackbar(
                             getString(R.string.feedback_get_weather_failed)
+                        )
+                    }
+                    MainMessage.DEVICE_REFRESHED -> {
+                        SnackbarHelper.showSnackbar(
+                            getString(R.string.refreshed)
                         )
                     }
                 }

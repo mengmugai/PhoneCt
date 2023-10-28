@@ -164,6 +164,7 @@ class MainActivityViewModel @Inject constructor(
         Log.d("tag","onUpdateResult++++++++++++++++++2")
         loading.setValue(false)
         updating = false
+        mainMessage.setValue(MainMessage.DEVICE_REFRESHED)
     }
 
     private fun checkToUpdateCurrentLocation() {

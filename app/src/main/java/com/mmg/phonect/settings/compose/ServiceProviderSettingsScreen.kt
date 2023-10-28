@@ -11,7 +11,6 @@ import com.mmg.phonect.R
 import com.mmg.phonect.common.basic.models.options.provider.LocationProvider
 import com.mmg.phonect.common.basic.models.options.provider.WeatherSource
 import com.mmg.phonect.common.utils.helpers.SnackbarHelper
-import com.mmg.phonect.db.DatabaseHelper
 import com.mmg.phonect.settings.SettingsManager
 import com.mmg.phonect.settings.preference.bottomInsetItem
 import com.mmg.phonect.settings.preference.clickablePreferenceItem

@@ -105,7 +105,7 @@ JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
                     {"AntiMemDump",  "()Ljava/lang/String;", (void *) anti_mem_dump},
                     {"AntiEmulator", "()Ljava/lang/String;", (void *) anti_emulator},
                     {"AntiDualApp",  "()Ljava/lang/String;", (void *) anti_dual_app},
-                    {"AntiEnv",  "()Ljava/lang/String;", (void *) anti_env},
+                    {"AntiEnv",      "()Ljava/lang/String;", (void *) anti_env},
             };
 
     if (__predict_false(0 != env->RegisterNatives(cls, m, sizeof(m) / sizeof(m[0]))))

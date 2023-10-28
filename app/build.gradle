@@ -1,11 +1,14 @@
+import java.text.SimpleDateFormat
+
 plugins {
     id "com.android.application"
-    id "org.greenrobot.greendao"
+//    id "org.greenrobot.greendao"
     id "kotlin-android"
     id "kotlin-kapt"
     id "dagger.hilt.android.plugin"
 }
-
+def PRODUCT_NAME = "PhoneCt_"
+def DATE = new SimpleDateFormat('yyyyMMdd').format(new Date())
 android {
     namespace 'com.mmg.phonect'
     compileSdkVersion 32
@@ -55,56 +58,80 @@ android {
 //            }
 //        }
 //    }
-    buildTypes.each {
-        it.buildConfigField "String", "CN_WEATHER_BASE_URL", CN_WEATHER_BASE_URL
-        it.buildConfigField "String", "CAIYUN_WEATHER_BASE_URL", CAIYUN_WEATHER_BASE_URL
-        it.buildConfigField "String", "ACCU_WEATHER_BASE_URL", ACCU_WEATHER_BASE_URL
-        it.buildConfigField "String", "ACCU_WEATHER_KEY", ACCU_WEATHER_KEY
-        it.buildConfigField "String", "ACCU_CURRENT_KEY", ACCU_CURRENT_KEY
-        it.buildConfigField "String", "ACCU_AQI_KEY", ACCU_AQI_KEY
-        it.buildConfigField "String", "OWM_KEY", OWM_KEY
-        it.buildConfigField "String", "OWM_BASE_URL", OWM_BASE_URL
-        it.buildConfigField "String", "BAIDU_IP_LOCATION_BASE_URL", BAIDU_IP_LOCATION_BASE_URL
-        it.buildConfigField "String", "BAIDU_IP_LOCATION_AK", BAIDU_IP_LOCATION_AK
-        it.buildConfigField "String", "MF_WSFT_KEY", MF_WSFT_KEY
-        it.buildConfigField "String", "MF_WSFT_BASE_URL", MF_WSFT_BASE_URL
-        it.buildConfigField "String", "IQA_AIR_PARIF_KEY", IQA_AIR_PARIF_KEY
-        it.buildConfigField "String", "IQA_AIR_PARIF_URL", IQA_AIR_PARIF_URL
-        it.buildConfigField "String", "IQA_ATMO_AURA_KEY", IQA_ATMO_AURA_KEY
-        it.buildConfigField "String", "IQA_ATMO_AURA_URL", IQA_ATMO_AURA_URL
-        it.buildConfigField "String", "IQA_ATMO_SUD_URL", IQA_ATMO_SUD_URL
-    }
+//    buildTypes.each {
+//        it.buildConfigField "String", "CN_WEATHER_BASE_URL", CN_WEATHER_BASE_URL
+//        it.buildConfigField "String", "CAIYUN_WEATHER_BASE_URL", CAIYUN_WEATHER_BASE_URL
+//        it.buildConfigField "String", "ACCU_WEATHER_BASE_URL", ACCU_WEATHER_BASE_URL
+//        it.buildConfigField "String", "ACCU_WEATHER_KEY", ACCU_WEATHER_KEY
+//        it.buildConfigField "String", "ACCU_CURRENT_KEY", ACCU_CURRENT_KEY
+//        it.buildConfigField "String", "ACCU_AQI_KEY", ACCU_AQI_KEY
+//        it.buildConfigField "String", "OWM_KEY", OWM_KEY
+//        it.buildConfigField "String", "OWM_BASE_URL", OWM_BASE_URL
+//        it.buildConfigField "String", "BAIDU_IP_LOCATION_BASE_URL", BAIDU_IP_LOCATION_BASE_URL
+//        it.buildConfigField "String", "BAIDU_IP_LOCATION_AK", BAIDU_IP_LOCATION_AK
+//        it.buildConfigField "String", "MF_WSFT_KEY", MF_WSFT_KEY
+//        it.buildConfigField "String", "MF_WSFT_BASE_URL", MF_WSFT_BASE_URL
+//        it.buildConfigField "String", "IQA_AIR_PARIF_KEY", IQA_AIR_PARIF_KEY
+//        it.buildConfigField "String", "IQA_AIR_PARIF_URL", IQA_AIR_PARIF_URL
+//        it.buildConfigField "String", "IQA_ATMO_AURA_KEY", IQA_ATMO_AURA_KEY
+//        it.buildConfigField "String", "IQA_ATMO_AURA_URL", IQA_ATMO_AURA_URL
+//        it.buildConfigField "String", "IQA_ATMO_SUD_URL", IQA_ATMO_SUD_URL
+//    }
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
     }
-    sourceSets{
-//        pub {
-//            java.srcDirs = ["src/bugly", "src/amap", "src/proprietary"]
-//            manifest.srcFile "proprietary/AndroidManifest.xml"
-//            jniLibs.srcDir "libs"
-//            jni.srcDirs = []
+//    sourceSets{
+////        pub {
+////            java.srcDirs = ["src/bugly", "src/amap", "src/proprietary"]
+////            manifest.srcFile "proprietary/AndroidManifest.xml"
+////            jniLibs.srcDir "libs"
+////            jni.srcDirs = []
+////        }
+////        gplay {
+////            java.srcDirs = ["src/nobugly", "src/noamap", "src/proprietary"]
+////            manifest.srcFile "proprietary/AndroidManifest.xml"
+////            jniLibs.srcDir "libs"
+////            jni.srcDirs = []
+////        }
+//        fdroid {
+//            java.srcDirs = [ "src/opensource"]
 //        }
-//        gplay {
-//            java.srcDirs = ["src/nobugly", "src/noamap", "src/proprietary"]
-//            manifest.srcFile "proprietary/AndroidManifest.xml"
-//            jniLibs.srcDir "libs"
-//            jni.srcDirs = []
+//        test {
+//            java.srcDir "test"
 //        }
-        fdroid {
-            java.srcDirs = [ "src/opensource"]
-        }
-        test {
-            java.srcDir "test"
-        }
-        androidTest {
-            java.srcDir "androidTest"
+//        androidTest {
+//            java.srcDir "androidTest"
+//        }
+//    }
+
+//    buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//        }
+//    }
+
+    signingConfigs {
+        release {
+            keyAlias 'mengmugai'
+            keyPassword '123456'
+            storeFile file('../mengmugai.jks')
+            storePassword '123456'
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled false // 混淆
+            zipAlignEnabled true // Zipalign优化
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false // 混淆
+            zipAlignEnabled true // Zipalign优化
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -124,18 +151,31 @@ android {
             unitTests.returnDefaultValues = true
         }
     }
-    flavorDimensions "store"
-    productFlavors {
-
-        fdroid {
-            dimension "store"
-            versionNameSuffix "_fdroid"
-        }
-    }
+//    flavorDimensions "store"
+//    productFlavors {
+//
+//        fdroid {
+//            dimension "store"
+//            versionNameSuffix "_fdroid"
+//        }
+//    }
     externalNativeBuild {
         cmake {
             path file('src/main/cpp/CMakeLists.txt')
 //            version '3.22.1'
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFileName
+            if (outputFile != null && outputFile.endsWith('.apk')) {
+                if ('debug' == variant.buildType.name) {
+                    output.outputFileName = "${PRODUCT_NAME}${defaultConfig.versionName}_${DATE}" + "_debug.apk"
+                } else if ('release' == variant.buildType.name) {
+                    output.outputFileName = "${PRODUCT_NAME}${defaultConfig.versionName}_${DATE}" + ".apk"
+                }
+            }
         }
     }
 
@@ -146,10 +186,10 @@ configurations {
     compile.exclude group: "org.jetbrains" , module:"annotations"
 }
 
-greendao {
-    schemaVersion 11
-    generateTests false
-}
+//greendao {
+//    schemaVersion 11
+//    generateTests false
+//}
 
 kapt {
     correctErrorTypes true
@@ -245,8 +285,8 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:3.12.12"
 
     // db.
-    implementation "org.greenrobot:greendao:3.3.0"
-    implementation "io.github.yuweiguocn:GreenDaoUpgradeHelper:v2.2.1"
+//    implementation "org.greenrobot:greendao:3.3.0"
+//    implementation "io.github.yuweiguocn:GreenDaoUpgradeHelper:v2.2.1"
 
     // data store
     // implementation "androidx.datastore:datastore-preferences:1.0.0-alpha07"
